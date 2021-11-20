@@ -14,7 +14,6 @@ while True:
   action = input('Command:')
   if action == '-randompage':
     s.load_page(s.random_page())
-    break
   if action == '-search':
     page = input('Search:')
     s.load_page(page)
