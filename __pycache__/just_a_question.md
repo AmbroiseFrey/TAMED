@@ -12,6 +12,7 @@ C'est des fichiers automatiques via repl.it, j'avais testé d'importer des class
 Pour le js enfait il faut vraiment voir si on a des contraintes de py
 </div>
 
+
 <b>Joachim</b>:
 <div style="margin: 0 20px;">
 bon bah oui du coup, on a des contraintes de py (aussi, est-ce que tu penses que ça peut être bien de faire un 'notebook' [pas un notebook jupiter, mais juste en .md ou .txt] où on écrit tout ce qu'on fait pour rester à jour de toutes les éventuelles modifications)
