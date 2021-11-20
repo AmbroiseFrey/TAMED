@@ -1,3 +1,4 @@
+<style>div{margin: 0 20px;}</style>
 Joachim:
 &ensp;<div>
 Ces .pyc, c'est toi qui les a faits? ou bien tu les as trouvés sur internet? 
