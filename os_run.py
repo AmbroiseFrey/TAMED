@@ -1,3 +1,5 @@
+import pygame
+
 class OperatingSystem:
   def __init__(self,user,password):
     self.password= password
