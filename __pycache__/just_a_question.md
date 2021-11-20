@@ -48,3 +48,10 @@ ok, je fais ça pour repl.it
 <div style="margin: 0 20px;">
 je m'appelle @JoachimLaplanch sur repl.it
 </div>
+
+<b>Ambroise</b>:
+<div style="margin: 0 20px;">
+Repl.it me dit qu'il ne te trouve pas, ca doit etre parce que tu viens de creer le compte.
+
+Essaye avec ce lien https://replit.com/join/nowchtkgzn-ambf
+</div>
