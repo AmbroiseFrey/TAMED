@@ -1,6 +1,5 @@
-<style>div{margin: 0 20px;}</style>
 Joachim:
-&ensp;<div>
+&Tab;<div>
 Ces .pyc, c'est toi qui les a faits? ou bien tu les as trouvés sur internet? 
 Aussi, j'avais fait un repo pour la NSI avec Mathis il y a un certain temps, et j'avais ajouté des trucs pour un jeu potentiel en JS, peut-être que ça peut nous intérésser (surtout qu'on peut facilement utiliser des gamepads)
   
