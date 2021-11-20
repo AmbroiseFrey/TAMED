@@ -30,3 +30,9 @@ oui
 <div style="margin: 0 20px;">
 Si tu veux, j'invite Mathis du coup, n'ai pas peur s'il tu vois quelqu'un qui s'appelle Tisaou qui a accès au repo :) !
 </div>
+
+<b>Ambroise</b>:
+<div style="margin: 0 20px;">
+Ok pas de problème !
+Aussi si tu peux te creer un compte repl.it (tu peux le lier a github) et m'envoyer ton username comme ca je t'ajoute au repl.it et on peu travailler sur le code ensemble
+</div>
