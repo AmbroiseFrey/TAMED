@@ -30,16 +30,21 @@ oui
 <div style="margin: 0 20px;">
 Si tu veux, j'invite Mathis du coup, n'ai pas peur s'il tu vois quelqu'un qui s'appelle Tisaou qui a accès au repo :) !
 </div>
-<br/>
+
 <b>Ambroise</b>:
 <div style="margin: 0 20px;">
 Ok pas de problème !
 Aussi si tu peux te creer un compte repl.it (tu peux le lier a github) et m'envoyer ton username comme ca je t'ajoute au repl.it et on peu travailler sur le code ensemble
 </div>
-
-
+<br/>
 <b>Joachim</b>:
 <div style="margin: 0 20px;">
 J'ai l'impression que je ne peux pas inviter un collaborateur, peut-être que tu ne m'as pas donné le droit (sinon, au pire, tu peux l'inviter toi, il s'appelle @Tisaou et ce n'est pas grave si je n'ai pas ces droits, je ne vais pas les utiliser souvent)
 ok, je fais ça pour repl.it
+</div>
+
+
+<b>Joachim</b>:
+<div style="margin: 0 20px;">
+je m'appelle @JoachimLaplanch sur repl.it
 </div>
