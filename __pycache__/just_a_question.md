@@ -25,3 +25,8 @@ Ok peut etre qu'on utilise ce fichier ?
   
 oui
 </div>
+<br/>
+<b>Joachim</b>:
+<div style="margin: 0 20px;">
+Si tu veux, j'invite Mathis du coup, n'ai pas peur s'il tu vois quelqu'un qui s'appelle Tisaou qui a accès au repo :) !
+</div>
