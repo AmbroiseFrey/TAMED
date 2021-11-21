@@ -39,13 +39,22 @@ class OperatingSystem:
       print('Wrong !')
       return False
     
-  def render_text(text):
+  def render_text(text,pos):
+    assert type(text) == str, 'Le text doit etre un string !'
+    assert type(pos) == tuple, 'La pos doit etre un tuple !'
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 30)
     text = font.render(text, False, (255, 255, 255))
-    return text
+    screen.blit(text,pos)
 
-os = OperatingSystem
+  def render_image(image_name,pos):
+    '''Fonction qui permet d\'afficher une image. Prend en argument le nom de l'image (str) et sa position (tuple)'''
+    assert type(image_name) == str, 'Le nom de l\'image doit etre un string !'
+    assert type(pos) == tuple, 'La position doit etre un tuple !'
+    loaded_img= pygame.image.load(image_name)
+    screen.blit(loaded_img, pos)
+
+Os = OperatingSystem
 
 ##------------------------------##
 ##---Boucle Principale du Jeu---##
@@ -60,12 +69,12 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = OperatingSystem.log_in()
+    user_logged = Os.log_in()
       
   else:
     screen.fill(RED)
     pygame.draw.rect(screen, WHITE, pygame.Rect(0, 350, 700, 60))
-    screen.blit(os.render_text('Loading...'),(0,0)) 
+    Os.render_text('Loading...',(0,0))
   
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
