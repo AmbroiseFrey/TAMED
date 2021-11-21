@@ -28,6 +28,7 @@ user_logged = False
 
 class OperatingSystem:
 
+
   def log_in():
     '''Fonction qui demande un username et un passcode. Les seuls valides pour l'instant son User: User1 et Password: 0000 '''
     user = input('User: ')
@@ -38,7 +39,8 @@ class OperatingSystem:
     else:
       print('Wrong !')
       return False
-    
+
+
   def render_text(text,pos):
     assert type(text) == str, 'Le text doit etre un string !'
     assert type(pos) == tuple, 'La pos doit etre un tuple !'
@@ -47,12 +49,20 @@ class OperatingSystem:
     text = font.render(text, False, (255, 255, 255))
     screen.blit(text,pos)
 
-  def render_image(image_name,pos):
-    '''Fonction qui permet d\'afficher une image. Prend en argument le nom de l'image (str) et sa position (tuple)'''
+
+  def render_image(image_name,pos,size):
+    '''Fonction qui permet d\'afficher une image. Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
     assert type(image_name) == str, 'Le nom de l\'image doit etre un string !'
     assert type(pos) == tuple, 'La position doit etre un tuple !'
+    assert type(pos) == tuple, 'La taille doit etre un tuple !'
     loaded_img= pygame.image.load(image_name)
-    screen.blit(loaded_img, pos)
+    loaded_img = pygame.transform.scale(loaded_img, size)
+    screen.blit(loaded_img, pos + size)
+
+
+  def render_rectangle(color,size,pos):
+    '''Fonction qui permet d\'afficher un rectangle. Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
+    pygame.draw.rect(screen, color, pygame.Rect(pos + size))
 
 Os = OperatingSystem
 
@@ -73,7 +83,7 @@ while RUN:
       
   else:
     screen.fill(RED)
-    pygame.draw.rect(screen, WHITE, pygame.Rect(0, 350, 700, 60))
+    Os.render_rectangle(WHITE, (20,30), (0,300))
     Os.render_text('Loading...',(0,0))
   
   for event in pygame.event.get():
