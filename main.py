@@ -19,7 +19,7 @@ pygame.display.set_caption("Projet")
 screen.fill(RED)
 RUN = True
 user_logged = False
-
+output = ''
 
 
 
@@ -51,6 +51,13 @@ class OperatingSystem:
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 30)
     text = font.render(text, False, (255, 255, 255))
+    screen.blit(text,pos)
+
+  def render_typing_text(pos):
+    assert type(pos) == tuple, 'La position doit etre un tuple !'
+    pygame.font.init()
+    font = pygame.font.SysFont('Comic Sans MS', 30)
+    text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
 
 
@@ -85,6 +92,11 @@ class OperatingSystem:
     else:
       return False
 
+    
+
+
+
+
 Os = OperatingSystem
 
 ##------------------------------##
@@ -107,7 +119,9 @@ while RUN:
     Os.render_rectangle(WHITE, (20,30), (0,300))
     Os.render_text('Loading...',(0,0))
     Os.render_circle(BLACK,20,(100,100))
-  
+    Os.render_typing_text((100,100))
+
+
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN= False
@@ -118,6 +132,22 @@ while RUN:
         print(event.pos)
         if Os.check_interaction(event.pos, (100,200,100,200)) == True:
           print('Clicked area')
+    
+
+    if event.type == pygame.KEYDOWN:
+
+      if event.key == pygame.K_KP_ENTER:
+        open = True
+        output = ''
+      
+      if event.type == pygame.KEYDOWN and open:
+        if event.key == pygame.K_RETURN:
+          open = False
+        elif event.key == pygame.K_BACKSPACE:
+          output =  output[:-1]
+        else:
+          output += event.unicode
+
 
   pygame.display.flip()
 
