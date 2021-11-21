@@ -20,7 +20,7 @@ screen.fill(RED)
 RUN = True
 user_logged = False
 output = ''
-
+page = 'home'
 
 
 ##--------------------------------------------------------------------------##
@@ -46,6 +46,10 @@ class OperatingSystem:
 
 
   def render_text(text,pos):
+    '''
+    Fonction qui permet d\'afficher du texte.
+    Prend en argument le texte (str) et sa position (tuple)
+    '''
     assert type(text) == str, 'Le texte doit etre un string !'
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     pygame.font.init()
@@ -54,6 +58,10 @@ class OperatingSystem:
     screen.blit(text,pos)
 
   def render_typing_text(pos):
+    '''
+    Fonction qui permet d\'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
+    Prend en argument le texte (str) et sa position (tuple)
+    '''
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -62,7 +70,9 @@ class OperatingSystem:
 
 
   def render_image(image_name,pos,size):
-    '''Fonction qui permet d\'afficher une image. Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
+    '''
+    Fonction qui permet d\'afficher une image.
+    Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
     assert type(image_name) == str, 'Le nom de l\'image doit etre un string !'
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     assert type(size) == tuple, 'La taille doit etre un tuple !'
@@ -72,7 +82,9 @@ class OperatingSystem:
 
 
   def render_rectangle(color,size,pos):
-    '''Fonction qui permet d\'afficher un rectangle. Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
+    '''
+    Fonction qui permet d\'afficher un rectangle.
+    Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     assert type(size) == tuple, 'La taille doit etre un tuple !'
     pygame.draw.rect(screen, color, pygame.Rect(pos + size))
@@ -81,14 +93,25 @@ class OperatingSystem:
   def render_circle(color,radius,pos):
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     assert type(radius) == int, 'Le rayon doit etre un chiffre !'
-    '''Fonction qui permet d\'afficher un cercle. Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)'''
+    '''
+    Fonction qui permet d\'afficher un cercle.
+    Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
+    '''
     pygame.draw.circle(screen, color, pos, radius)
 
 
-  def check_interaction(clickpos, wantedarea):
-    '''Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2). La fonction renvoi True ou False selon si la souris est bien a l'endrtoi voulu'''
-    if wantedarea[0]<=clickpos[0]<=wantedarea[1] and wantedarea[2]<=clickpos[1]<=wantedarea[3]:
-      return True
+  def check_interaction(clickpos, wanted_area, wanted_pages):
+    '''
+    Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2)
+    Compare aussi la page du jeu et la page dans lesquelles le bouton marche. 
+    La fonction renvoi True ou False selon si la souris est bien a l'endroit voulu
+    '''
+    assert type(wanted_pages) == list, 'Les pages marchant doivent etre une liste !'
+    if page in wanted_pages:
+      if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
+        return True
+      else:
+        return False
     else:
       return False
 
@@ -124,7 +147,7 @@ while RUN:
 
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
-      RUN= False
+      RUN = False
     
     if event.type == pygame.MOUSEBUTTONDOWN:
       mouse_presses = pygame.mouse.get_pressed()
