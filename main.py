@@ -13,13 +13,12 @@ YELLOW = (255, 255, 0)
 #Setup de la fenetre pygame
 pygame.init()
 screen = pygame.display.set_mode([700, 500])
+screen.fill(BLACK)
 pygame.display.set_caption("Projet")
 RUN = True
-
-#Login
-user = input('User: ')
-password = input('Password: ')
 logged_in = False
+
+
 
 
 ##----------------------------------------------------------------------##
@@ -28,9 +27,9 @@ logged_in = False
 
 
 class OperatingSystem:
-  def __init__(self,user,password):
-    self.password= password
-    self.user = user
+  def __init__(self):
+    user = input('User: ')
+    password = input('Password: ')
     if password == '0000' and user == 'User1':
       print('Welcome back ' + user + '!')
       return
@@ -45,24 +44,22 @@ class OperatingSystem:
 ##------------------------------##
 
 while RUN:
-
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN= False
+    if event.type == pygame.KEYDOWN:
+      if not(logged_in):
+        os = OperatingSystem()
+        logged_in = True
   
-  screen.fill(YELLOW) #Bug ?
+      action = input('Command:')
+      if action == '-randompage':
+        load_page(random_page())
+        action = ''
+      if action == '-search':
+        page = input('Search:')
+        load_page(page)
+        action = ''
 
 
-  if not (logged_in):
-    os = OperatingSystem(user, password)
-    logged_in = True
-  
-  action = input('Command:')
-  if action == '-randompage':
-    load_page(random_page())
-    action = ''
-  if action == '-search':
-    page = input('Search:')
-    load_page(page)
-    action = ''
 pygame.quit()
