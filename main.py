@@ -14,9 +14,16 @@ YELLOW = (255, 255, 0)
 
 #Setup de la fenetre pygame
 pygame.init()
+
+#Taille
 screen = pygame.display.set_mode([700, 500])
+
+#Nom et icon de notre fenetre
 pygame.display.set_caption("Projet")
-screen.fill(RED)
+logo = pygame.image.load('Assets/Logos/Icon_(Test).png')
+pygame.display.set_icon(logo)
+
+#Variables pour faire marcher la base de notre programme
 RUN = True
 user_logged = False
 output = ''
@@ -143,6 +150,7 @@ while RUN:
     Os.render_text('Loading...',(0,0))
     Os.render_circle(BLACK,20,(100,100))
     Os.render_typing_text((100,100))
+    Os.render_image('Assets/Logos/Home_Button_(Test).png',(50,50),(50,50))
 
 
   for event in pygame.event.get():
@@ -153,7 +161,7 @@ while RUN:
       mouse_presses = pygame.mouse.get_pressed()
       if mouse_presses[0]:
         print(event.pos)
-        if Os.check_interaction(event.pos, (100,200,100,200)) == True:
+        if Os.check_interaction(event.pos, (100,200,100,200),['home']) == True:
           print('Clicked area')
     
 
