@@ -1,5 +1,6 @@
 import web_search
 import pygame
+import time
 
 s = web_search
 
@@ -31,14 +32,15 @@ class OperatingSystem:
 
   def log_in():
     '''Fonction qui demande un username et un passcode. Les seuls valides pour l'instant son User: User1 et Password: 0000 '''
-    user = input('User: ')
-    password = input('Password: ')
-    if password == '0000' and user == 'User1':
-      print('Welcome back ' + user + '!')
-      return user
-    else:
-      print('Wrong !')
-      return False
+    return True
+    #user = input('User: ')
+    #password = input('Password: ')
+    #if password == '0000' and user == 'User1':
+      #print('Welcome back ' + user + '!')
+      #return user
+    #else:
+      #print('Wrong !')
+      #return False
 
 
   def render_text(text,pos):
@@ -63,6 +65,13 @@ class OperatingSystem:
   def render_rectangle(color,size,pos):
     '''Fonction qui permet d\'afficher un rectangle. Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
     pygame.draw.rect(screen, color, pygame.Rect(pos + size))
+
+  def check_interaction(clickpos, wantedarea):
+    '''Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2). La fonction renvoi True ou False selon si la souris est bien a l'endrtoi voulu'''
+    if wantedarea[0]<=clickpos[0]<=wantedarea[1] and wantedarea[2]<=clickpos[1]<=wantedarea[3]:
+      return True
+    else:
+      return False
 
 Os = OperatingSystem
 
@@ -90,8 +99,12 @@ while RUN:
     if event.type == pygame.QUIT:
       RUN= False
     
-    if click:
-      print('Click')
+    if event.type == pygame.MOUSEBUTTONDOWN:
+      mouse_presses = pygame.mouse.get_pressed()
+      if mouse_presses[0]:
+        print(event.pos)
+        if Os.check_interaction(event.pos, (100,200,100,200)) == True:
+          print('Clicked area')
 
   pygame.display.flip()
 
