@@ -52,25 +52,28 @@ os = OperatingSystem
 ##------------------------------##
 
 while RUN:
-  screen.fill(RED)
+
+  #Parametres de notre souris
+  click = pygame.mouse.get_pressed()[0]
+  pos = pygame.mouse.get_pos()
+  x = pos[0]
+  y = pos[1]
+
+  if not(user_logged):
+    user_logged = OperatingSystem.log_in()
+      
+  else:
+    screen.fill(RED)
+    pygame.draw.rect(screen, WHITE, pygame.Rect(0, 350, 700, 60))
+    screen.blit(os.render_text('Loading...'),(0,0)) 
+  
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN= False
     
-    #Si clavier
-    if event.type == pygame.KEYDOWN:
-      if not(user_logged):
-        user_logged = OperatingSystem.log_in()
-      else:
-        screen.fill(RED)
-        action = input('Command:')
-        if action == '-randompage':
-          screen.blit(os.render_text(s.load_page(s.random_page())),(0,0)) 
-          action = ''
-        if action == '-search':
-          page = input('Search:')
-          screen.blit(os.render_text(s.load_page(page)),(0,0))
-          action = ''
+    if click:
+      print('Click')
 
+  pygame.display.flip()
 
 pygame.quit()
