@@ -1,8 +1,7 @@
-import web_search
+import web_search as s
 import pygame
 import time
 
-s = web_search
 
 # Couleurs de base - un tuple (R,V,B)
 BLACK = (0, 0, 0)
@@ -47,11 +46,7 @@ class OperatingSystem:
     user = input('User: ')
     password = input('Password: ')
     if password == '0000' and user == 'User1':
-      for i in range(100):
-        Os.render_text('Loading '+str(i)+'% ...',(0,0))
-        pygame.display.flip()
-        time.sleep(float(0.1))
-        screen.fill(RED)
+      Os.loading(10)
       print('Welcome back ' + user + '!')
       return user
     else:
@@ -129,6 +124,13 @@ class OperatingSystem:
         return False
     else:
       return False
+
+  def loading(time_run):
+    for i in range(100):
+      Os.render_text('Loading '+str(i)+'% ...',(0,0))
+      pygame.display.flip()
+      time.sleep(float(time_run/100))
+      screen.fill(RED)
   
 
     
