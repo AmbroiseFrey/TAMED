@@ -35,6 +35,8 @@ page = 'home'
 ##Qui comprend toutes les fonctions qui facilitent l'interaction avec pygame##
 ##--------------------------------------------------------------------------##
 
+
+  
 class OperatingSystem:
 
 
@@ -131,8 +133,6 @@ class OperatingSystem:
       pygame.display.flip()
       time.sleep(float(time_run/100))
       screen.fill(RED)
-  
-
     
 
 
@@ -158,6 +158,7 @@ while RUN:
   else:
 
     screen.fill(RED)
+    Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
     Os.render_rectangle(WHITE, (20,30), (0,300))
     Os.render_text('Welcome back!',(0,0))
     Os.render_circle(BLACK,20,(100,100))
