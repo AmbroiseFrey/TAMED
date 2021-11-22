@@ -44,15 +44,20 @@ class OperatingSystem:
     Fonction qui demande un username et un passcode.
     Les seuls valides pour l'instant son User: User1 et Password: 0000
     '''
-    return True
-    #user = input('User: ')
-    #password = input('Password: ')
-    #if password == '0000' and user == 'User1':
-      #print('Welcome back ' + user + '!')
-      #return user
-    #else:
-      #print('Wrong !')
-      #return False
+    user = input('User: ')
+    password = input('Password: ')
+    if password == '0000' and user == 'User1':
+      for i in range(100):
+        Os.render_text('Loading '+str(i)+'% ...',(0,0))
+        pygame.display.flip()
+        time.sleep(float(0.1))
+        screen.fill(RED)
+      print('Welcome back ' + user + '!')
+      return user
+    else:
+      print('Wrong !')
+      return False
+
 
 
   def render_text(text,pos):
@@ -124,6 +129,7 @@ class OperatingSystem:
         return False
     else:
       return False
+  
 
     
 
@@ -148,9 +154,10 @@ while RUN:
     user_logged = Os.log_in()
       
   else:
+
     screen.fill(RED)
     Os.render_rectangle(WHITE, (20,30), (0,300))
-    Os.render_text('Loading...',(0,0))
+    Os.render_text('Welcome back!',(0,0))
     Os.render_circle(BLACK,20,(100,100))
     Os.render_typing_text((100,100))
     Os.render_image('Assets/Logos/Home_Button_(Test).png',(50,50),(50,50))
