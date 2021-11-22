@@ -10,4 +10,4 @@ Si vous avez d'autres idées n'hésitez pas à les marquer ici:
    
    aussi, est-ce que vous pensez que c'est possible de pouvoir jouer avec une gamepad? (sinon on peut directement effacer l'idée de jouer à 2)
    
-   Ca depend ce que tu veux dire mais oui avec pygame je crois que c'est possible de detecter plusieurs touches du clavier en meme temps
+A attend je comprends pas trop ce que tu veux dire
