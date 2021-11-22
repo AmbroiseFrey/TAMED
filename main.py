@@ -40,7 +40,10 @@ class OperatingSystem:
 
 
   def log_in():
-    '''Fonction qui demande un username et un passcode. Les seuls valides pour l'instant son User: User1 et Password: 0000 '''
+    '''
+    Fonction qui demande un username et un passcode.
+    Les seuls valides pour l'instant son User: User1 et Password: 0000
+    '''
     return True
     #user = input('User: ')
     #password = input('Password: ')
@@ -156,7 +159,8 @@ while RUN:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN = False
-    
+
+    #Si la souris est pressée
     if event.type == pygame.MOUSEBUTTONDOWN:
       mouse_presses = pygame.mouse.get_pressed()
       if mouse_presses[0]:
@@ -164,14 +168,11 @@ while RUN:
         if Os.check_interaction(event.pos, (100,200,100,200),['home']) == True:
           print('Clicked area')
     
-
+    #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
 
-      if event.key == pygame.K_KP_ENTER:
-        open = True
-        output = ''
-      
-      if event.type == pygame.KEYDOWN and open:
+      #Lien entre le clavier et le script sans utiliser input
+      if open:
         if event.key == pygame.K_RETURN:
           open = False
         elif event.key == pygame.K_BACKSPACE:
@@ -179,6 +180,13 @@ while RUN:
         else:
           output += event.unicode
 
+      if event.key == pygame.K_KP_ENTER:
+        #Si le enter du key pad (les chiffres) est utilisé, lancer le lien entre clavier et notre programme sans passer par input
+        open = True
+        output = ''
+      
+      if event.key == pygame.K_LCTRL:
+        Os.render_text('Hacking...',(200,200))
 
   pygame.display.flip()
 
