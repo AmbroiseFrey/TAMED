@@ -5,3 +5,5 @@ On avait deux idées, soit:
 J'ai pensé qu'on pouvait peut etre lier ces deux idées et faire une console d'un satelitter/vaisseau spatial ou il ya aurait plusieurs taches a finir via un ordinateur mais aussi controler un robot
 
 Si vous avez d'autres idées n'hésitez pas à les marquer ici:
+ 
+   J'avais la même idée de lier le projet type 'platformer' et l'ordi, par contre, je me demandais si on pouvait faire un jeu auquel on peut jouer à 1 ou à 2, et lorsqu'on joue à 1, on a un bouton pour passer de l'ordi au graphics et lorsqu'on joue à 2, on a le terminal d'un côté et le graphic de l'autre, vu ce qu'on essaie de faire, je ne pense pas que cela rajouterai beaucoup de complexité
