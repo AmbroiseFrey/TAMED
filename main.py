@@ -39,7 +39,6 @@ page = 'home'
   
 class OperatingSystem:
 
-
   def log_in():
     '''
     Fonction qui demande un username et un passcode.
@@ -48,7 +47,7 @@ class OperatingSystem:
     user = input('User: ')
     password = input('Password: ')
     if password == '0000' and user == 'User1':
-      Os.loading(10)
+      Os.loading('bar', 10)
       print('Welcome back ' + user + '!')
       return user
     else:
@@ -127,12 +126,26 @@ class OperatingSystem:
     else:
       return False
 
-  def loading(time_run):
-    for i in range(100):
-      Os.render_text('Loading '+str(i)+'% ...',(0,0))
-      pygame.display.flip()
-      time.sleep(float(time_run/100))
-      screen.fill(RED)
+  def loading(animation_type,time_run):
+    if animation_type == 'text':
+      for i in range(100):
+        Os.render_text('Loading '+str(i)+'% ...',(0,0))
+        pygame.display.flip()
+        time.sleep(float(time_run/100))
+        screen.fill(RED)
+    elif animation_type == 'bar':
+      for i in range(100):
+        Os.render_rectangle(BLACK, (5*i,50), (100,200))
+        pygame.display.flip()
+        time.sleep(float(time_run/100))
+        screen.fill(RED)
+      for i in range(5):
+        Os.render_rectangle(BLACK, (500,50), (100,200))
+        pygame.display.flip()
+        time.sleep(0.2)
+        screen.fill(RED)
+        pygame.display.flip()
+        time.sleep(0.2)
     
 
 
@@ -163,7 +176,7 @@ while RUN:
     Os.render_text('Welcome back!',(0,0))
     Os.render_circle(BLACK,20,(100,100))
     Os.render_typing_text((100,100))
-    Os.render_image('Assets/Logos/Home_Button_(Test).png',(50,50),(50,50))
+    Os.render_image('Assets/Logos/Home_Button_(Test).png',(x,y),(50,50))
 
 
   for event in pygame.event.get():
