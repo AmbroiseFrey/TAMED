@@ -92,55 +92,45 @@ class OperatingSystem:
 
 
 
-  def render_text(text: str,pos: tuple,color = WHITE,size = 30):
+  def render_text(text: str,pos: tuple,color: tuple = WHITE,size: int = 30):
     '''
     Fonction qui permet d\'afficher du texte.
     Prend en argument le texte (str) et sa position (tuple)
     '''
-    assert type(text) == str, 'Le texte doit etre un string !'
-    assert type(pos) == tuple, 'La position doit etre un tuple !'
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', size)
     text = font.render(text, True, color)
     screen.blit(text,pos)
 
 
-  def render_typing_text(pos):
+  def render_typing_text(pos:tuple):
     '''
     Fonction qui permet d\'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
     Prend en argument le texte (str) et sa position (tuple)
     '''
-    assert type(pos) == tuple, 'La position doit etre un tuple !'
     pygame.font.init()
     font = pygame.font.SysFont('Comic Sans MS', 30)
     text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
 
 
-  def render_image(image_name,pos,size):
+  def render_image(image_name: str,pos: tuple,size: tuple):
     '''
     Fonction qui permet d\'afficher une image.
     Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
-    assert type(image_name) == str, 'Le nom de l\'image doit etre un string !'
-    assert type(pos) == tuple, 'La position doit etre un tuple !'
-    assert type(size) == tuple, 'La taille doit etre un tuple !'
     loaded_img= pygame.image.load(image_name)
     loaded_img = pygame.transform.scale(loaded_img, size)
     screen.blit(loaded_img, pos + size)
 
 
-  def render_rectangle(color,size,pos):
+  def render_rectangle(color: tuple,size: tuple,pos: tuple):
     '''
     Fonction qui permet d\'afficher un rectangle.
     Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
-    assert type(pos) == tuple, 'La position doit etre un tuple !'
-    assert type(size) == tuple, 'La taille doit etre un tuple !'
     pygame.draw.rect(screen, color, pygame.Rect(pos + size))
 
 
-  def render_circle(color,radius,pos):
-    assert type(pos) == tuple, 'La position doit etre un tuple !'
-    assert type(radius) == int, 'Le rayon doit etre un chiffre !'
+  def render_circle(color: tuple,radius: int,pos: tuple):
     '''
     Fonction qui permet d\'afficher un cercle.
     Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
@@ -148,13 +138,12 @@ class OperatingSystem:
     pygame.draw.circle(screen, color, pos, radius)
 
 
-  def check_interaction(clickpos, wanted_area, wanted_pages):
+  def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list):
     '''
     Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2)
     Compare aussi la page du jeu et la page dans lesquelles le bouton marche. 
     La fonction renvoi True ou False selon si la souris est bien a l'endroit voulu
     '''
-    assert type(wanted_pages) == list, 'Les pages marchant doivent etre une liste !'
     if page in wanted_pages:
       if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
         return True
