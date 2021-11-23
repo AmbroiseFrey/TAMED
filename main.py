@@ -44,8 +44,44 @@ class OperatingSystem:
     Fonction qui demande un username et un passcode.
     Les seuls valides pour l'instant son User: User1 et Password: 0000
     '''
-    user = input('User: ')
-    password = input('Password: ')
+
+    #On demande le user
+    open = True
+    output = ''
+    while open:
+      screen.fill(RED)
+      Os.render_text('User: '+output, (100,100))
+      Os.render_text('Password: ', (100,120))
+      pygame.display.flip()
+      for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_RETURN:
+            user = output
+            open = False
+          elif event.key == pygame.K_BACKSPACE:
+            output =  output[:-1]
+          else:
+            output += event.unicode
+
+    #On demande le password
+    open = True
+    output = ''
+    while open:
+      screen.fill(RED)
+      Os.render_text('User: '+user, (100,100))
+      Os.render_text('Password: '+output, (100,120))
+      pygame.display.flip()
+      for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_RETURN:
+            password = output
+            open = False
+          elif event.key == pygame.K_BACKSPACE:
+            output =  output[:-1]
+          else:
+            output += event.unicode
+
+    #On check le password et le user
     if password == '0000' and user == 'User1':
       Os.loading('bar', 10)
       print('Welcome back ' + user + '!')
