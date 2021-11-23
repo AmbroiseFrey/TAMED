@@ -12,10 +12,10 @@ Si vous avez d'autres idées n'hésitez pas à les marquer ici:
    
 On a l'air de partir sur
 * Un ordinateur avec:
-* * Des files auquel on peut acceder
-* * ??
+ * Des files auquel on peut acceder
+ * ??
 * Et un jeu avec:
-* * ??
+ * ??
 
 Et on peut passer de l'un a lautre avec un bouton 
 
