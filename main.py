@@ -83,7 +83,7 @@ class OperatingSystem:
 
     #On check le password et le user
     if password == '0000' and user == 'User1':
-      Os.loading('bar', 10)
+      Os.loading('bar', 3)
       print('Welcome back ' + user + '!')
       return user
     else:
@@ -92,7 +92,7 @@ class OperatingSystem:
 
 
 
-  def render_text(text,pos):
+  def render_text(text: str,pos: tuple,color = WHITE,size = 30):
     '''
     Fonction qui permet d\'afficher du texte.
     Prend en argument le texte (str) et sa position (tuple)
@@ -100,9 +100,10 @@ class OperatingSystem:
     assert type(text) == str, 'Le texte doit etre un string !'
     assert type(pos) == tuple, 'La position doit etre un tuple !'
     pygame.font.init()
-    font = pygame.font.SysFont('Comic Sans MS', 30)
-    text = font.render(text, False, (255, 255, 255))
+    font = pygame.font.SysFont('Comic Sans MS', size)
+    text = font.render(text, True, color)
     screen.blit(text,pos)
+
 
   def render_typing_text(pos):
     '''
@@ -182,6 +183,10 @@ class OperatingSystem:
         screen.fill(RED)
         pygame.display.flip()
         time.sleep(0.2)
+  
+  def time():
+    Os.render_text(time.strftime("%Y-%m-%d", time.gmtime()),(620,385),BLACK,20)
+    Os.render_text(time.strftime("%H:%M", time.gmtime()),(620,355),BLACK,40)
     
 
 
@@ -208,8 +213,9 @@ while RUN:
 
     screen.fill(RED)
     Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
-    Os.render_rectangle(WHITE, (20,30), (0,300))
+    Os.render_rectangle(WHITE, (700,70), (0,350))
     Os.render_text('Welcome back!',(0,0))
+    Os.time()
     Os.render_circle(BLACK,20,(100,100))
     Os.render_typing_text((100,100))
     Os.render_image('Assets/Logos/Home_Button_(Test).png',(x,y),(50,50))
