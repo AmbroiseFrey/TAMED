@@ -1,8 +1,8 @@
 import web_search as s
-import pygame
-import time
+import pygame ,time
+import platformer as plat
 
-
+#plat.test()
 # Couleurs de base - un tuple (R,V,B)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -152,7 +152,7 @@ class OperatingSystem:
     else:
       return False
 
-  def loading(animation_type,time_run):
+  def loading(animation_type: str,time_run: int):
     if animation_type == 'text':
       for i in range(100):
         Os.render_text('Loading '+str(i)+'% ...',(0,0))
