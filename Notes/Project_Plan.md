@@ -10,4 +10,13 @@ Si vous avez d'autres idées n'hésitez pas à les marquer ici:
    
    aussi, est-ce que vous pensez que c'est possible de pouvoir jouer avec une gamepad? (sinon on peut directement effacer l'idée de jouer à 2)
    
-A attend je comprends pas trop ce que tu veux dire
+On a l'air de partir sur
+* Un ordinateur avec:
+* * Des files auquel on peut acceder
+* * ??
+* Et un jeu avec:
+* * ??
+
+Et on peut passer de l'un a lautre avec un bouton 
+
+Il faudrait trouver une histoire, un but de jeu qui permetterait de lier ces deux types de jeux different
