@@ -5,24 +5,20 @@ import ext.platformer as plat
 #plat.test()
 #s.load_page('www.test.com')
 
-Files = {'C':
-          {'Users':
-            {
-              'Agt.Doe':
-                {
-                  'Files': 
-                  [
-                    'Agency Report.odt'
-                  ],
-              'Program Files':
-                [
-                  'chrome.exe',
-                  'insert-platformer-simulation-name.exe'
-                ]
-                }
-            }
+Files = {'C':{
+          'Utilisateurs':{
+                    'Agt.Doe':{
+                              'Fichiers': [
+                                        'Rapport.odt'],
+                              'Telechargements':[
+                                        'Cow_laugh.pm3']
+                    },
+          'Program Files':[
+                    'chrome.exe',
+                    'insert-platformer-simulation-name.exe']
           }
-        }
+}
+       }
 
 print(Files)
 
