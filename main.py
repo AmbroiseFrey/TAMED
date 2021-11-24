@@ -219,7 +219,15 @@ class OperatingSystem:
     print(type(files_loaded), end = "\r")
     if type(files_loaded) == dict:
       for el in files_loaded:
-        Os.render_text(el,(20,i),WHITE,30)
+        if el[len(el)-4:len(el)] == '.mp3':
+          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+        elif el[len(el)-4:len(el)] == '.exe':
+          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+        elif el[len(el)-4:len(el)] == '.pdf':
+          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+        else:
+          Os.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
+        Os.render_text(el,(23,i),WHITE,30)
         i+=20
     else:
       Os.render_file(files_loaded)
@@ -353,14 +361,7 @@ while RUN:
           output =  output[:-1]
         else:
           output += event.unicode
-
-      if event.key == pygame.K_KP_ENTER:
-        #Si le enter du key pad (les chiffres) est utilisé, lancer le lien entre clavier et notre programme sans passer par input
-        open = True
-        output = ''
       
-      if event.key == pygame.K_LCTRL:
-        Os.render_text('Hacking...',(200,200))
 
   pygame.display.flip()
 
