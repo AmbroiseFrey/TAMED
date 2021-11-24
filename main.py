@@ -3,10 +3,8 @@ import ext.web_search as s
 import ext.platformer as plat
 import ext.file_explorer as files
 
-#plat.test()
-#s.load_page('www.test.com')
 
-print(files.explore_file())
+
 
 # Couleurs de base - un tuple (R,V,B)
 BASE_COLOR = (32,194,14)
@@ -186,12 +184,29 @@ class OperatingSystem:
   def time():
     Os.render_text(time.strftime("%Y-%m-%d"),(622,485),BLACK,20)
     Os.render_text(time.strftime("%H:%M"),(620,455),BLACK,40)
+  
+  def render_file(file_contents: list, file_name: str = 'File', x: int = 100, y: int =100, espacement_ligne : int = 20):
+    for el in file_contents:
+      Os.render_text(el, (x,y))
+      y += espacement_ligne
     
 
 
 
 Os = OperatingSystem
 
+#tests des extensions
+def test_ext(time_sleep:int = 1):
+  print(plat.test())
+  screen.fill(BASE_COLOR)
+  Os.render_text('Tests',(0,0))
+  Os.render_file(files.explore_file())
+  print('Files connected')
+  s.load_page('www.test.com')
+  pygame.display.flip()
+  time.sleep(time_sleep)
+
+test_ext()
 ##------------------------------##
 ##---Boucle Principale du Jeu---##
 ##------------------------------##

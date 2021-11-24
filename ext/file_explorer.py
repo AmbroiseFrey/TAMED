@@ -1,9 +1,19 @@
+
+
 Files = {'C':{
           'Utilisateurs':{
                     'Agt.Doe':{
-                              'Fichiers': [
-                                        'Rapport.odt',
-                                        'Manuel entretien.pdf'],
+                              'Fichiers': {
+                                        'Rapport.odt':[
+                                          'Rapport',
+                                          'Auteur: Agent Doe',],
+                                        'Manuel entretien.pdf':[
+                                          'Manuel d\'entretien du robot ____',
+                                          'Etape 1: Redemarrer le programme',
+                                          'Etape 2: Relancer les tests',
+                                          'Etape 3: Donner les instructions'
+                                          ]
+                                        },
                               'Telechargements':[
                                         'Cow_laugh.mp3',
                                         'fake-virus.exe'
@@ -17,7 +27,7 @@ Files = {'C':{
           }
         }
 
-def explore_file(file_path:str = 'C:Utilisateurs:Agt.Doe:Fichiers:'):
+def explore_file(file_path:str = 'C:Utilisateurs:Agt.Doe:Fichiers:Manuel entretien.pdf:'):
   '''
   Fonction qui prend en argument un file path.
   Pour signaler un nouveau dossier on utilise : au lieu de \
@@ -30,7 +40,5 @@ def explore_file(file_path:str = 'C:Utilisateurs:Agt.Doe:Fichiers:'):
     else:
       directory_content = directory_content[directory]
       directory = ''
-      print('New folder')
   
   return directory_content
-

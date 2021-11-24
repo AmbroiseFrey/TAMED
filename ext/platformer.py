@@ -10,6 +10,5 @@ screen = pygame.display.set_mode([700, 500])
 
 def test():
   screen.fill((0,0,0))
-  pygame.display.flip()
-  time.sleep(10)
+  return 'Platformer connected'
     
