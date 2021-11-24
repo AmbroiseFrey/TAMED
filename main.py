@@ -22,7 +22,8 @@ YELLOW = (255, 255, 0)
 pygame.init()
 
 #Taille
-screen = pygame.display.set_mode([700, 500])
+resolution = (600,400)
+screen = pygame.display.set_mode([600,400])
 
 #Nom et icon de notre fenetre
 pygame.display.set_caption("Krypt Corp")
@@ -56,7 +57,7 @@ class OperatingSystem:
     output = ''
     while open:
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       Os.render_text('User: '+output, (100,100))
       Os.render_text('Password: ', (100,120))
       pygame.display.flip()
@@ -75,7 +76,7 @@ class OperatingSystem:
     output = ''
     while open:
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       Os.render_text('User: '+user, (100,100))
       Os.render_text('Password: '+output, (100,120))
       pygame.display.flip()
@@ -166,23 +167,23 @@ class OperatingSystem:
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
     '''
     if animation_type == 'text':
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       for i in range(100):
         Os.render_text('Loading '+str(i)+'% ...',(0,0))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
     elif animation_type == 'bar':
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       for i in range(100):
-        Os.render_rectangle(WHITE, (5*i,50), (100,415))
+        Os.render_rectangle(WHITE, (4*i,50), (100,330))
         pygame.display.flip()
         time.sleep(float(time_run/100))
       for i in range(5):
-        Os.render_rectangle(WHITE, (500,50), (100,415))
+        Os.render_rectangle(WHITE, (400,50), (100,330))
         pygame.display.flip()
         time.sleep(0.2)
-        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
+        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
         pygame.display.flip()
         time.sleep(0.2)
   
@@ -190,8 +191,8 @@ class OperatingSystem:
     '''
     Affiche l\'heure
     '''
-    Os.render_text(time.strftime("%Y-%m-%d"),(622,485),BLACK,20)
-    Os.render_text(time.strftime("%H:%M"),(620,455),BLACK,40)
+    Os.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
+    Os.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
   
 
   def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =100, espacement_ligne : int = 20):
@@ -228,17 +229,17 @@ class OperatingSystem:
     screen.fill(BLUE_GREY)
 
     #Bar haut de Fenetre
-    Os.render_rectangle(GREY, (700,30), (0,0))
+    Os.render_rectangle(GREY, (600,30), (0,0))
     Os.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
 
     #Barre des taches
-    Os.render_rectangle(WHITE, (700,70), (0,450))
+    Os.render_rectangle(WHITE, (600,70), (0,350))
     Os.time()
 
     #Applications
-    Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,450),(50,50))
-    Os.render_rectangle(LIGHT_BLUE, (55,55),(55,450))
-    Os.render_image('Assets/Icons/Folder_(Test).png',(60,450),(50,50))
+    Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+    Os.render_rectangle(LIGHT_BLUE, (55,55),(55, 350))
+    Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
 
     
 
@@ -291,22 +292,22 @@ while RUN:
 
       #Background
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
+      Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),resolution)
 
       #Barre des taches
-      Os.render_rectangle(WHITE, (700,70), (0,450))
+      Os.render_rectangle(WHITE, (600,70), (0,350))
       Os.time()
 
       #Applications
-      Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,450),(50,50))
-      Os.render_image('Assets/Icons/Folder_(Test).png',(60,450),(50,50))
+      Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+      Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
 
     #Pour le FILE Directory
     if page == 'fd0':
       Os.render_fd_base()
       Os.render_file_tree(fd_dict)
       fd_dict = output
-      Os.render_typing_text((50,7))
+      Os.render_typing_text((40,7))
       open = True
       
 
@@ -326,12 +327,12 @@ while RUN:
         print(event.pos)
 
         #Appli file directory
-        if Os.check_interaction(event.pos, (60,100,460,500),['home']) == True:
+        if Os.check_interaction(event.pos, (55,110,260,400),['home']) == True:
           page = 'fd0'
           output = 'C:/'
         
         #Appli home (comme le bouton windows ?)
-        elif Os.check_interaction(event.pos, (0,40,460,500),['home', 'fd0']) == True:
+        elif Os.check_interaction(event.pos, (0,50,360,400),['home', 'fd0']) == True:
           page = 'home'
         #Close button
         elif Os.check_interaction(event.pos, (0,30,0,30),['fd0']) == True:
