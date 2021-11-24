@@ -1,6 +1,6 @@
 
 
-Files = {'C':{
+Files = {'C:':{
           'Utilisateurs':{
                     'Agt.Doe':{
                               'Fichiers': {
@@ -35,18 +35,21 @@ Files = {'C':{
           }
         }
 
-def explore_file(file_path:str = 'C:Utilisateurs:Agt.Doe:Fichiers:Manuel entretien.pdf:'):
+def explore_file(file_path:str = 'C:/Utilisateurs/Agt.Doe/Fichiers:Manuel entretien.pdf/'):
   '''
   Fonction qui prend en argument un file path.
-  Pour signaler un nouveau dossier on utilise : au lieu de \
+  Pour signaler un nouveau dossier on utilise / au lieu de \
   '''
   directory = ''
   directory_content= Files
   for i in range(len(file_path)):
-    if file_path[i] != ':':
-      directory += file_path[i]
-    else:
-      directory_content = directory_content[directory]
-      directory = ''
+    try:
+      if file_path[i] != '/':
+        directory += file_path[i]
+      else:
+        directory_content = directory_content[directory]
+        directory = ''
+    except KeyError:
+      directory = Files
   
   return directory_content

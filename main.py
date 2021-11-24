@@ -34,7 +34,7 @@ RUN = True
 user_logged = False
 output = ''
 page = 'home'
-fd_dict = 'C:'
+fd_dict = 'C:/'
 
 
 ##--------------------------------------------------------------------------##
@@ -194,13 +194,16 @@ class OperatingSystem:
     Os.render_text(time.strftime("%H:%M"),(620,455),BLACK,40)
   
 
-  def render_file(file_contents: list, file_name: str = 'File', x: int = 100, y: int =100, espacement_ligne : int = 20):
+  def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =100, espacement_ligne : int = 20):
     '''
     Render le content d'un file
     '''
-    for el in file_contents:
-      Os.render_text(el, (x,y))
-      y += espacement_ligne
+    if type(file_contents) == list:
+      for el in file_contents:
+        Os.render_text(el, (x,y))
+        y += espacement_ligne
+    else:
+      Os.render_text(file_contents, (x,y))
 
   def render_file_tree(file_path: str):
     '''
@@ -208,10 +211,14 @@ class OperatingSystem:
     '''
     i = 50
     files_loaded = files.explore_file(file_path)
-    for el in files_loaded:
-      Os.render_text(el,(20,i),WHITE,30)
-      i+=20
-
+    print(type(files_loaded), end = "\r")
+    if type(files_loaded) == dict:
+      for el in files_loaded:
+        Os.render_text(el,(20,i),WHITE,30)
+        i+=20
+    else:
+      Os.render_file(files_loaded)
+    
       
   def render_fd_base():
     '''
