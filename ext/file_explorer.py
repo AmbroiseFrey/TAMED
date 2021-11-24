@@ -16,7 +16,7 @@ Files = {'C:':{
                                         },
                               'Telechargements':{
                                         '9348-598-g5h9.png':'>',
-                                        'Cow_laugh.mp3':'>',
+                                        'Cow_laugh.mp3':'Cow_laugh.mp3',
                                         'fake-virus.exe':[
                                           'YOU HAVE BEEN HACKED',
                                           '--------------------',
@@ -30,8 +30,7 @@ Files = {'C:':{
                                         'flat-earth-manifest.pdf':[
                                           'The Flat Earth Society Manifest',
                                           '------------------------------',
-                                          'The earth is flat',
-                                          'And yeah...'
+                                          'The earth is flat'
                                           ]},
                               'Coffre Fort [KRYPT CORP]': 'Acces Sécurisé',
                               'Musique':{

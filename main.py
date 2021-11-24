@@ -20,6 +20,7 @@ YELLOW = (255, 255, 0)
 
 #Setup de la fenetre pygame
 pygame.init()
+pygame.mixer.init()
 
 #Taille
 resolution = (600,400)
@@ -203,8 +204,11 @@ class OperatingSystem:
       for el in file_contents:
         Os.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
-    else:
+    elif type(file_contents) == str and not(file_contents[len(file_contents)-3:len(file_contents)]) == 'mp3':
       Os.render_text(file_contents, (x,y))
+    else:
+      pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
+      pygame.mixer.music.play()
 
   def render_file_tree(file_path: str):
     '''
