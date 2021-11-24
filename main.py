@@ -1,12 +1,12 @@
-import ext.web_search as s
 import pygame ,time
+import ext.web_search as s
 import ext.platformer as plat
 import ext.file_explorer as files
 
 #plat.test()
 #s.load_page('www.test.com')
 
-print(files.Files)
+print(files.explore_file())
 
 # Couleurs de base - un tuple (R,V,B)
 BASE_COLOR = (32,194,14)
@@ -184,10 +184,9 @@ class OperatingSystem:
         time.sleep(0.2)
   
   def time():
-    Os.render_text(time.strftime("%Y-%m-%d", time.gmtime()),(622,485),BLACK,20)
-    Os.render_text(time.strftime("%H:%M", time.gmtime()),(620,455),BLACK,40)
+    Os.render_text(time.strftime("%Y-%m-%d"),(622,485),BLACK,20)
+    Os.render_text(time.strftime("%H:%M"),(620,455),BLACK,40)
     
-
 
 
 
