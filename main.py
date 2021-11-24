@@ -328,7 +328,7 @@ while RUN:
         #Appli file directory
         if Os.check_interaction(event.pos, (60,100,460,500),['home']) == True:
           page = 'fd0'
-          output = fd_dict
+          output = 'C:'
         
         #Appli home (comme le bouton windows ?)
         elif Os.check_interaction(event.pos, (0,40,460,500),['home', 'fd0']) == True:
