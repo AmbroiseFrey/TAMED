@@ -1,26 +1,12 @@
 import ext.web_search as s
 import pygame ,time
 import ext.platformer as plat
+import ext.file_explorer as files
 
 #plat.test()
 #s.load_page('www.test.com')
 
-Files = {'C':{
-          'Utilisateurs':{
-                    'Agt.Doe':{
-                              'Fichiers': [
-                                        'Rapport.odt'],
-                              'Telechargements':[
-                                        'Cow_laugh.pm3']
-                    },
-          'Program Files':[
-                    'chrome.exe',
-                    'insert-platformer-simulation-name.exe']
-          }
-}
-       }
-
-print(Files)
+print(files.Files)
 
 # Couleurs de base - un tuple (R,V,B)
 BASE_COLOR = (32,194,14)
