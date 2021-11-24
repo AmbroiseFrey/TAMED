@@ -196,13 +196,23 @@ class OperatingSystem:
 Os = OperatingSystem
 
 #tests des extensions
-def test_ext(time_sleep:int = 1):
+#peut etre utilisé pour le load
+def test_ext(time_sleep:int = 2):
   print(plat.test())
   screen.fill(BASE_COLOR)
-  Os.render_text('Tests',(0,0))
+  Os.render_text('Tests: This is a Beta Version',(0,0))
+  pygame.display.flip()
+  time.sleep(0.75)
+  Os.render_text('Built Robot Core',(0,20))
+  pygame.display.flip()
+  time.sleep(0.75)
   Os.render_file(files.explore_file())
-  print('Files connected')
+  print('File Directory Connected')
+  Os.render_text('Built File Directory',(0,40))
+  pygame.display.flip()
+  time.sleep(0.75)
   s.load_page('www.test.com')
+  Os.render_text('Connected to Web',(0,60))
   pygame.display.flip()
   time.sleep(time_sleep)
 
