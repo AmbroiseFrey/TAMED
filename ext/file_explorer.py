@@ -8,16 +8,31 @@ Files = {'C:':{
                                           'Rapport',
                                           'Auteur: Agent Doe',],
                                         'Manuel entretien.pdf':[
-                                          'Manuel d\'entretien du robot ____',
+                                          'Manuel de redemmarage du robot:',
                                           'Etape 1: Redemarrer le programme',
                                           'Etape 2: Relancer les tests',
                                           'Etape 3: Donner les instructions'
                                           ]
                                         },
                               'Telechargements':{
+                                        '9348-598-g5h9.png':'>',
                                         'Cow_laugh.mp3':'>',
-                                        'fake-virus.exe':'>',
-                                        '9348-598-g5h9.png':'>'},
+                                        'fake-virus.exe':[
+                                          'YOU HAVE BEEN HACKED',
+                                          '--------------------',
+                                          'Please pay the needed amount or all your files will be deleted',
+                                          'Payment methods',
+                                          '-Credit Card',
+                                          '-Cash',
+                                          '-Kidney transfer',
+                                          'If you shut down your computer, it will self destruct !'
+                                        ],
+                                        'flat-earth-manifest.pdf':[
+                                          'The Flat Earth Society Manifest',
+                                          '------------------------------',
+                                          'The earth is flat',
+                                          'And yeah...'
+                                          ]},
                               'Coffre Fort [KRYPT CORP]': 'Acces Sécurisé',
                               'Musique':{
                                 'La Totomobile.mp3':'>'
@@ -49,7 +64,7 @@ def explore_file(file_path:str = 'C:/Utilisateurs/Agt.Doe/Fichiers:Manuel entret
       else:
         directory_content = directory_content[directory]
         directory = ''
-    except KeyError:
+    except KeyError or TypeError:
       directory = Files
   
   return directory_content

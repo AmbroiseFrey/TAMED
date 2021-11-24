@@ -58,8 +58,8 @@ class OperatingSystem:
     while open:
       screen.fill(BASE_COLOR)
       Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
-      Os.render_text('User: '+output, (100,100))
-      Os.render_text('Password: ', (100,120))
+      Os.render_text('User: '+output, (50,50))
+      Os.render_text('Password: ', (50,70))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -77,8 +77,8 @@ class OperatingSystem:
     while open:
       screen.fill(BASE_COLOR)
       Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
-      Os.render_text('User: '+user, (100,100))
-      Os.render_text('Password: '+output, (100,120))
+      Os.render_text('User: '+user, (50,50))
+      Os.render_text('Password: '+output, (50,70))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -95,7 +95,7 @@ class OperatingSystem:
       Os.loading('bar', 2)
       return user
     else:
-      Os.render_text('Acces Denied!', (100,150), RED)
+      Os.render_text('Acces Denied!', (50,100), RED)
       pygame.display.flip()
       time.sleep(3)
       return False
@@ -113,13 +113,13 @@ class OperatingSystem:
     screen.blit(text,pos)
 
 
-  def render_typing_text(pos:tuple):
+  def render_typing_text(pos:tuple, size:int = 30):
     '''
     Fonction qui permet d\'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
     Prend en argument le texte (str) et sa position (tuple)
     '''
     pygame.font.init()
-    font = pygame.font.SysFont('Comic Sans MS', 30)
+    font = pygame.font.SysFont('Comic Sans MS', size)
     text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
 
@@ -195,13 +195,13 @@ class OperatingSystem:
     Os.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
   
 
-  def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =100, espacement_ligne : int = 20):
+  def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
     '''
     Render le content d'un file
     '''
     if type(file_contents) == list:
       for el in file_contents:
-        Os.render_text(el, (x,y))
+        Os.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
     else:
       Os.render_text(file_contents, (x,y))
@@ -249,21 +249,21 @@ Os = OperatingSystem
 
 #tests des extensions
 #peut etre utilisé pour le load
-def test_ext(time_sleep:int = 0.5):
+def test_ext(time_sleep:int = 1):
   print(plat.test())
   screen.fill(BASE_COLOR)
   Os.render_text('Tests: This is a Beta Version',(0,0))
   pygame.display.flip()
-  time.sleep(0.4)
+  time.sleep(0.75)
   Os.render_text('Built Robot Core',(0,20))
   pygame.display.flip()
-  time.sleep(0.4)
+  time.sleep(0.75)
   files.explore_file()
   print(files.Files)
   print('File Directory Connected')
   Os.render_text('Built File Directory',(0,40))
   pygame.display.flip()
-  time.sleep(0.4)
+  time.sleep(0.75)
   s.load_page('www.test.com')
   Os.render_text('Connected to Web',(0,60))
   pygame.display.flip()
@@ -307,7 +307,7 @@ while RUN:
       Os.render_fd_base()
       Os.render_file_tree(fd_dict)
       fd_dict = output
-      Os.render_typing_text((40,7))
+      Os.render_typing_text((40,9),25)
       open = True
       
 
