@@ -5,8 +5,29 @@ import ext.platformer as plat
 #plat.test()
 #s.load_page('www.test.com')
 
+Files = {'C':
+          {'Users':
+            {
+              'Agt.Doe':
+                {
+                  'Files': 
+                  [
+                    'Agency Report.odt'
+                  ],
+              'Program Files':
+                [
+                  'chrome.exe',
+                  'insert-platformer-simulation-name.exe'
+                ]
+                }
+            }
+          }
+        }
+
+print(Files)
 
 # Couleurs de base - un tuple (R,V,B)
+BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -21,7 +42,7 @@ pygame.init()
 screen = pygame.display.set_mode([700, 500])
 
 #Nom et icon de notre fenetre
-pygame.display.set_caption("Projet")
+pygame.display.set_caption("Krypt Corp")
 logo = pygame.image.load('Assets/Logos/Icon_(Test).png')
 pygame.display.set_icon(logo)
 
@@ -52,7 +73,8 @@ class OperatingSystem:
     open = True
     output = ''
     while open:
-      screen.fill(RED)
+      screen.fill(BASE_COLOR)
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
       Os.render_text('User: '+output, (100,100))
       Os.render_text('Password: ', (100,120))
       pygame.display.flip()
@@ -70,7 +92,8 @@ class OperatingSystem:
     open = True
     output = ''
     while open:
-      screen.fill(RED)
+      screen.fill(BASE_COLOR)
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
       Os.render_text('User: '+user, (100,100))
       Os.render_text('Password: '+output, (100,120))
       pygame.display.flip()
@@ -86,11 +109,12 @@ class OperatingSystem:
 
     #On check le password et le user
     if password == '0000' and user == 'User1':
-      Os.loading('bar', 3)
-      print('Welcome back ' + user + '!')
+      Os.loading('bar', 2)
       return user
     else:
-      print('Wrong !')
+      Os.render_text('Acces Denied!', (100,150), RED)
+      pygame.display.flip()
+      time.sleep(5)
       return False
 
 
@@ -157,28 +181,29 @@ class OperatingSystem:
 
   def loading(animation_type: str,time_run: int):
     if animation_type == 'text':
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
       for i in range(100):
         Os.render_text('Loading '+str(i)+'% ...',(0,0))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        screen.fill(RED)
+        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
     elif animation_type == 'bar':
+      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
       for i in range(100):
-        Os.render_rectangle(BLACK, (5*i,50), (100,200))
+        Os.render_rectangle(WHITE, (5*i,50), (100,415))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        screen.fill(RED)
       for i in range(5):
-        Os.render_rectangle(BLACK, (500,50), (100,200))
+        Os.render_rectangle(WHITE, (500,50), (100,415))
         pygame.display.flip()
         time.sleep(0.2)
-        screen.fill(RED)
+        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
         pygame.display.flip()
         time.sleep(0.2)
   
   def time():
-    Os.render_text(time.strftime("%Y-%m-%d", time.gmtime()),(620,385),BLACK,20)
-    Os.render_text(time.strftime("%H:%M", time.gmtime()),(620,355),BLACK,40)
+    Os.render_text(time.strftime("%Y-%m-%d", time.gmtime()),(622,485),BLACK,20)
+    Os.render_text(time.strftime("%H:%M", time.gmtime()),(620,455),BLACK,40)
     
 
 
@@ -202,15 +227,15 @@ while RUN:
     user_logged = Os.log_in()
       
   else:
-
-    screen.fill(RED)
-    Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
-    Os.render_rectangle(WHITE, (700,70), (0,350))
-    Os.render_text('Welcome back!',(0,0))
-    Os.time()
-    Os.render_circle(BLACK,20,(100,100))
-    Os.render_typing_text((100,100))
-    Os.render_image('Assets/Logos/Home_Button_(Test).png',(x,y),(50,50))
+    if page == 'home':
+      screen.fill(BASE_COLOR)
+      Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
+      Os.render_rectangle(WHITE, (700,70), (0,450))
+      Os.render_text('Welcome back!',(0,0))
+      Os.time()
+      Os.render_circle(BLACK,20,(100,100))
+      Os.render_typing_text((100,100))
+      Os.render_image('Assets/Logos/Home_Button_(Test).png',(x,y),(50,50))
 
 
   for event in pygame.event.get():
