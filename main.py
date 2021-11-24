@@ -34,9 +34,7 @@ page = 'home'
 
 
 ##--------------------------------------------------------------------------##
-##--Calculs et fonctionnement de notre ordinateur (si on garde cette idée)--##
-##----------------Sinon, toujours utile d'avoir une classe------------------##
-##Qui comprend toutes les fonctions qui facilitent l'interaction avec pygame##
+##--------------Calculs et fonctionnement de notre ordinateur---------------##
 ##--------------------------------------------------------------------------##
 
 
@@ -207,6 +205,7 @@ def test_ext(time_sleep:int = 2):
   pygame.display.flip()
   time.sleep(0.75)
   Os.render_file(files.explore_file())
+  print(files.Files)
   print('File Directory Connected')
   Os.render_text('Built File Directory',(0,40))
   pygame.display.flip()

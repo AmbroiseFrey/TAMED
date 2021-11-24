@@ -14,12 +14,20 @@ Files = {'C':{
                                           'Etape 3: Donner les instructions'
                                           ]
                                         },
-                              'Telechargements':[
-                                        'Cow_laugh.mp3',
-                                        'fake-virus.exe'
-                                        '9348-598-g5h9.png'],
-                              'Coffre Fort': 'Acces Sécurisé'
+                              'Telechargements':{
+                                        'Cow_laugh.mp3':'>',
+                                        'fake-virus.exe':'>',
+                                        '9348-598-g5h9.png':'>'},
+                              'Coffre Fort [KRYPT CORP]': 'Acces Sécurisé',
+                              'Musique':{
+                                'La Totomobile.mp3':'>'
+                              },
+                              'Videos':{
+                                'Remi - La Totomobile - clip officiel.mp4':'>',
+                                'Boss qui tombe dans les escalier lol.mp4':'>',
+                                'DeZoom Meeting - Session 124h9t8s Replay.mp4':'>'
                               }
+                      }
                     },
           'Program Files':[
                     'chrome.exe',
