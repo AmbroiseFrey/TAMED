@@ -9,9 +9,12 @@ import ext.file_explorer as files
 # Couleurs de base - un tuple (R,V,B)
 BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
+GREY = (211,211,211)
+BLUE_GREY = (102, 153, 204)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+LIGHT_BLUE = (173,216,230)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
@@ -31,6 +34,7 @@ RUN = True
 user_logged = False
 output = ''
 page = 'home'
+fd_dict = 'C:'
 
 
 ##--------------------------------------------------------------------------##
@@ -92,7 +96,7 @@ class OperatingSystem:
     else:
       Os.render_text('Acces Denied!', (100,150), RED)
       pygame.display.flip()
-      time.sleep(5)
+      time.sleep(3)
       return False
 
 
@@ -158,6 +162,9 @@ class OperatingSystem:
       return False
 
   def loading(animation_type: str,time_run: int):
+    '''
+    Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
+    '''
     if animation_type == 'text':
       Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),(700,500))
       for i in range(100):
@@ -180,13 +187,52 @@ class OperatingSystem:
         time.sleep(0.2)
   
   def time():
+    '''
+    Affiche l\'heure
+    '''
     Os.render_text(time.strftime("%Y-%m-%d"),(622,485),BLACK,20)
     Os.render_text(time.strftime("%H:%M"),(620,455),BLACK,40)
   
+
   def render_file(file_contents: list, file_name: str = 'File', x: int = 100, y: int =100, espacement_ligne : int = 20):
+    '''
+    Render le content d'un file
+    '''
     for el in file_contents:
       Os.render_text(el, (x,y))
       y += espacement_ligne
+
+  def render_file_tree(file_path: str):
+    '''
+    Render les dossiers dans un file path
+    '''
+    i = 50
+    files_loaded = files.explore_file(file_path)
+    for el in files_loaded:
+      Os.render_text(el,(20,i),WHITE,30)
+      i+=20
+
+      
+  def render_fd_base():
+    '''
+    Render la base du file directory
+    '''
+    #Background
+    screen.fill(BLUE_GREY)
+
+    #Bar haut de Fenetre
+    Os.render_rectangle(GREY, (700,30), (0,0))
+    Os.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
+
+    #Barre des taches
+    Os.render_rectangle(WHITE, (700,70), (0,450))
+    Os.time()
+
+    #Applications
+    Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,450),(50,50))
+    Os.render_rectangle(LIGHT_BLUE, (55,55),(55,450))
+    Os.render_image('Assets/Icons/Folder_(Test).png',(60,450),(50,50))
+
     
 
 
@@ -195,21 +241,21 @@ Os = OperatingSystem
 
 #tests des extensions
 #peut etre utilisé pour le load
-def test_ext(time_sleep:int = 2):
+def test_ext(time_sleep:int = 0.5):
   print(plat.test())
   screen.fill(BASE_COLOR)
   Os.render_text('Tests: This is a Beta Version',(0,0))
   pygame.display.flip()
-  time.sleep(0.75)
+  time.sleep(0.4)
   Os.render_text('Built Robot Core',(0,20))
   pygame.display.flip()
-  time.sleep(0.75)
-  Os.render_file(files.explore_file())
+  time.sleep(0.4)
+  files.explore_file()
   print(files.Files)
   print('File Directory Connected')
   Os.render_text('Built File Directory',(0,40))
   pygame.display.flip()
-  time.sleep(0.75)
+  time.sleep(0.4)
   s.load_page('www.test.com')
   Os.render_text('Connected to Web',(0,60))
   pygame.display.flip()
@@ -232,15 +278,34 @@ while RUN:
     user_logged = Os.log_in()
       
   else:
+
+    #Pour la page HOME
     if page == 'home':
+
+      #Background
       screen.fill(BASE_COLOR)
       Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),(700,500))
+
+      #Barre des taches
       Os.render_rectangle(WHITE, (700,70), (0,450))
-      Os.render_text('Welcome back!',(0,0))
       Os.time()
-      Os.render_circle(BLACK,20,(100,100))
-      Os.render_typing_text((100,100))
-      Os.render_image('Assets/Logos/Home_Button_(Test).png',(x,y),(50,50))
+
+      #Applications
+      Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,450),(50,50))
+      Os.render_image('Assets/Icons/Folder_(Test).png',(60,450),(50,50))
+
+    #Pour le FILE Directory
+    if page == 'fd0':
+      Os.render_fd_base()
+      Os.render_file_tree(fd_dict)
+      fd_dict = output
+      Os.render_typing_text((50,7))
+      open = True
+      
+
+
+      
+
 
 
   for event in pygame.event.get():
@@ -252,8 +317,18 @@ while RUN:
       mouse_presses = pygame.mouse.get_pressed()
       if mouse_presses[0]:
         print(event.pos)
-        if Os.check_interaction(event.pos, (100,200,100,200),['home']) == True:
-          print('Clicked area')
+
+        #Appli file directory
+        if Os.check_interaction(event.pos, (60,100,460,500),['home']) == True:
+          page = 'fd0'
+          output = fd_dict
+        
+        #Appli home (comme le bouton windows ?)
+        elif Os.check_interaction(event.pos, (0,40,460,500),['home', 'fd0']) == True:
+          page = 'home'
+        #Close button
+        elif Os.check_interaction(event.pos, (0,30,0,30),['fd0']) == True:
+          page = 'home'
     
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
