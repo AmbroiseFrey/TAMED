@@ -1,8 +1,11 @@
-import web_search as s
+import ext.web_search as s
 import pygame ,time
-import platformer as plat
+import ext.platformer as plat
 
 #plat.test()
+#s.load_page('www.test.com')
+
+
 # Couleurs de base - un tuple (R,V,B)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
