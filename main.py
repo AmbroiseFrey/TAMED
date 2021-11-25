@@ -233,7 +233,7 @@ class OperatingSystem:
       Os.render_file(files_loaded)
     
       
-  def render_fd_base():
+  def render_barre_taches(pos:tuple):
     '''
     Render la base du file directory
     '''
@@ -250,8 +250,9 @@ class OperatingSystem:
 
     #Applications
     Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
-    Os.render_rectangle(LIGHT_BLUE, (55,55),(55, 350))
+    Os.render_rectangle(LIGHT_BLUE, (55,55),pos)
     Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
+    Os.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
 
     
 
@@ -313,10 +314,11 @@ while RUN:
       #Applications
       Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
       Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
+      Os.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
 
     #Pour le FILE Directory
     if page == 'fd0':
-      Os.render_fd_base()
+      Os.render_barre_taches((55,350))
       Os.render_file_tree(fd_dict)
       fd_dict = output
       Os.render_typing_text((40,9),25)
@@ -339,16 +341,19 @@ while RUN:
         print(event.pos)
 
         #Appli file directory
-        if Os.check_interaction(event.pos, (55,110,260,400),['home']) == True:
+        if Os.check_interaction(event.pos, (55,110,360,400),['home']) == True:
           page = 'fd0'
           output = 'C:/'
         
         #Appli home (comme le bouton windows ?)
-        elif Os.check_interaction(event.pos, (0,50,360,400),['home', 'fd0']) == True:
+        elif Os.check_interaction(event.pos, (0,50,360,400),['home', 'fd0','plat']) == True:
           page = 'home'
         #Close button
-        elif Os.check_interaction(event.pos, (0,30,0,30),['fd0']) == True:
+        elif Os.check_interaction(event.pos, (0,30,0,30),['fd0','plat']) == True:
           page = 'home'
+        #Open platformer
+        elif Os.check_interaction(event.pos, (120,164,0,30),['home','fd0']) == True:
+          page = 'plat'
     
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
