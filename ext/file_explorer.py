@@ -43,9 +43,9 @@ Files = {'C:':{
                               }
                       }
                     },
-          'Program Files':[
-                    'chrome.exe',
-                    'insert-platformer-simulation-name.exe']
+          'Program Files':{
+                    'chrome.exe':'<',
+                    'insert-platformer-simulation-name.exe':'<'}
           }
         }
 

@@ -37,6 +37,7 @@ user_logged = False
 output = ''
 page = 'home'
 fd_dict = 'C:/'
+clickable_icons = {}
 
 
 ##--------------------------------------------------------------------------##
@@ -190,7 +191,7 @@ class OperatingSystem:
   
   def time():
     '''
-    Affiche l\'heure
+    Affiche l'heure
     '''
     Os.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
     Os.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
@@ -204,11 +205,13 @@ class OperatingSystem:
       for el in file_contents:
         Os.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
-    elif type(file_contents) == str and not(file_contents[len(file_contents)-3:len(file_contents)]) == 'mp3':
+    elif type(file_contents) == str and file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
       Os.render_text(file_contents, (x,y))
-    else:
+    elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
+    elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
+      Os.render_image(file_contents, (x,y))
 
   def render_file_tree(file_path: str):
     '''
@@ -216,26 +219,27 @@ class OperatingSystem:
     '''
     i = 50
     files_loaded = files.explore_file(file_path)
-    print(type(files_loaded), end = "\r")
     if type(files_loaded) == dict:
       for el in files_loaded:
         if el[len(el)-4:len(el)] == '.mp3':
-          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+          Os.render_image('Assets/File Icons/MP3.png',(2,i-5),(22,22))
+        elif el[len(el)-4:len(el)] == '.mp4':
+          Os.render_image('Assets/File Icons/MP4.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.exe':
-          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+          Os.render_image('Assets/File Icons/EXE.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.pdf':
-          Os.render_image('Assets/Logos/Icon_(Test).png',(2,i-5),(22,22))
+          Os.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
         else:
           Os.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
-        Os.render_text(el,(23,i),WHITE,30)
-        i+=20
+        Os.render_text(el,(25,i),WHITE,30)
+        i+=30
     else:
       Os.render_file(files_loaded)
     
       
   def render_barre_taches(pos:tuple):
     '''
-    Render la base du file directory
+    Render la bare des taches par rapport a la la fenetre ouverte
     '''
     #Background
     screen.fill(BLUE_GREY)
