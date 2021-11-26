@@ -164,6 +164,9 @@ class OperatingSystem:
     else:
       return False
 
+
+
+
   def loading(animation_type: str,time_run: int):
     '''
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
@@ -189,6 +192,9 @@ class OperatingSystem:
         pygame.display.flip()
         time.sleep(0.2)
   
+
+
+
   def time():
     '''
     Affiche l'heure
@@ -196,6 +202,8 @@ class OperatingSystem:
     Os.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
     Os.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
   
+
+
 
   def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
     '''
@@ -213,6 +221,10 @@ class OperatingSystem:
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
       Os.render_image(file_contents, (x,y))
 
+
+
+
+
   def render_file_tree(file_path: str):
     '''
     Render les dossiers dans un file path
@@ -221,6 +233,8 @@ class OperatingSystem:
     files_loaded = files.explore_file(file_path)
     if type(files_loaded) == dict:
       for el in files_loaded:
+
+        #on render le icon
         if el[len(el)-4:len(el)] == '.mp3':
           Os.render_image('Assets/File Icons/MP3.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.mp4':
@@ -231,12 +245,20 @@ class OperatingSystem:
           Os.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
         else:
           Os.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
+
+        #On render le text
         Os.render_text(el,(25,i),WHITE,30)
+
+        # On rajoute l'element
+        clickable_icons[(2,22,i-5,i-5+22)] = el +'/'
+
         i+=30
     else:
       Os.render_file(files_loaded)
     
       
+
+
   def render_barre_taches(pos:tuple):
     '''
     Render la bare des taches par rapport a la la fenetre ouverte
@@ -257,6 +279,15 @@ class OperatingSystem:
     Os.render_rectangle(LIGHT_BLUE, (55,55),pos)
     Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
     Os.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
+  
+
+
+
+  def check_icons(clickpos: tuple):
+    for wanted_area in clickable_icons.keys():
+      if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
+        return clickable_icons[wanted_area]
+
 
     
 
@@ -333,7 +364,7 @@ while RUN:
       
 
 
-
+  #On check les events
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN = False
@@ -343,6 +374,13 @@ while RUN:
       mouse_presses = pygame.mouse.get_pressed()
       if mouse_presses[0]:
         print(event.pos)
+
+        if page == 'fd0':
+          check = Os.check_icons(event.pos)
+          if type(check) == str:
+            fd_dict += check
+            output = fd_dict
+            print(fd_dict)
 
         #Appli file directory
         if Os.check_interaction(event.pos, (55,110,360,400),['home']) == True:
