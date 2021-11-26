@@ -4,15 +4,20 @@ Files = {'C:':{
           'Utilisateurs':{
                     'Agt.Doe':{
                               'Fichiers': {
-                                        'Rapport.odt':[
-                                          'Rapport',
-                                          'Auteur: Agent Doe',],
-                                        'Manuel entretien.pdf':[
-                                          'Manuel de redemmarage du robot:',
-                                          'Etape 1: Redemarrer le programme',
-                                          'Etape 2: Relancer les tests',
-                                          'Etape 3: Donner les instructions'
-                                          ]
+                                        'Travail' : {
+                                                  'Rapport.odt':[
+                                                            'Rapport',
+                                                            'Auteur: Agent Doe'
+                                                  ],
+                                                  'Manuel entretien.pdf':[
+                                                            'Manuel de redemmarage du robot:',
+                                                            'Etape 1: Redemarrer le programme',
+                                                            'Etape 2: Relancer les tests',
+                                                            'Etape 3: Donner les instructions']
+                                                  }
+                                        'Personnel' : {
+                                                  'Famille.png' : 'Famille.png'
+                                                  }
                                         },
                               'Telechargements':{
                                         '9348-598-g5h9.png':'>',
