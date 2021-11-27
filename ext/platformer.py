@@ -2,6 +2,7 @@ import pygame, time
 import ext.operations as Opr
 
 resolution = (600,400)
+niveau = 0
 
 ##Lien avec main.py
 ##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
@@ -36,5 +37,8 @@ def play_game():
         mouse_presses = pygame.mouse.get_pressed()
         if mouse_presses[0]:
           print(event.pos)
-        
-        
+
+          #On check si l'utilisateur veut quitter le jeu
+          if Opr.check_interaction(event.pos, (0,50,360,400),['plat'], 'plat') == True:
+            RUN = False
+            return 'home'

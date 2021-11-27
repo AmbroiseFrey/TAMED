@@ -50,3 +50,17 @@ def render_circle(color: tuple,radius: int,pos: tuple):
   Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
   '''
   pygame.draw.circle(screen, color, pos, radius)
+
+def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list, page: str):
+  '''
+  Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2)
+  Compare aussi la page du jeu et la page dans lesquelles le bouton marche. 
+  La fonction renvoi True ou False selon si la souris est bien a l'endroit voulu
+  '''
+  if page in wanted_pages:
+    if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
+      return True
+    else:
+      return False
+  else:
+    return False

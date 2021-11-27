@@ -5,8 +5,6 @@ import ext.file_explorer as files
 import ext.operations as Opr
 
 
-
-
 # Couleurs de base - un tuple (R,V,B)
 BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
@@ -115,21 +113,6 @@ class Computer:
     screen.blit(text,pos)
 
 
-  def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list):
-    '''
-    Fonction qui prend en parametre la position de la souris au moment du click que l'on check et qui la compare avec la zone que l'on veut sous forme de tuple - (x1, x2,y1,y2)
-    Compare aussi la page du jeu et la page dans lesquelles le bouton marche. 
-    La fonction renvoi True ou False selon si la souris est bien a l'endroit voulu
-    '''
-    if page in wanted_pages:
-      if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
-        return True
-      else:
-        return False
-    else:
-      return False
-
-
 
 
   def loading(animation_type: str,time_run: int):
@@ -184,7 +167,7 @@ class Computer:
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-      Opr.render_image(file_contents, (x,y))
+      Opr.render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
 
 
 
@@ -208,6 +191,10 @@ class Computer:
           Opr.render_image('Assets/File Icons/EXE.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.pdf':
           Opr.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
+        elif el[len(el)-4:len(el)] == '.png':
+          Opr.render_image('Assets/File Icons/PNG.png',(2,i-5),(22,22))
+        elif el[len(el)-4:len(el)] == '.jpg':
+          Opr.render_image('Assets/File Icons/JPG.png',(2,i-5),(22,22))
         else:
           Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
 
@@ -262,27 +249,29 @@ Compu = Computer
 
 #tests des extensions
 #peut etre utilisé pour le load
-def test_ext(time_sleep:int = 1):
+def test_ext(time_sleep:int = 0.5):
   print(plat.test())
   screen.fill(BASE_COLOR)
   Opr.render_text('Tests: This is a Beta Version',(0,0))
   pygame.display.flip()
-  time.sleep(0.75)
+  time.sleep(0.25)
   Opr.render_text('Built Robot Core',(0,20))
   pygame.display.flip()
-  time.sleep(0.75)
+  time.sleep(0.25)
   files.explore_file()
   print(files.Files)
   print('File Directory Connected')
   Opr.render_text('Built File Directory',(0,40))
   pygame.display.flip()
-  time.sleep(0.75)
+  time.sleep(0.25)
   s.load_page('www.test.com')
   Opr.render_text('Connected to Web',(0,60))
   pygame.display.flip()
   time.sleep(time_sleep)
 
 test_ext()
+
+
 ##------------------------------##
 ##---Boucle Principale du Jeu---##
 ##------------------------------##
@@ -321,12 +310,13 @@ while RUN:
       Compu.render_barre_taches((55,350))
       Compu.render_file_tree(fd_dict)
       fd_dict = output
-      Compu.render_typing_text((40,9),25)
+      Compu.render_typing_text((70,9),25)
+      Opr.render_image('Assets/Icons/Back.png', (30,0), (30,30))
       open = True
     
     #Platformer
     if page == 'plat':
-      plat.play_game()
+      page = plat.play_game()
       
 
 
@@ -344,39 +334,42 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
+        if Opr.check_interaction(event.pos, (55,110,360,400),['home'], page) == True:
+          page = 'fd0'
+          output = 'C:/'
 
-        # On render par rapport à la page
-        if page == 'fd0':
+
+        #Appli home (comme le bouton windows ?)
+        elif Opr.check_interaction(event.pos, (0,50,360,400),['home', 'fd0','plat'], page) == True:
+          page = 'home'
+        
+        #Close button
+        elif Opr.check_interaction(event.pos, (0,30,0,30),['fd0','plat'], page) == True:
+          page = 'home'            
+        
+        #Open platformer
+        elif Opr.check_interaction(event.pos, (124,163,360,400),['home','fd0'], page) == True:
+          page = 'plat'
+
+
+        #Back button
+        elif Opr.check_interaction(event.pos, (30,60,0,30),['fd0'], page) == True:
+          fd_dict = fd_dict[:-1]
+          for c in reversed(fd_dict):
+            if c == '/':
+              output = fd_dict
+              break
+            else:
+              fd_dict = fd_dict[:-1]
+          
+        #Pour le file directory, on voit si les icons des dossiers/fichiers sont cliqués
+        elif page == 'fd0':
           check = Compu.check_icons(event.pos)
           if type(check) == str:
             fd_dict += check
             output = fd_dict
             print(fd_dict)
 
-
-
-
-
-
-        #Appli file directory
-        if Compu.check_interaction(event.pos, (55,110,360,400),['home']) == True:
-          page = 'fd0'
-          output = 'C:/'
-
-
-
-        #Appli home (comme le bouton windows ?)
-        elif Compu.check_interaction(event.pos, (0,50,360,400),['home', 'fd0','plat']) == True:
-          page = 'home'
-
-        
-        #Close button
-        elif Compu.check_interaction(event.pos, (0,30,0,30),['fd0','plat']) == True:
-          page = 'home'
-        
-        #Open platformer
-        elif Compu.check_interaction(event.pos, (124,163,360,400),['home','fd0']) == True:
-          page = 'plat'
 
 
 
