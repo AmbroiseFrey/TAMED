@@ -2,6 +2,7 @@ import pygame ,time
 import ext.web_search as s
 import ext.platformer as plat
 import ext.file_explorer as files
+import ext.operations as Opr
 
 
 
@@ -46,7 +47,7 @@ clickable_icons = {}
 
 
   
-class OperatingSystem:
+class Computer:
 
   def log_in():
     '''
@@ -59,9 +60,9 @@ class OperatingSystem:
     output = ''
     while open:
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
-      Os.render_text('User: '+output, (50,50))
-      Os.render_text('Password: ', (50,70))
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_text('User: '+output, (50,50))
+      Opr.render_text('Password: ', (50,70))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -78,9 +79,9 @@ class OperatingSystem:
     output = ''
     while open:
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
-      Os.render_text('User: '+user, (50,50))
-      Os.render_text('Password: '+output, (50,70))
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_text('User: '+user, (50,50))
+      Opr.render_text('Password: '+output, (50,70))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -94,25 +95,13 @@ class OperatingSystem:
 
     #On check le password et le user
     if password == '0000' and user == 'User1':
-      Os.loading('bar', 2)
+      Compu.loading('bar', 2)
       return user
     else:
-      Os.render_text('Acces Denied!', (50,100), RED)
+      Opr.render_text('Acces Denied!', (50,100), RED)
       pygame.display.flip()
       time.sleep(3)
       return False
-
-
-
-  def render_text(text: str,pos: tuple,color: tuple = WHITE,size: int = 30):
-    '''
-    Fonction qui permet d\'afficher du texte.
-    Prend en argument le texte (str) et sa position (tuple)
-    '''
-    pygame.font.init()
-    font = pygame.font.SysFont('Comic Sans MS', size)
-    text = font.render(text, True, color)
-    screen.blit(text,pos)
 
 
   def render_typing_text(pos:tuple, size:int = 30):
@@ -124,30 +113,6 @@ class OperatingSystem:
     font = pygame.font.SysFont('Comic Sans MS', size)
     text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
-
-
-  def render_image(image_name: str,pos: tuple,size: tuple):
-    '''
-    Fonction qui permet d\'afficher une image.
-    Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
-    loaded_img= pygame.image.load(image_name)
-    loaded_img = pygame.transform.scale(loaded_img, size)
-    screen.blit(loaded_img, pos + size)
-
-
-  def render_rectangle(color: tuple,size: tuple,pos: tuple):
-    '''
-    Fonction qui permet d\'afficher un rectangle.
-    Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
-    pygame.draw.rect(screen, color, pygame.Rect(pos + size))
-
-
-  def render_circle(color: tuple,radius: int,pos: tuple):
-    '''
-    Fonction qui permet d\'afficher un cercle.
-    Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
-    '''
-    pygame.draw.circle(screen, color, pos, radius)
 
 
   def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list):
@@ -172,23 +137,23 @@ class OperatingSystem:
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
     '''
     if animation_type == 'text':
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       for i in range(100):
-        Os.render_text('Loading '+str(i)+'% ...',(0,0))
+        Opr.render_text('Loading '+str(i)+'% ...',(0,0))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
     elif animation_type == 'bar':
-      Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
       for i in range(100):
-        Os.render_rectangle(WHITE, (4*i,50), (100,330))
+        Opr.render_rectangle(WHITE, (4*i,50), (100,330))
         pygame.display.flip()
         time.sleep(float(time_run/100))
       for i in range(5):
-        Os.render_rectangle(WHITE, (400,50), (100,330))
+        Opr.render_rectangle(WHITE, (400,50), (100,330))
         pygame.display.flip()
         time.sleep(0.2)
-        Os.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
         pygame.display.flip()
         time.sleep(0.2)
   
@@ -199,8 +164,8 @@ class OperatingSystem:
     '''
     Affiche l'heure
     '''
-    Os.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
-    Os.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
+    Opr.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
+    Opr.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
   
 
 
@@ -211,15 +176,15 @@ class OperatingSystem:
     '''
     if type(file_contents) == list:
       for el in file_contents:
-        Os.render_text(el, (x,y), WHITE,20)
+        Opr.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
     elif type(file_contents) == str and file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
-      Os.render_text(file_contents, (x,y))
+      Opr.render_text(file_contents, (x,y))
     elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-      Os.render_image(file_contents, (x,y))
+      Opr.render_image(file_contents, (x,y))
 
 
 
@@ -236,25 +201,25 @@ class OperatingSystem:
 
         #on render le icon
         if el[len(el)-4:len(el)] == '.mp3':
-          Os.render_image('Assets/File Icons/MP3.png',(2,i-5),(22,22))
+          Opr.render_image('Assets/File Icons/MP3.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.mp4':
-          Os.render_image('Assets/File Icons/MP4.png',(2,i-5),(22,22))
+          Opr.render_image('Assets/File Icons/MP4.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.exe':
-          Os.render_image('Assets/File Icons/EXE.png',(2,i-5),(22,22))
+          Opr.render_image('Assets/File Icons/EXE.png',(2,i-5),(22,22))
         elif el[len(el)-4:len(el)] == '.pdf':
-          Os.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
+          Opr.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
         else:
-          Os.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
+          Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
 
         #On render le text
-        Os.render_text(el,(25,i),WHITE,30)
+        Opr.render_text(el,(25,i),WHITE,30)
 
         # On rajoute l'element
         clickable_icons[(2,22,i-5,i-5+22)] = el +'/'
 
         i+=30
     else:
-      Os.render_file(files_loaded)
+      Compu.render_file(files_loaded)
     
       
 
@@ -267,18 +232,18 @@ class OperatingSystem:
     screen.fill(BLUE_GREY)
 
     #Bar haut de Fenetre
-    Os.render_rectangle(GREY, (600,30), (0,0))
-    Os.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
+    Opr.render_rectangle(GREY, (600,30), (0,0))
+    Opr.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
 
     #Barre des taches
-    Os.render_rectangle(WHITE, (600,70), (0,350))
-    Os.time()
+    Opr.render_rectangle(WHITE, (600,70), (0,350))
+    Compu.time()
 
     #Applications
-    Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
-    Os.render_rectangle(LIGHT_BLUE, (55,55),pos)
-    Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
-    Os.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
+    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+    Opr.render_rectangle(LIGHT_BLUE, (55,55),pos)
+    Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
+    Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
   
 
 
@@ -293,27 +258,27 @@ class OperatingSystem:
 
 
 
-Os = OperatingSystem
+Compu = Computer
 
 #tests des extensions
 #peut etre utilisé pour le load
 def test_ext(time_sleep:int = 1):
   print(plat.test())
   screen.fill(BASE_COLOR)
-  Os.render_text('Tests: This is a Beta Version',(0,0))
+  Opr.render_text('Tests: This is a Beta Version',(0,0))
   pygame.display.flip()
   time.sleep(0.75)
-  Os.render_text('Built Robot Core',(0,20))
+  Opr.render_text('Built Robot Core',(0,20))
   pygame.display.flip()
   time.sleep(0.75)
   files.explore_file()
   print(files.Files)
   print('File Directory Connected')
-  Os.render_text('Built File Directory',(0,40))
+  Opr.render_text('Built File Directory',(0,40))
   pygame.display.flip()
   time.sleep(0.75)
   s.load_page('www.test.com')
-  Os.render_text('Connected to Web',(0,60))
+  Opr.render_text('Connected to Web',(0,60))
   pygame.display.flip()
   time.sleep(time_sleep)
 
@@ -331,7 +296,7 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = Os.log_in()
+    user_logged = Compu.log_in()
       
   else:
 
@@ -340,24 +305,28 @@ while RUN:
 
       #Background
       screen.fill(BASE_COLOR)
-      Os.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),resolution)
 
       #Barre des taches
-      Os.render_rectangle(WHITE, (600,70), (0,350))
-      Os.time()
+      Opr.render_rectangle(WHITE, (600,70), (0,350))
+      Compu.time()
 
       #Applications
-      Os.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
-      Os.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
-      Os.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
+      Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+      Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
+      Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
 
     #Pour le FILE Directory
     if page == 'fd0':
-      Os.render_barre_taches((55,350))
-      Os.render_file_tree(fd_dict)
+      Compu.render_barre_taches((55,350))
+      Compu.render_file_tree(fd_dict)
       fd_dict = output
-      Os.render_typing_text((40,9),25)
+      Compu.render_typing_text((40,9),25)
       open = True
+    
+    #Platformer
+    if page == 'plat':
+      plat.play_game()
       
 
 
@@ -375,30 +344,45 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
+
+        # On render par rapport à la page
         if page == 'fd0':
-          check = Os.check_icons(event.pos)
+          check = Compu.check_icons(event.pos)
           if type(check) == str:
             fd_dict += check
             output = fd_dict
             print(fd_dict)
 
+
+
+
+
+
         #Appli file directory
-        if Os.check_interaction(event.pos, (55,110,360,400),['home']) == True:
+        if Compu.check_interaction(event.pos, (55,110,360,400),['home']) == True:
           page = 'fd0'
           output = 'C:/'
-        
+
+
+
         #Appli home (comme le bouton windows ?)
-        elif Os.check_interaction(event.pos, (0,50,360,400),['home', 'fd0','plat']) == True:
+        elif Compu.check_interaction(event.pos, (0,50,360,400),['home', 'fd0','plat']) == True:
           page = 'home'
+
+        
         #Close button
-        elif Os.check_interaction(event.pos, (0,30,0,30),['fd0','plat']) == True:
+        elif Compu.check_interaction(event.pos, (0,30,0,30),['fd0','plat']) == True:
           page = 'home'
+        
         #Open platformer
-        elif Os.check_interaction(event.pos, (120,164,0,30),['home','fd0']) == True:
+        elif Compu.check_interaction(event.pos, (124,163,360,400),['home','fd0']) == True:
           page = 'plat'
-    
+
+
+
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
+
 
       #Lien entre le clavier et le script sans utiliser input
       if open:

@@ -14,7 +14,7 @@ Files = {'C:':{
                                                             'Etape 1: Redemarrer le programme',
                                                             'Etape 2: Relancer les tests',
                                                             'Etape 3: Donner les instructions']
-                                                  }
+                                                  },
                                         'Personnel' : {
                                                   'Famille.png' : 'Famille.png'
                                                   }
