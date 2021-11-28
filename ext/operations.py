@@ -15,7 +15,7 @@ YELLOW = (255, 255, 0)
 
 
 resolution = (600,400)
-screen = pygame.display.set_mode([600,400])
+screen = pygame.display.set_mode(resolution)
 
 def render_text(text: str,pos: tuple,color: tuple = WHITE,size: int = 30):
   '''

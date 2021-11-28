@@ -71,5 +71,6 @@ def explore_file(file_path:str = 'C:/Utilisateurs/Agent Doe/Fichiers:Manuel entr
         directory = ''
     except KeyError or TypeError:
       directory = Files
+      return directory_content
   
   return directory_content

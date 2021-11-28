@@ -12,7 +12,7 @@ resolution = (600,400)
 niveau = 0
 
 pygame.init()
-screen = pygame.display.set_mode([600, 400])
+screen = pygame.display.set_mode(resolution)
 
 
 
