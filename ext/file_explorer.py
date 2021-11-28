@@ -3,9 +3,12 @@ Files = {'C:':{
                     'Agt.Doe':{
                               'Fichiers': {
                                         'Travail' : {
-                                                  'Rapport.odt':[
-                                                            'Rapport',
-                                                            'Auteur: Agent Doe'
+                                                  'Rapport-Delta056.odt':[
+                                                            'Rapport Delta 056',
+                                                            'Auteur: Agent Delta',
+                                                            'Sur les dangers du groupement Armadilo',
+                                                            'I. Controlle de la chaine Cluster-2',
+                                                            'Niveau : Extremement Elevé'
                                                   ],
                                                   'Manuel entretien.pdf':[
                                                             'Manuel de redemmarage du robot:',

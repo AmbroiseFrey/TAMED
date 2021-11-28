@@ -319,10 +319,6 @@ while RUN:
       page = plat.play_game()
       
 
-
-      
-
-
   #On check les events
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -370,18 +366,14 @@ while RUN:
             output = fd_dict
             print(fd_dict)
 
-
-
-
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
-
 
       #Lien entre le clavier et le script sans utiliser input
       if open:
         if event.key == pygame.K_RETURN:
           open = False
-        elif event.key == pygame.K_BACKSPACE:
+        if event.key == pygame.K_BACKSPACE:
           output =  output[:-1]
         else:
           output += event.unicode
