@@ -22,7 +22,7 @@ def test():
   return 'Platformer connected'
 
 
-class Sprite(pygame.sprite.Sprite): # Cette classe permet de faire un 'bleuprint' de base pour chaque sprite. Chaque appel de cette class dans une classe ou varibale permet la creation de sprites different et independants mais suivants le meme 'plan' définit dans cette classe
+class Sprite(pygame.sprite.Sprite): # Cette classe permet de faire un 'blueprint' de base pour chaque sprite. Chaque appel de cette class dans une classe ou varibale permet la creation de sprites different et independants mais suivants le meme 'plan' définit dans cette classe
   def __init__(self, image, x, y): #definitions de base (image de base et position de départ)
     super().__init__()
 

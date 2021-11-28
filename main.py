@@ -27,7 +27,7 @@ screen = pygame.display.set_mode([600,400])
 
 #Nom et icon de notre fenetre
 pygame.display.set_caption("Krypt Corp")
-logo = pygame.image.load('Assets/Logos/Icon_(Test).png')
+logo = pygame.image.load('Assets/Icons/Icon_(Test).png')
 pygame.display.set_icon(logo)
 
 #Variables pour faire marcher la base de notre programme
@@ -104,7 +104,7 @@ class Computer:
 
   def render_typing_text(pos:tuple, size:int = 30):
     '''
-    Fonction qui permet d\'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
+    Fonction qui permet d'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
     Prend en argument le texte (str) et sa position (tuple)
     '''
     pygame.font.init()
@@ -161,13 +161,15 @@ class Computer:
       for el in file_contents:
         Opr.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
-    elif type(file_contents) == str and file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
+    elif file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
       Opr.render_text(file_contents, (x,y))
     elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
       Opr.render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
+    else:
+      Opr.render_text(file_contents, (x,y))
 
 
 
@@ -181,21 +183,9 @@ class Computer:
     files_loaded = files.explore_file(file_path)
     if type(files_loaded) == dict:
       for el in files_loaded:
-
-        #on render le icon
-        if el[len(el)-4:len(el)] == '.mp3':
-          Opr.render_image('Assets/File Icons/MP3.png',(2,i-5),(22,22))
-        elif el[len(el)-4:len(el)] == '.mp4':
-          Opr.render_image('Assets/File Icons/MP4.png',(2,i-5),(22,22))
-        elif el[len(el)-4:len(el)] == '.exe':
-          Opr.render_image('Assets/File Icons/EXE.png',(2,i-5),(22,22))
-        elif el[len(el)-4:len(el)] == '.pdf':
-          Opr.render_image('Assets/File Icons/PDF.png',(2,i-5),(22,22))
-        elif el[len(el)-4:len(el)] == '.png':
-          Opr.render_image('Assets/File Icons/PNG.png',(2,i-5),(22,22))
-        elif el[len(el)-4:len(el)] == '.jpg':
-          Opr.render_image('Assets/File Icons/JPG.png',(2,i-5),(22,22))
-        else:
+        if el[-4:-3] == '.': #on render le icon d'un fichier
+          Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(2,i-5),(22,22))
+        else: # on render le icon d'un folder
           Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
 
         #On render le text
@@ -213,7 +203,7 @@ class Computer:
 
   def render_barre_taches(pos:tuple):
     '''
-    Render la bare des taches par rapport a la la fenetre ouverte
+    Render la barre des taches par rapport a la la fenetre ouverte
     '''
     #Background
     screen.fill(BLUE_GREY)
@@ -227,7 +217,7 @@ class Computer:
     Compu.time()
 
     #Applications
-    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(45,45))
     Opr.render_rectangle(LIGHT_BLUE, (55,55),pos)
     Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
     Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
