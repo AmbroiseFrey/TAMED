@@ -64,3 +64,10 @@ def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list, p
       return False
   else:
     return False
+
+def render_time():
+  '''
+  Affiche l'heure
+  '''
+  render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
+  render_text(time.strftime("%H:%M"),(520,355),BLACK,40)

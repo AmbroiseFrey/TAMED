@@ -14,8 +14,6 @@ niveau = 0
 pygame.init()
 screen = pygame.display.set_mode(resolution)
 
-
-
 #Test des extensions via main.py
 def test():
   screen.fill((0,0,0))
@@ -43,7 +41,32 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     super().__init__("Assets/Platformer/Player_(Test).png", x, y) #On definit le Player via les parametres de base d'un sprite introduit dans la classe Sprite
     self.stand = self.image #Image de base
     self.jump= pygame.image.load("Assets/Platformer/Player_(Test).png") #Image pour sauter
-    ###ADD## self.walk_animation = pygame.image.load(f'Assets/Platformer/Walk Animation/Player Walk{i for i in range(1,12)}.png') #Serie d'animation de marche
+    self.vert_move = 0 #On definit cette varibale comme un objet de player. En effet,elle n'est pas totalement controllable par l'utilisateur puisqu'il y a de la gravité. Elle ne sera donc pas remise a zero dans chaque loop pour checker les touches
+
+  def move(self, x, y):
+    self.rect.move_ip([x,y]) #Cette methode est differente de .move() puisqu'elle permet de vraiment bouger le rectangle pas de faire apparaitre une nouveau quelque part d'autre
+
+  def update(self, floor):
+    touch_floor = pygame.sprite.spritecollideany(self, floor) #Detect si on touche le sol
+    horl_move = 0 #Movement horizental
+    # On verifie quelle key est pressée
+    move = pygame.key.get_pressed() #Permet de ne pas utiliser une boule for event in
+    if move[pygame.K_LEFT]:
+      horl_move -=4
+    elif move[pygame.K_RIGHT]:
+      horl_move +=4
+
+    if move[pygame.K_UP] and touch_floor:
+      self.vert_move = -20
+
+    if self.vert_move < 10 and not touch_floor: #Si le joueur ne saute pas (valeur toujours egale ou plus petite que la capacité de sauter en un loop) et ne touche pas le sol
+      self.vert_move += 1 # on le fait descendre
+
+    if touch_floor and self.vert_move > 0: #Si on touche le sol
+      self.vert_move = 0 #On empeche de tomber
+
+    self.move(horl_move, self.vert_move) # On update la character
+
 
 #On definit le sol
 class Floor(Sprite):
@@ -53,44 +76,27 @@ class Floor(Sprite):
 
 #Boucle du jeu platformer
 def play_game():
-  move_droite = False
-  move_gauche = False
+  clock = pygame.time.Clock()
   RUN = True
+  player = Player(100, 200)
+  floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
+  #Tests, peut etre pas la methode finale !
+  for tile in range(0,650,50): #On ajoute les sprites du sol
+    floor.add(Floor(tile,370))
+  
+  #Boucle de jeu
   while RUN:
     screen.fill((0,0,0))
-    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,350),(50,50))
+    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
 
-    player = Player(100, 200)
-    floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
-
-    #Tests, peut etre pas la methode finale !
-    for tile in range(0,400,70): #On ajoute les sprites du sol
-      floor.add(Floor(tile,300))
-
+    player.update(floor) #On update par rapport au touches et interactions
     player.render() #On render le jouer
     floor.draw(screen) #On dessine la map
 
-    if move_droite:
-      print('droite')
-    if move_gauche:
-      print('gauche')
-
-    #Ici on check les events
+    #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         RUN = False
-      
-      #On check si les touches son utilisés et quand elles sont relachées
-      if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RIGHT:
-          move_droite = True
-        if event.key == pygame.K_LEFT:
-          move_gauche = True
-      if event.type == pygame.KEYUP:
-        if event.key == pygame.K_RIGHT:
-          move_droite = False
-        if event.key == pygame.K_LEFT:
-          move_gauche = False
 
       #Si la souris est pressée
       if event.type == pygame.MOUSEBUTTONDOWN:
@@ -99,8 +105,10 @@ def play_game():
           print(event.pos)
 
           #On check si l'utilisateur veut quitter le jeu
-          if Opr.check_interaction(event.pos, (0,50,360,400),['plat'], 'plat') == True:
+          if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
             RUN = False
             return 'home'
+
+    clock.tick(60) #permet de s'adapter à nos boucles, les animations et même les mouvements sont beacoup plus 'smooth'
 
     pygame.display.flip()

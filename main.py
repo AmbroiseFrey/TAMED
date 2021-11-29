@@ -1,3 +1,5 @@
+#https://www.pygame.org/docs/
+
 import pygame ,time
 import ext.web_search as s
 import ext.platformer as plat
@@ -35,15 +37,12 @@ RUN = True
 user_logged = False
 output = ''
 page = 'home'
-fd_dict = 'C:/'
+file_dir_path = 'C:/'
 clickable_icons = {}
-
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
 ##--------------------------------------------------------------------------##
-
-
   
 class Computer:
 
@@ -137,15 +136,6 @@ class Computer:
         pygame.display.flip()
         time.sleep(0.2)
 
-
-  def time():
-    '''
-    Affiche l'heure
-    '''
-    Opr.render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
-    Opr.render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
-
-
   def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
     '''
     Render le content d'un file
@@ -177,13 +167,11 @@ class Computer:
           Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(2,i-5),(22,22))
         else: # on render le icon d'un folder
           Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
-
         #On render le text
         Opr.render_text(el,(25,i),WHITE,30)
-
         # On rajoute l'element
         clickable_icons[(2,22,i-5,i-5+22)] = el +'/'
-
+        # On itere
         i+=30
     else:
       Compu.render_file(files_loaded)
@@ -198,16 +186,13 @@ class Computer:
       screen.fill(BLUE_GREY)
     #Barre des taches
     Opr.render_rectangle(WHITE, (600,70), (0,350))
-    Compu.time()
-
+    Opr.render_time()
     if app:
       #Bar haut de Fenetre
       Opr.render_rectangle(GREY, (600,30), (0,0))
       Opr.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
-
       #Carré bleu appli en cours
       Opr.render_rectangle(LIGHT_BLUE, (55,55),pos)
-    
     #Applications
     Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,352),(45,45))
     Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
@@ -219,7 +204,6 @@ class Computer:
     for wanted_area in clickable_icons.keys():
       if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
         return clickable_icons[wanted_area]
-
 
 Compu = Computer
 
@@ -274,8 +258,8 @@ while RUN:
     #FILE Directory
     if page == 'fd0':
       Compu.render_barre_taches((55,350))
-      Compu.render_file_tree(fd_dict)
-      fd_dict = output
+      Compu.render_file_tree(file_dir_path)
+      file_dir_path = output
       Compu.render_typing_text((70,9),25)
       Opr.render_image('Assets/Icons/Back.png', (30,0), (30,30))
       open = True
@@ -288,8 +272,7 @@ while RUN:
 
     #Platformer
     if page == 'plat':
-      page = plat.play_game()
-      
+      page = plat.play_game() 
 
   #On check les events
   for event in pygame.event.get():
@@ -302,16 +285,16 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
-        if Opr.check_interaction(event.pos, (55,110,360,400), ['home'], page) == True:
+        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web'], page) == True:
           page = 'fd0'
           output = 'C:/'
 
         #Appli home (comme le bouton windows ?)
-        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','plat','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web'], page) == True:
           page = 'home'
         
         #Close button
-        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','plat','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web'], page) == True:
           page = 'home'            
         
         #Open platformer
@@ -323,21 +306,20 @@ while RUN:
 
         #Back button
         elif Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True:
-          fd_dict = fd_dict[:-1]
-          for c in reversed(fd_dict):
+          file_dir_path = file_dir_path[:-1]
+          for c in reversed(file_dir_path):
             if c == '/':
-              output = fd_dict
+              output = file_dir_path
               break
             else:
-              fd_dict = fd_dict[:-1]
+              file_dir_path = file_dir_path[:-1]
           
         #Pour le file directory, on voit si les icons des dossiers/fichiers sont cliqués
         elif page == 'fd0':
           check = Compu.check_icons(event.pos)
           if type(check) == str:
-            fd_dict += check
-            output = fd_dict
-            print(fd_dict)
+            file_dir_path += check
+            output = file_dir_path
 
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
@@ -350,7 +332,6 @@ while RUN:
           output =  output[:-1]
         else:
           output += event.unicode
-      
 
   pygame.display.flip()
 

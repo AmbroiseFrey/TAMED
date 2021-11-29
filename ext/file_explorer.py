@@ -14,7 +14,15 @@ Files = {'C:':{
                                                             'Manuel de redemmarage du robot:',
                                                             'Etape 1: Redemarrer le programme',
                                                             'Etape 2: Relancer les tests',
-                                                            'Etape 3: Donner les instructions']
+                                                            'Etape 3: Donner les instructions'],
+                                                  'Calypso.bin':[
+                                                            '01001111 01110000 01100101 01110010 01100001 01110100',
+                                                            '01101001 01101111 01101110 00100000 01000011 01100001',
+                                                            '01101100 01111001 01110000 01110011 01101111 00100000',
+                                                            '00101101 00100000 01010100 01001111 01010000 00100000',
+                                                            '01010011 01000101 01000011 01010010 01000101 01010100',
+                                                            '00001010 00101101 00110000 00110011 00111010 00110010',
+                                                            '**Error**: Data not found'],
                                                   },
                                         'Personnel' : {
                                                   'Famille.png' : 'Famille.png'
