@@ -144,21 +144,25 @@ class Computer:
       for el in file_contents:
         Opr.render_text(el, (x,y), WHITE,20)
         y += espacement_ligne
-    elif file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
-      Opr.render_text(file_contents, (x,y))
-    elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
-      pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
-      pygame.mixer.music.play()
-    elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-      Opr.render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
+    elif type(file_contents) == str:
+      if file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
+        Opr.render_text(file_contents, (x,y))
+      elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
+        pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
+        pygame.mixer.music.play()
+      elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
+        Opr.render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
+      else:
+        Opr.render_text(file_contents, (x,y))
     else:
-      Opr.render_text(file_contents, (x,y))
+      pass
 
 
   def render_file_tree(file_path: str):
     '''
     Render les dossiers dans un file path
     '''
+    global clickable_icons
     i = 50
     files_loaded = files.explore_file(file_path)
     if type(files_loaded) == dict:
@@ -174,6 +178,7 @@ class Computer:
         # On itere
         i+=30
     else:
+      clickable_icons = {}
       Compu.render_file(files_loaded)
 
 

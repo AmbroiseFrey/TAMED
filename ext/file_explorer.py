@@ -72,13 +72,14 @@ def explore_file(file_path:str = 'C:/Utilisateurs/Agent Doe/Fichiers:Manuel entr
   directory_content= Files
   for i in range(len(file_path)):
     try:
+      assert type(directory_content) == dict, "Directory must be a dictionary"
       if file_path[i] != '/':
         directory += file_path[i]
       else:
         directory_content = directory_content[directory]
         directory = ''
-    except KeyError or TypeError:
+    except:
       directory = Files
-      return directory_content
+      return False
   
   return directory_content
