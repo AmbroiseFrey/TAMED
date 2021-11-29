@@ -1,18 +1,15 @@
 import pygame, time
-import ext.operations as Opr
+import ext.Core.operations as Opr
+import ext.Core.variables as varia
 
 ##Lien avec main.py
 ##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
 ##Quand la fonction fini on revient à la fenetre de main de la ou la fonction est appelée
 
-
-WHITE = (255, 255, 255)
-
-resolution = (600,400)
 niveau = 0
 
 pygame.init()
-screen = pygame.display.set_mode(resolution)
+screen = pygame.display.set_mode(varia.resolution)
 
 #Test des extensions via main.py
 def test():

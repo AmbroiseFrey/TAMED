@@ -1,23 +1,10 @@
 import pygame, time
+import ext.Core.variables as varia
 
 pygame.init()
+screen = pygame.display.set_mode(varia.resolution)
 
-BASE_COLOR = (32,194,14)
-BLACK = (0, 0, 0)
-GREY = (211,211,211)
-BLUE_GREY = (102, 153, 204)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-LIGHT_BLUE = (173,216,230)
-RED = (255, 0, 0)
-YELLOW = (255, 255, 0)
-
-
-resolution = (600,400)
-screen = pygame.display.set_mode(resolution)
-
-def render_text(text: str,pos: tuple,color: tuple = WHITE,size: int = 30):
+def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 30):
   '''
   Fonction qui permet d\'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
@@ -69,5 +56,5 @@ def render_time():
   '''
   Affiche l'heure
   '''
-  render_text(time.strftime("%Y-%m-%d"),(522,385),BLACK,20)
-  render_text(time.strftime("%H:%M"),(520,355),BLACK,40)
+  render_text(time.strftime("%Y-%m-%d"),(522,385),varia.BLACK,20)
+  render_text(time.strftime("%H:%M"),(520,355),varia.BLACK,40)

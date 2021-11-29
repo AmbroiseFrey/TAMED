@@ -2,30 +2,21 @@
 
 import pygame ,time
 import ext.web_search as s
-import ext.platformer as plat
-import ext.file_explorer as files
-import ext.operations as Opr
+import ext.Core.platformer as plat
+import ext.Core.file_explorer as files
+import ext.Core.operations as Opr
+import ext.Alt.snake as snk
+import ext.Core.variables as varia
 
 
 # Couleurs de base - un tuple (R,V,B)
-BASE_COLOR = (32,194,14)
-BLACK = (0, 0, 0)
-GREY = (211,211,211)
-BLUE_GREY = (102, 153, 204)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-LIGHT_BLUE = (173,216,230)
-RED = (255, 0, 0)
-YELLOW = (255, 255, 0)
 
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init()
 
 #Taille
-resolution = (600,400)
-screen = pygame.display.set_mode(resolution)
+screen = pygame.display.set_mode(varia.resolution)
 
 #Nom et icon de notre fenetre
 pygame.display.set_caption("Krypt Corp")
@@ -56,8 +47,8 @@ class Computer:
     open = True
     output = ''
     while open:
-      screen.fill(BASE_COLOR)
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      screen.fill(varia.BASE_COLOR)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
       pygame.display.flip()
@@ -75,8 +66,8 @@ class Computer:
     open = True
     output = ''
     while open:
-      screen.fill(BASE_COLOR)
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      screen.fill(varia.BASE_COLOR)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
       Opr.render_text('User: '+user, (50,50))
       Opr.render_text('Password: '+output, (50,70))
       pygame.display.flip()
@@ -95,7 +86,7 @@ class Computer:
       Compu.loading('bar', 2)
       return user
     else:
-      Opr.render_text('Acces Denied!', (50,100), RED)
+      Opr.render_text('Acces Denied!', (50,100), varia.RED)
       pygame.display.flip()
       time.sleep(3)
       return False
@@ -116,23 +107,23 @@ class Computer:
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
     '''
     if animation_type == 'text':
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
       for i in range(100):
         Opr.render_text('Loading '+str(i)+'% ...',(0,0))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
     elif animation_type == 'bar':
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
       for i in range(100):
-        Opr.render_rectangle(WHITE, (4*i,50), (100,330))
+        Opr.render_rectangle(varia.WHITE, (4*i,50), (100,330))
         pygame.display.flip()
         time.sleep(float(time_run/100))
       for i in range(5):
-        Opr.render_rectangle(WHITE, (400,50), (100,330))
+        Opr.render_rectangle(varia.WHITE, (400,50), (100,330))
         pygame.display.flip()
         time.sleep(0.2)
-        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),resolution)
+        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
         pygame.display.flip()
         time.sleep(0.2)
 
@@ -142,7 +133,7 @@ class Computer:
     '''
     if type(file_contents) == list:
       for el in file_contents:
-        Opr.render_text(el, (x,y), WHITE,20)
+        Opr.render_text(el, (x,y), varia.WHITE,20)
         y += espacement_ligne
     elif type(file_contents) == str:
       if file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
@@ -172,7 +163,7 @@ class Computer:
         else: # on render le icon d'un folder
           Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
         #On render le text
-        Opr.render_text(el,(25,i),WHITE,30)
+        Opr.render_text(el,(25,i),varia.WHITE,30)
         # On rajoute l'element
         clickable_icons[(2,22,i-5,i-5+22)] = el +'/'
         # On itere
@@ -188,16 +179,16 @@ class Computer:
     '''
     #Background
     if app:
-      screen.fill(BLUE_GREY)
+      screen.fill(varia.BLUE_GREY)
     #Barre des taches
-    Opr.render_rectangle(WHITE, (600,70), (0,350))
+    Opr.render_rectangle(varia.WHITE, (600,70), (0,350))
     Opr.render_time()
     if app:
       #Bar haut de Fenetre
-      Opr.render_rectangle(GREY, (600,30), (0,0))
+      Opr.render_rectangle(varia.GREY, (600,30), (0,0))
       Opr.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
       #Carré bleu appli en cours
-      Opr.render_rectangle(LIGHT_BLUE, (55,55),pos)
+      Opr.render_rectangle(varia.LIGHT_BLUE, (55,55),pos)
     #Applications
     Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,352),(45,45))
     Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
@@ -216,7 +207,7 @@ Compu = Computer
 #peut etre utilisé pour le load
 def test_ext(time_sleep:int = 0.5):
   print(plat.test())
-  screen.fill(BASE_COLOR)
+  screen.fill(varia.BASE_COLOR)
   Opr.render_text('Tests: This is v0.2.1',(0,0))
   pygame.display.flip()
   time.sleep(0.25)
@@ -225,12 +216,14 @@ def test_ext(time_sleep:int = 0.5):
   time.sleep(0.25)
   files.explore_file()
   print(files.Files)
-  print('File Directory Connected')
   Opr.render_text('Built File Directory',(0,40))
   pygame.display.flip()
   time.sleep(0.25)
   s.load_page('www.test.com')
   Opr.render_text('Connected to Web',(0,60))
+  pygame.display.flip()
+  time.sleep(0.25)
+  Opr.render_text(snk.test(), (0,80))
   pygame.display.flip()
   time.sleep(time_sleep)
 
@@ -256,7 +249,7 @@ while RUN:
 
     #HOME
     if page == 'home':
-      Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),resolution)
+      Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution)
       Compu.render_barre_taches((55,350), False)
       pygame.display.flip()
 
@@ -272,7 +265,7 @@ while RUN:
     
     if page == 'web':
       Compu.render_barre_taches((177,350))
-      Opr.render_text('In construction', (300,200))
+      Opr.render_text('In construction', (200,300))
       pygame.display.flip()
 
     #Platformer
@@ -310,17 +303,17 @@ while RUN:
           page = 'web'
 
         #Back button
-        elif Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True:
-          file_dir_path = file_dir_path[:-1]
-          for c in reversed(file_dir_path):
-            if c == '/':
-              output = file_dir_path
-              break
-            else:
-              file_dir_path = file_dir_path[:-1]
-          
-        #Pour le file directory, on voit si les icons des dossiers/fichiers sont cliqués
-        elif page == 'fd0':
+        if page == 'fd0':
+          if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True:
+            file_dir_path = file_dir_path[:-1]
+            for c in reversed(file_dir_path):
+              if c == '/':
+                output = file_dir_path
+                break
+              else:
+                file_dir_path = file_dir_path[:-1]
+
+
           check = Compu.check_icons(event.pos)
           if type(check) == str:
             file_dir_path += check
