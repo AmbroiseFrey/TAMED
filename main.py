@@ -1,7 +1,7 @@
 #https://www.pygame.org/docs/
 
 import pygame ,time
-import ext.web_search as s
+import ext.Alt.web_search as s
 import ext.Core.platformer as plat
 import ext.Core.file_explorer as files
 import ext.Core.operations as Opr
