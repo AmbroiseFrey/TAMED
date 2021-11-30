@@ -1,4 +1,4 @@
-import pygame, time
+import pygame, time, numpy
 import ext.Core.operations as Opr
 import ext.Core.variables as varia
 
@@ -41,29 +41,38 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     self.jump= pygame.image.load("Assets/Platformer/Player_(Test).png") #Image pour sauter
     self.vert_move = 0 #On definit cette varibale comme un objet de player. En effet,elle n'est pas totalement controllable par l'utilisateur puisqu'il y a de la gravité. Elle ne sera donc pas remise a zero dans chaque loop pour checker les touches
 
-  def move(self, x, y):
-    self.rect.move_ip([x,y]) #Cette methode est differente de .move() puisqu'elle permet de vraiment bouger le rectangle pas de faire apparaitre une nouveau quelque part d'autre
+  def move(self, x, y,floor):
+    dx = x
+    dy = y
+
+    while self.check_collision(0, dy, floor): #Si la colision est en haut du joueur
+      dy -= numpy.sign(dy)
+
+    while self.check_collision(dx, dy, floor): #Si la collistion est sur le coté
+      dx -= numpy.sign(dx)
+
+    self.rect.move_ip([dx, dy]) #Cette methode est differente de .move() puisqu'elle permet de vraiment bouger le rectangle pas de faire apparaitre une nouveau quelque part d'autre
 
   def update(self, floor):
     touch_floor = self.check_collision(0,1,floor) #Detect si on touche le sol
     horl_move = 0 #Movement horizental
     # On verifie quelle key est pressée
-    move = pygame.key.get_pressed() #Permet de ne pas utiliser une boule for event in
+    move = pygame.key.get_pressed() #Permet de ne pas utiliser une boucle for event in
     if move[pygame.K_LEFT]:
       horl_move -=4
     elif move[pygame.K_RIGHT]:
       horl_move +=4
 
     if move[pygame.K_UP] and touch_floor:
-      self.vert_move = -20
-
-    if self.vert_move < 10 and not touch_floor: #Si le joueur ne saute pas (valeur toujours egale ou plus petite que la capacité de sauter en un loop) et ne touche pas le sol
+      self.vert_move = -20 # oui, mais ça ne marchera pas si le floor est plus haut ou plus bas
+      
+    elif self.vert_move < 10: #Si le joueur ne saute pas (valeur toujours egale ou plus petite que la capacité de sauter en un loop) et ne touche pas le sol
       self.vert_move += 1 # on le fait descendre
 
-    if touch_floor and self.vert_move > 0:
+    if touch_floor and self.vert_move >= 0:
       self.vert_move = 0
 
-    self.move(horl_move, self.vert_move) # On update la character
+    self.move(horl_move, self.vert_move, floor) # On update la character
     self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
 
   def check_collision(self, x, y, environment):
@@ -88,7 +97,13 @@ def play_game():
   #Tests, peut etre pas la methode finale !
   for tile in range(0,650,50): #On ajoute les sprites du sol
     floor.add(Floor(tile,380))
+    print(floor) #sinon construit un autre platformer dans platformer_new
   
+  for i in floor:
+    print('get rect', i.rect[0], i.rect[1], i.rect[2], i.rect[3])
+    if i.rect[0]<player.rect[0]+player.rect[2] and i.rect[0]+i.rect[2]>player.rect[0]:
+      print(True)
+
   #Boucle de jeu
   while RUN:
     screen.fill((0,0,0))
