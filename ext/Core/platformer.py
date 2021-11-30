@@ -6,8 +6,6 @@ import ext.Core.variables as varia
 ##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
 ##Quand la fonction fini on revient à la fenetre de main de la ou la fonction est appelée
 
-niveau = 0
-
 pygame.init()
 screen = pygame.display.set_mode(varia.resolution)
 screen_rect = screen.get_rect()
@@ -36,9 +34,9 @@ class Sprite(pygame.sprite.Sprite): # Cette classe permet de faire un 'blueprint
 #On definit le joueur
 class Player(Sprite): # Le sprite du jouer est une 'child class' de la class sprite
   def __init__(self, x, y):
-    super().__init__("Assets/Platformer/Player_(Test).png", x, y) #On definit le Player via les parametres de base d'un sprite introduit dans la classe Sprite
+    super().__init__("Assets/Platformer/Player.png", x, y) #On definit le Player via les parametres de base d'un sprite introduit dans la classe Sprite
     self.stand = self.image #Image de base
-    self.jump= pygame.image.load("Assets/Platformer/Player_(Test).png") #Image pour sauter
+    self.jump= pygame.image.load("Assets/Platformer/Player.png") #Image pour sauter
     self.vert_move = 0 #On definit cette varibale comme un objet de player. En effet,elle n'est pas totalement controllable par l'utilisateur puisqu'il y a de la gravité. Elle ne sera donc pas remise a zero dans chaque loop pour checker les touches
 
   def move(self, x, y,floor):
@@ -46,15 +44,17 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     dy = y
 
     while self.check_collision(0, dy, floor): #Si la colision est en haut du joueur
-      dy -= numpy.sign(dy)
+      dy -= numpy.sign(dy) #Si y<0 on change de 1 si y>0 on change de -1
 
-    while self.check_collision(dx, dy, floor): #Si la collistion est sur le coté
-      dx -= numpy.sign(dx)
+    while self.check_collision(dx, dy, floor): #Si la collision est sur le coté
+      dx -= numpy.sign(dx) #Si x<0 on change de 1 si x>0 on change de -1
 
     self.rect.move_ip([dx, dy]) #Cette methode est differente de .move() puisqu'elle permet de vraiment bouger le rectangle pas de faire apparaitre une nouveau quelque part d'autre
 
-  def update(self, floor):
+  def update(self, level, floor, flag, lava):
     touch_floor = self.check_collision(0,1,floor) #Detect si on touche le sol
+    flag = self.check_collision(0,1,flag)
+    lava = self.check_collision(0,1,lava)
     horl_move = 0 #Movement horizental
     # On verifie quelle key est pressée
     move = pygame.key.get_pressed() #Permet de ne pas utiliser une boucle for event in
@@ -72,6 +72,12 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     if touch_floor and self.vert_move >= 0:
       self.vert_move = 0
 
+    if flag:
+      play_game(level+1)
+
+    if lava:
+      play_game(level)
+
     self.move(horl_move, self.vert_move, floor) # On update la character
     self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
 
@@ -88,21 +94,40 @@ class Floor(Sprite):
     super().__init__("Assets/Platformer/Floor_(Test).png", x, y)
 
 
+class Level_Flag(Sprite):
+  def __init__(self, x, y):
+    super().__init__("Assets/Platformer/Flag.png", x, y)
+
+class Lava(Sprite):
+  def __init__(self, x, y):
+    super().__init__("Assets/Platformer/Lava.png", x, y)
+
+
 #Boucle du jeu platformer
-def play_game():
+def play_game(level = 0):
   clock = pygame.time.Clock()
   RUN = True
   player = Player(100, 200)
-  floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
-  #Tests, peut etre pas la methode finale !
-  for tile in range(0,650,50): #On ajoute les sprites du sol
-    floor.add(Floor(tile,380))
-    print(floor) #sinon construit un autre platformer dans platformer_new
-  
-  for i in floor:
-    print('get rect', i.rect[0], i.rect[1], i.rect[2], i.rect[3])
-    if i.rect[0]<player.rect[0]+player.rect[2] and i.rect[0]+i.rect[2]>player.rect[0]:
-      print(True)
+
+  if level == 1:
+    floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
+    #Tests, peut etre pas la methode finale !
+    for tile in range(0,650,50): #On ajoute les sprites du sol
+      floor.add(Floor(tile,380))
+
+    floor.add(Floor(300,220))
+    flag = pygame.sprite.Group()
+    flag.add(Level_Flag(550,340))
+    lava = pygame.sprite.Group()
+    lava.add(Lava(300, 340))
+
+  elif level == 2:
+    floor = pygame.sprite.Group()
+    for tile in range(0,650,50): 
+      floor.add(Floor(tile,380))
+
+    floor.add(Floor(300,380))
+
 
   #Boucle de jeu
   while RUN:
@@ -110,8 +135,10 @@ def play_game():
     Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
     
     floor.draw(screen) #On dessine la map
+    flag.draw(screen)
+    lava.draw(screen)
     player.render() #On render le jouer
-    player.update(floor) #On update par rapport au touches et interactions
+    player.update(level, floor, flag, lava) #On update par rapport au touches et interactions
     #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
