@@ -108,9 +108,9 @@ def play_game(level = 0):
   clock = pygame.time.Clock()
   RUN = True
   player = Player(100, 200)
-
-  if level == 1:
-    floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
+  floor = pygame.sprite.Group()
+  if level == 0:
+     #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
     #Tests, peut etre pas la methode finale !
     for tile in range(0,650,50): #On ajoute les sprites du sol
       floor.add(Floor(tile,380))
@@ -121,12 +121,13 @@ def play_game(level = 0):
     lava = pygame.sprite.Group()
     lava.add(Lava(300, 340))
 
-  elif level == 2:
-    floor = pygame.sprite.Group()
+  elif level == 1:
     for tile in range(0,650,50): 
       floor.add(Floor(tile,380))
-
     floor.add(Floor(300,380))
+    lava = pygame.sprite.Group()
+    flag = pygame.sprite.Group()
+    flag.add(Level_Flag(550,340))
 
 
   #Boucle de jeu
