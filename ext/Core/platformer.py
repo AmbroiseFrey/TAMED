@@ -10,6 +10,7 @@ niveau = 0
 
 pygame.init()
 screen = pygame.display.set_mode(varia.resolution)
+screen_rect = screen.get_rect()
 
 #Test des extensions via main.py
 def test():
@@ -44,7 +45,7 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     self.rect.move_ip([x,y]) #Cette methode est differente de .move() puisqu'elle permet de vraiment bouger le rectangle pas de faire apparaitre une nouveau quelque part d'autre
 
   def update(self, floor):
-    touch_floor = pygame.sprite.spritecollideany(self, floor) #Detect si on touche le sol
+    touch_floor = self.check_collision(0,1,floor) #Detect si on touche le sol
     horl_move = 0 #Movement horizental
     # On verifie quelle key est pressée
     move = pygame.key.get_pressed() #Permet de ne pas utiliser une boule for event in
@@ -59,10 +60,17 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
     if self.vert_move < 10 and not touch_floor: #Si le joueur ne saute pas (valeur toujours egale ou plus petite que la capacité de sauter en un loop) et ne touche pas le sol
       self.vert_move += 1 # on le fait descendre
 
-    if touch_floor and self.vert_move > 0: #Si on touche le sol
-      self.vert_move = 0 #On empeche de tomber
+    if touch_floor and self.vert_move > 0:
+      self.vert_move = 0
 
     self.move(horl_move, self.vert_move) # On update la character
+    self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
+
+  def check_collision(self, x, y, environment):
+    self.rect.move_ip([x, y]) #On fait boujer le sprite
+    collide = pygame.sprite.spritecollideany(self, environment) #On check si il touche le sol
+    self.rect.move_ip([-x, -y]) #On le renvoit d'ou il vient
+    return collide
 
 
 #On definit le sol
@@ -79,17 +87,16 @@ def play_game():
   floor = pygame.sprite.Group() #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
   #Tests, peut etre pas la methode finale !
   for tile in range(0,650,50): #On ajoute les sprites du sol
-    floor.add(Floor(tile,370))
+    floor.add(Floor(tile,380))
   
   #Boucle de jeu
   while RUN:
     screen.fill((0,0,0))
     Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
-
-    player.update(floor) #On update par rapport au touches et interactions
-    player.render() #On render le jouer
+    
     floor.draw(screen) #On dessine la map
-
+    player.render() #On render le jouer
+    player.update(floor) #On update par rapport au touches et interactions
     #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:

@@ -8,5 +8,5 @@ BLUE = (0, 0, 255)
 LIGHT_BLUE = (173,216,230)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
-
 resolution = (600,400)
+Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'

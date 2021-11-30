@@ -1,5 +1,4 @@
 #https://www.pygame.org/docs/
-
 import pygame ,time
 import ext.Alt.web_search as s
 import ext.Core.platformer as plat
@@ -7,9 +6,6 @@ import ext.Core.file_explorer as files
 import ext.Core.operations as Opr
 import ext.Alt.snake as snk
 import ext.Core.variables as varia
-
-
-# Couleurs de base - un tuple (R,V,B)
 
 #Setup de la fenetre pygame
 pygame.init()
@@ -28,6 +24,7 @@ RUN = True
 user_logged = False
 output = ''
 page = 'home'
+pop_up = None
 file_dir_path = 'C:/'
 clickable_icons = {}
 
@@ -36,6 +33,9 @@ clickable_icons = {}
 ##--------------------------------------------------------------------------##
   
 class Computer:
+  
+  def render_pop_up(pop_up:str, pos:tuple):
+    print(pop_up)
 
   def log_in():
     '''
@@ -48,7 +48,7 @@ class Computer:
     output = ''
     while open:
       screen.fill(varia.BASE_COLOR)
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+      Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
       pygame.display.flip()
@@ -67,9 +67,9 @@ class Computer:
     output = ''
     while open:
       screen.fill(varia.BASE_COLOR)
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+      Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
       Opr.render_text('User: '+user, (50,50))
-      Opr.render_text('Password: '+output, (50,70))
+      Opr.render_text('Password: '+len(output)*'*', (50,70))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -107,14 +107,14 @@ class Computer:
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
     '''
     if animation_type == 'text':
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+      Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
       for i in range(100):
         Opr.render_text('Loading '+str(i)+'% ...',(0,0))
         pygame.display.flip()
         time.sleep(float(time_run/100))
-        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+        Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
     elif animation_type == 'bar':
-      Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+      Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
       for i in range(100):
         Opr.render_rectangle(varia.WHITE, (4*i,50), (100,330))
         pygame.display.flip()
@@ -123,30 +123,9 @@ class Computer:
         Opr.render_rectangle(varia.WHITE, (400,50), (100,330))
         pygame.display.flip()
         time.sleep(0.2)
-        Opr.render_image('Assets/Backgrounds/Login_Background_(Test).png',(0,0),varia.resolution)
+        Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
         pygame.display.flip()
         time.sleep(0.2)
-
-  def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
-    '''
-    Render le content d'un file
-    '''
-    if type(file_contents) == list:
-      for el in file_contents:
-        Opr.render_text(el, (x,y), varia.WHITE,20)
-        y += espacement_ligne
-    elif type(file_contents) == str:
-      if file_contents[len(file_contents)-3:len(file_contents)] in ['pdf','odt','txt']:
-        Opr.render_text(file_contents, (x,y))
-      elif file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
-        pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
-        pygame.mixer.music.play()
-      elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-        Opr.render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
-      else:
-        Opr.render_text(file_contents, (x,y))
-    else:
-      pass
 
 
   def render_file_tree(file_path: str):
@@ -170,7 +149,7 @@ class Computer:
         i+=30
     else:
       clickable_icons = {}
-      Compu.render_file(files_loaded)
+      Opr.render_file(files_loaded)
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
@@ -203,9 +182,7 @@ class Computer:
 
 Compu = Computer
 
-#tests des extensions
-#peut etre utilisé pour le load
-def test_ext(time_sleep:int = 0.5):
+def test_ext(time_sleep:int = 0.5):#tests des extensions
   print(plat.test())
   screen.fill(varia.BASE_COLOR)
   Opr.render_text('Tests: This is v0.2.1',(0,0))
@@ -312,7 +289,6 @@ while RUN:
                 break
               else:
                 file_dir_path = file_dir_path[:-1]
-
 
           check = Compu.check_icons(event.pos)
           if type(check) == str:

@@ -2,11 +2,12 @@ import pygame, time
 import ext.Core.variables as varia
 
 pygame.init()
+pygame.mixer.init()
 screen = pygame.display.set_mode(varia.resolution)
 
 def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 30):
   '''
-  Fonction qui permet d\'afficher du texte.
+  Fonction qui permet d'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
   '''
   pygame.font.init()
@@ -17,7 +18,7 @@ def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 30):
 
 def render_image(image_name: str,pos: tuple,size: tuple):
   '''
-  Fonction qui permet d\'afficher une image.
+  Fonction qui permet d'afficher une image.
   Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
   loaded_img= pygame.image.load(image_name)
   loaded_img = pygame.transform.scale(loaded_img, size)
@@ -33,7 +34,7 @@ def render_rectangle(color: tuple,size: tuple,pos: tuple):
 
 def render_circle(color: tuple,radius: int,pos: tuple):
   '''
-  Fonction qui permet d\'afficher un cercle.
+  Fonction qui permet d'afficher un cercle.
   Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
   '''
   pygame.draw.circle(screen, color, pos, radius)
@@ -58,3 +59,22 @@ def render_time():
   '''
   render_text(time.strftime("%Y-%m-%d"),(522,385),varia.BLACK,20)
   render_text(time.strftime("%H:%M"),(520,355),varia.BLACK,40)
+
+def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
+  '''
+  Render le content d'un fichier
+  '''
+  if type(file_contents) == list:
+    for el in file_contents:
+      render_text(el, (x,y), varia.WHITE,20)
+      y += espacement_ligne
+  elif type(file_contents) == str:
+    if file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
+      pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
+      pygame.mixer.music.play()
+    elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
+      render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
+    else:
+      render_text(file_contents, (x,y))
+  else:
+    pass
