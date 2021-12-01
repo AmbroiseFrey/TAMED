@@ -73,10 +73,13 @@ class Player(Sprite): # Le sprite du jouer est une 'child class' de la class spr
       self.vert_move = 0
 
     if flag:
-      play_game(level+1)
+      print("Flag")
+      return 'Flag'
+      
 
     if lava:
-      play_game(level)
+      print("Lava")
+      return 'Lava'
 
     self.move(horl_move, self.vert_move, floor) # On update la character
     self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
@@ -103,14 +106,10 @@ class Lava(Sprite):
     super().__init__("Assets/Platformer/Lava.png", x, y)
 
 
-#Boucle du jeu platformer
-def play_game(level = 0):
-  clock = pygame.time.Clock()
-  RUN = True
-  player = Player(100, 200)
-  floor = pygame.sprite.Group()
+def load_level(level):
   if level == 0:
-     #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
+    floor = pygame.sprite.Group()
+    #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
     #Tests, peut etre pas la methode finale !
     for tile in range(0,650,50): #On ajoute les sprites du sol
       floor.add(Floor(tile,380))
@@ -121,29 +120,31 @@ def play_game(level = 0):
     lava = pygame.sprite.Group()
     lava.add(Lava(300, 340))
 
-  elif level == 1:
+  elif level == 1: # en fait le bug avec le bouton pour revenir a lordi c'est parce que on a une boucle while j'essaye de rtouver un moyen tu m'as fait peur, j'ai cru qu'on m'avait hacké# ah, le bug qui s'est passé hier? celui qui a tout enlevé? non j'ai creer lissue sur le github tu peux aller voir si tu veux ok
+    floor = pygame.sprite.Group()
     for tile in range(0,650,50): 
       floor.add(Floor(tile,380))
     floor.add(Floor(300,380))
     lava = pygame.sprite.Group()
     flag = pygame.sprite.Group()
     flag.add(Level_Flag(550,340))
+  
+  return floor, flag, lava
 
+#Boucle du jeu platformer
+def play_game(level = 0):
+  varia.RUN_plat == True
+  clock = pygame.time.Clock()
+  player = Player(100, 200)
+
+  floor, flag, lava = load_level(level)
 
   #Boucle de jeu
-  while RUN:
-    screen.fill((0,0,0))
-    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
-    
-    floor.draw(screen) #On dessine la map
-    flag.draw(screen)
-    lava.draw(screen)
-    player.render() #On render le jouer
-    player.update(level, floor, flag, lava) #On update par rapport au touches et interactions
+  while varia.RUN_plat:
     #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
-        RUN = False
+        varia.RUN_plat = False
 
       #Si la souris est pressée
       if event.type == pygame.MOUSEBUTTONDOWN:
@@ -153,9 +154,25 @@ def play_game(level = 0):
 
           #On check si l'utilisateur veut quitter le jeu
           if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
-            RUN = False
             return 'home'
 
+    pygame.event.pump()
+    screen.fill((0,0,0))
+    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
+    
+    floor.draw(screen) #On dessine la map
+    flag.draw(screen)
+    lava.draw(screen)
+    player.render() #On render le jouer
+    action = player.update(level, floor, flag, lava) #On update par rapport au touches et interactions
+    if action == 'Lava':
+      action = ''
+      return level
+      break
+    elif action == 'Flag':
+      action = ''
+      return level+1
+      break
     clock.tick(60) #permet de s'adapter à nos boucles, les animations et même les mouvements sont beacoup plus 'smooth'
 
     pygame.display.flip()

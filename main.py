@@ -27,6 +27,7 @@ page = 'home'
 pop_up = None
 file_dir_path = 'C:/'
 clickable_icons = {}
+plat_check = 0
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -221,7 +222,7 @@ while RUN:
 
   if not(user_logged):
     #user_logged = Compu.log_in()
-    user_logged = True#
+    user_logged = True
       
   else:
 
@@ -248,7 +249,10 @@ while RUN:
 
     #Platformer
     if page == 'plat':
-      page = plat.play_game() 
+      if type(plat_check) == str:
+        page = plat_check
+      else:
+        plat_check = plat.play_game(plat_check)
 
   #On check les events
   for event in pygame.event.get():
@@ -274,7 +278,8 @@ while RUN:
           page = 'home'            
         
         #Open platformer
-        elif Opr.check_interaction(event.pos, (124,163,360,400), ['home','fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web'], page) == True:
+          plat_check = 0
           page = 'plat'
         
         elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0'], page) == True:
