@@ -6,7 +6,6 @@ import ext.Core.file_explorer as files
 import ext.Core.operations as Opr
 import ext.Alt.snake as snk
 import ext.Core.variables as varia
-
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init()
@@ -28,6 +27,7 @@ pop_up = None
 file_dir_path = 'C:/'
 clickable_icons = {}
 plat_check = 0
+level = 0
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -253,6 +253,8 @@ while RUN:
         page = plat_check
       else:
         plat_check = plat.play_game(plat_check)
+        if type(plat_check) == int:
+          level = plat_check
 
   #On check les events
   for event in pygame.event.get():
@@ -279,7 +281,7 @@ while RUN:
         
         #Open platformer
         elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web'], page) == True:
-          plat_check = 0
+          plat_check = level
           page = 'plat'
         
         elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0'], page) == True:

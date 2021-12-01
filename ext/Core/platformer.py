@@ -110,7 +110,6 @@ def load_level(level):
   if level == 0:
     floor = pygame.sprite.Group()
     #Un groupe de sprites (des classes donc) qui peuvent etre déplacés ensemble
-    #Tests, peut etre pas la methode finale !
     for tile in range(0,650,50): #On ajoute les sprites du sol
       floor.add(Floor(tile,380))
 
@@ -120,7 +119,7 @@ def load_level(level):
     lava = pygame.sprite.Group()
     lava.add(Lava(300, 340))
 
-  elif level == 1: # en fait le bug avec le bouton pour revenir a lordi c'est parce que on a une boucle while j'essaye de rtouver un moyen tu m'as fait peur, j'ai cru qu'on m'avait hacké# ah, le bug qui s'est passé hier? celui qui a tout enlevé? non j'ai creer lissue sur le github tu peux aller voir si tu veux ok
+  elif level == 1:
     floor = pygame.sprite.Group()
     for tile in range(0,650,50): 
       floor.add(Floor(tile,380))
@@ -128,6 +127,22 @@ def load_level(level):
     lava = pygame.sprite.Group()
     flag = pygame.sprite.Group()
     flag.add(Level_Flag(550,340))
+  
+  elif level == 2:
+    floor = pygame.sprite.Group()
+    for tile in range(0,650,50): 
+      floor.add(Floor(tile,380))
+    floor.add(Floor(300,340))
+    floor.add(Floor(300,320))
+    floor.add(Floor(300,300))
+    floor.add(Floor(300,190))
+    floor.add(Floor(300,170))
+    lava = pygame.sprite.Group()
+    flag = pygame.sprite.Group()
+    flag.add(Level_Flag(550,340))
+
+  else:
+    Opr.render_text('The end', (200,300))
   
   return floor, flag, lava
 
