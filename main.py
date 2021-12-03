@@ -103,15 +103,6 @@ class Computer:
     font = pygame.font.SysFont('Comic Sans MS', size)
     text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
-  def render_typing_text_2(pos:tuple, size:int = 30):
-    '''
-    Fonction qui permet d'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
-    Prend en argument le texte (str) et sa position (tuple)
-    '''
-    pygame.font.init()
-    font = pygame.font.SysFont('Comic Sans MS', size)
-    text = font.render(output, False, (255, 255, 255))
-    screen.blit(text,pos)
 
   def loading(animation_type: str,time_run: int):
     '''
@@ -265,9 +256,13 @@ while RUN:
     
     elif page == 'web':
       Compu.render_barre_taches((177,350))
-      Opr.render_rectangle(varia.GREY, (600,30), (66,0))
+      #Opr.render_rectangle(varia.GREY, (600,30), (66,0))
+      Opr.render_rectangle(varia.BLACK, (600,1), (66,1))
+      Opr.render_rectangle(varia.BLACK, (1,27), (66,1))
+      Opr.render_rectangle(varia.BLACK, (600,1), (66,28))
+      Opr.render_rectangle(varia.BLUE_GREY, (580,20), (70,5))
       #open=True
-      Compu.render_typing_text_2((66,0),30)
+      Compu.render_typing_text((72,10),20)
       open=True
       Opr.render_text('In construction', (200,300))
       pygame.display.flip()
@@ -330,6 +325,7 @@ while RUN:
         elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0','messages'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'web'
+          output=''
 
         #Messagerie
         elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
