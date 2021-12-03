@@ -103,7 +103,15 @@ class Computer:
     font = pygame.font.SysFont('Comic Sans MS', size)
     text = font.render(output, False, (255, 255, 255))
     screen.blit(text,pos)
-
+  def render_typing_text_2(pos:tuple, size:int = 30):
+    '''
+    Fonction qui permet d'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
+    Prend en argument le texte (str) et sa position (tuple)
+    '''
+    pygame.font.init()
+    font = pygame.font.SysFont('Comic Sans MS', size)
+    text = font.render(output, False, (255, 255, 255))
+    screen.blit(text,pos)
 
   def loading(animation_type: str,time_run: int):
     '''
@@ -161,6 +169,7 @@ class Computer:
     i = 50
     for el in messages:
       #On render le text
+      Opr.render_rectangle(varia.GREY, (11.5*len(el),22), (14, i-2)) #rectangle derriere le titre
       Opr.render_text(el,(25,i),varia.WHITE,30)
       clickable_icons[(2,12*len(el),i-5,i-5+22)] = el # On rajoute l'element
       i+=30 # On itere
@@ -256,6 +265,10 @@ while RUN:
     
     elif page == 'web':
       Compu.render_barre_taches((177,350))
+      Opr.render_rectangle(varia.GREY, (600,30), (66,0))
+      #open=True
+      Compu.render_typing_text_2((66,0),30)
+      open=True
       Opr.render_text('In construction', (200,300))
       pygame.display.flip()
 
@@ -294,16 +307,19 @@ while RUN:
         print(event.pos)
 
         if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], page) == True:
+          clickable_icons = {} #on reset les clickable icons 
           page = 'fd0'
           output = 'C:/'
 
         #Appli home
         elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], page) == True:
           page = 'home'
+          clickable_icons = {} #on reset les clickable icons 
         
         #Bouton close
         elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], page) == True:
-          page = 'home'            
+          page = 'home'
+          clickable_icons = {} #on reset les clickable icons         
         
         #Acces au robot
         elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], page) == True:
@@ -312,10 +328,12 @@ while RUN:
         
         #Internet explorer
         elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0','messages'], page) == True:
+          clickable_icons = {} #on reset les clickable icons 
           page = 'web'
 
         #Messagerie
         elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
+          clickable_icons = {} #on reset les clickable icons 
           page = 'messages'
         
         # Ouvrir des messages
