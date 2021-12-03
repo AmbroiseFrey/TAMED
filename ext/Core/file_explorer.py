@@ -5,7 +5,8 @@ Files = {'C:':{
                                         'Travail' : {
                                                   'Rapport-Delta056.odt':[
                                                             'Rapport Delta 056',
-                                                            'Auteur: Agent Delta',
+                                                            'Auteur: Delta',
+                                                            'A destination de: Joint Military Technology Department - Europe',
                                                             'Sur les dangers du groupement Armadilo',
                                                             'I. Controlle de la chaine Cluster-2',
                                                             'Niveau : Extremement Elevé'
@@ -23,9 +24,11 @@ Files = {'C:':{
                                                             '01010011 01000101 01000011 01010010 01000101 01010100',
                                                             '00001010 00101101 00110000 00110011 00111010 00110010',
                                                             '**Error**: Data not found'],
+                                                  'Identification_Card.png' : 'Identification_Card.png',
                                                   },
                                         'Personnel' : {
-                                                  'Famille.png' : 'Famille.png'
+                                                  'Famille.png' : 'Famille.png',
+                                                  'Addresse.odt' : 'Things'
                                                   }
                                         },
                               'Telechargements':{
@@ -59,7 +62,7 @@ Files = {'C:':{
                     },
           'Program Files':{
                     'chrome.exe':'<',
-                    'insert-platformer-simulation-name.exe':'<'}
+                    'tamed.exe':'<'}
           }
         }
 

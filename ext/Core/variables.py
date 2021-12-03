@@ -11,3 +11,12 @@ YELLOW = (255, 255, 0)
 resolution = (600,400)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
+unlocked = []
+
+messages = {
+  "J.M.T.D. Europe Meeting":[
+    "from: Dir. Slane",
+    "to: Group:JMTDEurope",
+    "Bonjour a tous,",
+    "Voila"],
+}

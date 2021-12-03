@@ -7,23 +7,20 @@ def test():
  
 pygame.init()
  
-white = (255, 255, 255)
-yellow = (255, 255, 102)
-black = (0, 0, 0)
-red = (213, 50, 80)
-green = (0, 255, 0)
-blue = (50, 153, 213)
- 
 resolution = varia.resolution
  
-dis = pygame.display.set_mode(resolution)
+screen = pygame.display.set_mode(resolution)
  
 clock = pygame.time.Clock()
- 
-snake_blocks = 10
+
 snake_speed = 15
  
-
+def snake(snake):
+  for x in snake:
+    if x == 1:
+      pygame.draw.rect(screen, varia.BLACK, )
+    elif x == 0:
+      pygame.draw.rect(screen, varia.WHITE, )
  
  
 def game():
@@ -31,16 +28,15 @@ def game():
     x = resolution[0] / 2
     y = resolution[1] / 2
  
-    x1 = 0
-    y1 = 0
- 
-    snake = []
+    snake = [1,0]
     snk_length = 1
- 
-    foodx = round(random.randrange(0, resolution[0] - snake_blocks) / 10.0) * 10.0
-    foody = round(random.randrange(0, resolution[1] - snake_blocks) / 10.0) * 10.0
  
     while RUN:
       clock.tick(snake_speed)
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+          RUN = False
+        if event.type == pygame.KEYDOWN:
+          pass
  
     pygame.quit()

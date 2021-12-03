@@ -57,8 +57,10 @@ def render_time():
   '''
   Affiche l'heure
   '''
+  hour = time.strftime("%H")
+  hour = int(hour) +1
   render_text(time.strftime("%Y-%m-%d"),(522,385),varia.BLACK,20)
-  render_text(time.strftime("%H:%M"),(520,355),varia.BLACK,40)
+  render_text(str(hour) +':' + time.strftime("%M"),(520,355),varia.BLACK,40)
 
 def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
   '''
@@ -73,7 +75,7 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-      render_image('Assets/Directory Files/'+file_contents, (x,y), (300,200))
+      render_image('Assets/Directory Files/'+file_contents, (x,y), (480,280))
     else:
       render_text(file_contents, (x,y))
   else:

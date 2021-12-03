@@ -99,11 +99,19 @@ class Floor(Sprite):
 
 class Level_Flag(Sprite):
   def __init__(self, x, y):
-    super().__init__("Assets/Platformer/Flag.png", x, y)
+    super().__init__("Assets/Platformer/Checkpoint.png", x, y)
 
 class Lava(Sprite):
   def __init__(self, x, y):
     super().__init__("Assets/Platformer/Lava.png", x, y)
+
+class Platform(Sprite): #Moving platform
+  def __init__(self, x, y, speed):
+    super().__init__("Assets/Platformer/Floor_(Test).png", x, y)
+    self.speed = speed # Vitesse de deplacement
+ 
+  def move(self):
+    pass
 
 
 def load_level(level):
@@ -135,8 +143,8 @@ def load_level(level):
     floor.add(Floor(300,340))
     floor.add(Floor(300,320))
     floor.add(Floor(300,300))
-    floor.add(Floor(300,190))
-    floor.add(Floor(300,170))
+    for tile in range(190,0,-50):
+      floor.add(Floor(300,tile))
     lava = pygame.sprite.Group()
     flag = pygame.sprite.Group()
     flag.add(Level_Flag(550,340))
@@ -153,7 +161,6 @@ def play_game(level = 0):
   player = Player(100, 200)
 
   floor, flag, lava = load_level(level)
-
   #Boucle de jeu
   while varia.RUN_plat:
     #Ici on check les events autre que les touches fleches
@@ -172,8 +179,9 @@ def play_game(level = 0):
             return 'home'
 
     pygame.event.pump()
-    screen.fill((0,0,0))
-    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,0),(50,50))
+    Opr.render_image('Assets/Platformer/Background.jpg', (0,0), (600,400))
+    screen.fill(varia.WHITE)
+    Opr.render_image('Assets/Icons/home.png',(0,0),(50,50))
     
     floor.draw(screen) #On dessine la map
     flag.draw(screen)

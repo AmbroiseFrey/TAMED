@@ -1,4 +1,4 @@
-#https://www.pygame.org/docs/
+#https://www.pygame.org/docs/ 
 import pygame ,time
 import ext.Alt.web_search as s
 import ext.Core.platformer as plat
@@ -17,34 +17,34 @@ screen = pygame.display.set_mode(varia.resolution)
 pygame.display.set_caption("Krypt Corp")
 logo = pygame.image.load('Assets/Icons/Icon_(Test).png')
 pygame.display.set_icon(logo)
+clock = pygame.time.Clock()
+
 
 #Variables pour faire marcher la base de notre programme
 RUN = True
 user_logged = False
 output = ''
 page = 'home'
-pop_up = None
 file_dir_path = 'C:/'
 clickable_icons = {}
 plat_check = 0
 level = 0
+#Cheat pour acceder directement a la messagerie (devellopment)
+varia.unlocked = [1,]
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
 ##--------------------------------------------------------------------------##
   
 class Computer:
-  
-  def render_pop_up(pop_up:str, pos:tuple):
-    print(pop_up)
 
   def log_in():
     '''
-    Fonction qui demande un username et un passcode.
+    Méthode qui demande un username et un passcode.
     Les seuls valides pour l'instant son User: User1 et Password: 0000
     '''
 
-    #On demande le user
+    #On demande le 'User'
     open = True
     output = ''
     while open:
@@ -63,7 +63,7 @@ class Computer:
           else:
             output += event.unicode
 
-    #On demande le password
+    #On demande le 'Password'
     open = True
     output = ''
     while open:
@@ -141,7 +141,7 @@ class Computer:
         if el[-4:-3] == '.': #on render le icon d'un fichier
           Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(2,i-5),(22,22))
         else: # on render le icon d'un folder
-          Opr.render_image('Assets/Icons/Folder_(Test).png',(2,i-5),(22,22))
+          Opr.render_image('Assets/Icons/Folder.png',(2,i-5),(22,22))
         #On render le text
         Opr.render_text(el,(25,i),varia.WHITE,30)
         # On rajoute l'element
@@ -151,6 +151,21 @@ class Computer:
     else:
       clickable_icons = {}
       Opr.render_file(files_loaded)
+
+
+  def render_messagerie(messages: dict):
+    '''
+    Render les dossiers dans un file path
+    '''
+    global clickable_icons
+    i = 50
+    for el in messages:
+      #On render le text
+      Opr.render_text(el,(25,i),varia.WHITE,30)
+      # On rajoute l'element
+      clickable_icons[(2,22,i-5,i-5+22)] = el
+      # On itere
+      i+=30
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
@@ -166,14 +181,15 @@ class Computer:
     if app:
       #Bar haut de Fenetre
       Opr.render_rectangle(varia.GREY, (600,30), (0,0))
-      Opr.render_image('Assets/Icons/Close_(Test).png',(0,0),(30,30))
+      Opr.render_image('Assets/Icons/cross.png',(1,1),(27,27))
       #Carré bleu appli en cours
       Opr.render_rectangle(varia.LIGHT_BLUE, (55,55),pos)
     #Applications
     Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,352),(45,45))
-    Opr.render_image('Assets/Icons/Folder_(Test).png',(60,350),(50,50))
+    Opr.render_image('Assets/Icons/Folder.png',(60,350),(50,50))
     Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
     Opr.render_image('Assets/Icons/Internet_(Test).png',(180,350),(50,50))
+    Opr.render_image('Assets/Icons/Messages.png',(234,350),(50,50))
 
 
   def check_icons(clickpos: tuple):
@@ -221,8 +237,8 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    #user_logged = Compu.log_in()
-    user_logged = True
+    user_logged = Compu.log_in()
+    #user_logged = True
       
   else:
 
@@ -233,28 +249,38 @@ while RUN:
       pygame.display.flip()
 
     #FILE Directory
-    if page == 'fd0':
+    elif page == 'fd0':
       Compu.render_barre_taches((55,350))
       Compu.render_file_tree(file_dir_path)
       file_dir_path = output
       Compu.render_typing_text((70,9),25)
-      Opr.render_image('Assets/Icons/Back.png', (30,0), (30,30))
+      Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27))
       open = True
       pygame.display.flip()
     
-    if page == 'web':
+    elif page == 'web':
       Compu.render_barre_taches((177,350))
       Opr.render_text('In construction', (200,300))
       pygame.display.flip()
 
     #Platformer
-    if page == 'plat':
+    elif page == 'plat':
       if type(plat_check) == str:
         page = plat_check
       else:
         plat_check = plat.play_game(plat_check)
         if type(plat_check) == int:
           level = plat_check
+
+    elif page == 'messages':
+      if 1 in varia.unlocked:
+        Compu.render_barre_taches((232,350))
+        Compu.render_messagerie(varia.messages)
+        pygame.display.flip()
+      else:
+        Compu.render_barre_taches((232,350))
+        Opr.render_text('Acces Sécurisé !', (varia.resolution[0]/2, varia.resolution[1]/2))
+
 
   #On check les events
   for event in pygame.event.get():
@@ -267,25 +293,28 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
-        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web'], page) == True:
+        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], page) == True:
           page = 'fd0'
           output = 'C:/'
 
         #Appli home (comme le bouton windows ?)
-        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], page) == True:
           page = 'home'
         
         #Close button
-        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], page) == True:
           page = 'home'            
         
         #Open platformer
-        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], page) == True:
           plat_check = level
           page = 'plat'
         
-        elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0'], page) == True:
+        elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0','messages'], page) == True:
           page = 'web'
+
+        elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
+          page = 'messages'
 
         #Back button
         if page == 'fd0':
@@ -316,5 +345,6 @@ while RUN:
           output += event.unicode
 
   pygame.display.flip()
+  clock.tick(60)
 
 pygame.quit()
