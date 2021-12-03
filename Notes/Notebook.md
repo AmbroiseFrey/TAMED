@@ -11,4 +11,5 @@
 
 12/03/2021:
 - _Ambroise + Joachim + Mathis_ : Pauffinement de l'histoire et organisation du cahier des charges
-_Mathis_ : Ecriture de l'histoire dans le cahier des charges
+- _Mathis_ : Ecriture de l'histoire dans le cahier des charges
+- _Ambroise_ : Ajouts et correction de bugs dans l'Ordinateur

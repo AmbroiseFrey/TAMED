@@ -7,7 +7,9 @@ screen_rect = screen.get_rect()
 class Image:
   relative = (0,0) #est-ce que je peux l'avoir en faisant Image.relative ? je crois
   def __init__(self,url,x = 0,y=0, w=None, h=None):
-    """crée une image qui sera utilisée pour les Sprites en prenant en argument l'`url` de l'image, son abscisse `x`, son ordonnée `y` et/ou sa taille définie par `w` et `h`"""
+    """
+    crée une image qui sera utilisée pour les Sprites en prenant en argument l'`url` de l'image, son abscisse `x`, son ordonnée `y` et/ou sa taille définie par `w` et `h`
+    """
     self.img = pygame.image.load(url)
     r = list(self.img.get_rect())
     if not (w and h):
@@ -65,12 +67,12 @@ class Sprite(Image): # Cette classe permet de créer un Sprite, c'est à dire qu
     return None
   
 class MotionSprite(Sprite):
-  def __init__(self, image: str, x: int, y: int, w: int, h: int, v: (list|tuple)[int] = [0,0], f: (list|tuple)[int] = [1, 1]):
+  def __init__(self, image: str, x: int, y: int, w: int, h: int, v = [0,0], f  = [1, 1]):
     """
     `x`: abscisse, `y`: ordonnée, `w`: largeur, `h`: hauteur,
     `v`: vecteur force, `f`: friction
     """
-    super.__init__(image, x, y, w, h)
+    super().__init__(image, x, y, w, h)
     self.vector = v
     self.f = [1-i for i in f]
   def newRect(self):
@@ -83,4 +85,10 @@ class Group:
     self.length = 0
   def add(self, thing):
     self[self.length] = thing
-    self.length += 1    
+    self.length += 1
+  def forEach(self,callback):
+    for i in range(self.length):
+      callback(self[i])
+  def display(self):
+    for i in range(self.length):
+      self[i].display()

@@ -6,9 +6,10 @@ import ext.Core.file_explorer as files
 import ext.Core.operations as Opr
 import ext.Alt.snake as snk
 import ext.Core.variables as varia
+import ext.Platformer_Scrolling.new_platformer as test
 #Setup de la fenetre pygame
 pygame.init()
-pygame.mixer.init()
+pygame.mixer.init() # setup de l'extension de fichiers audio
 
 #Taille
 screen = pygame.display.set_mode(varia.resolution)
@@ -21,17 +22,17 @@ clock = pygame.time.Clock()
 
 
 #Variables pour faire marcher la base de notre programme
-RUN = True
-user_logged = False
-output = ''
-page = 'home'
-file_dir_path = 'C:/'
-clickable_icons = {}
-plat_check = 0
+RUN = True #est ce que la boucle while tourne
+user_logged = False #est ce que le joueur est dans l'ordi
+output = '' #Le texte type input directement via le clavier
+page = 'home' #La page de l'ordi
+file_dir_path = 'C:/' #Les fichiers
+clickable_icons = {}  #
+plat_check = 0 #Ignorer
 level = 0
 #Cheat pour acceder directement a la messagerie (devellopment)
 varia.unlocked = [1,]
-message = None
+message = varia.messages
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -145,10 +146,8 @@ class Computer:
           Opr.render_image('Assets/Icons/Folder.png',(2,i-5),(22,22))
         #On render le text
         Opr.render_text(el,(25,i),varia.WHITE,30)
-        # On rajoute l'element
-        clickable_icons[(2,22,i-5,i-5+22)] = el +'/'
-        # On itere
-        i+=30
+        clickable_icons[(2,22,i-5,i-5+22)] = el +'/' # On rajoute l'element
+        i+=30 # On itere
     else:
       clickable_icons = {}
       Opr.render_file(files_loaded)
@@ -163,21 +162,17 @@ class Computer:
     for el in messages:
       #On render le text
       Opr.render_text(el,(25,i),varia.WHITE,30)
-      # On rajoute l'element
-      clickable_icons[(2,22,i-5,i-5+22)] = el
-      # On itere
-      i+=30
+      clickable_icons[(2,12*len(el),i-5,i-5+22)] = el # On rajoute l'element
+      i+=30 # On itere
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
     '''
     Render la barre des taches par rapport a la la fenetre ouverte
     '''
-    #Background
     if app:
-      screen.fill(varia.BLUE_GREY)
-    #Barre des taches
-    Opr.render_rectangle(varia.WHITE, (600,70), (0,350))
+      screen.fill(varia.BLUE_GREY) #Background
+    Opr.render_rectangle(varia.WHITE, (600,70), (0,350)) #Rectangle de la barre des taches
     Opr.render_time()
     if app:
       #Bar haut de Fenetre
@@ -196,7 +191,7 @@ class Computer:
   def check_icons(clickpos: tuple):
     for wanted_area in clickable_icons.keys():
       if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
-        return clickable_icons[wanted_area]
+        return clickable_icons[wanted_area] # On renvoit le content correspondant à la zone
 
 Compu = Computer
 
@@ -269,14 +264,18 @@ while RUN:
       if type(plat_check) == str:
         page = plat_check
       else:
-        plat_check = plat.play_game(plat_check)
+        plat_check = test.play_game(plat_check)
         if type(plat_check) == int:
           level = plat_check
 
     elif page == 'messages':
       if 1 in varia.unlocked:
         Compu.render_barre_taches((232,350))
-        Compu.render_messagerie(varia.messages)
+        if type(message) == dict: #si on est dans la boite de reception
+          Compu.render_messagerie(message)
+        else:
+          Opr.render_file(message) #sinon on render l'email
+        Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27))
         pygame.display.flip()
       else:
         Compu.render_barre_taches((232,350))
@@ -298,33 +297,38 @@ while RUN:
           page = 'fd0'
           output = 'C:/'
 
-        #Appli home (comme le bouton windows ?)
+        #Appli home
         elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], page) == True:
           page = 'home'
         
-        #Close button
+        #Bouton close
         elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], page) == True:
           page = 'home'            
         
-        #Open platformer
+        #Acces au robot
         elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], page) == True:
           plat_check = level
           page = 'plat'
         
+        #Internet explorer
         elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0','messages'], page) == True:
           page = 'web'
 
+        #Messagerie
         elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
           page = 'messages'
         
-        if page == 'messages':
+        # Ouvrir des messages
+        elif page == 'messages':
           check = Compu.check_icons(event.pos)
           if type(check) == str:
-            message = None
+            message = varia.messages[check] #Si on click un mail on l'ouvre
+          if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
+            message = varia.messages #Si bouton back on revient a la boite mail
 
-        #Back button
-        if page == 'fd0':
-          if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True:
+        elif page == 'fd0':
+          if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True: #Back button
+            clickable_icons = {} #reset les icons clickables
             file_dir_path = file_dir_path[:-1]
             for c in reversed(file_dir_path):
               if c == '/':
@@ -333,10 +337,11 @@ while RUN:
               else:
                 file_dir_path = file_dir_path[:-1]
 
-          check = Compu.check_icons(event.pos)
+          check = Compu.check_icons(event.pos) # Icons
           if type(check) == str:
-            file_dir_path += check
-            output = file_dir_path
+            clickable_icons = {} #reset les icons clickables
+            file_dir_path += check # ajoute le fichier clické
+            output = file_dir_path # fait le lien avec le clavier
 
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:

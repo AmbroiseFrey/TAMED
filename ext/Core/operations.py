@@ -10,19 +10,19 @@ def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 30):
   Fonction qui permet d'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
   '''
-  pygame.font.init()
-  font = pygame.font.SysFont('Comic Sans MS', size)
-  text = font.render(text, True, color)
-  screen.blit(text,pos)
+  pygame.font.init() #On demarre l'extension des fonts
+  font = pygame.font.SysFont('Comic Sans MS', size) # on definit la font
+  text = font.render(text, True, color) # On definit le text
+  screen.blit(text,pos) # On affiche
 
 
 def render_image(image_name: str,pos: tuple,size: tuple):
   '''
   Fonction qui permet d'afficher une image.
   Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
-  loaded_img= pygame.image.load(image_name)
-  loaded_img = pygame.transform.scale(loaded_img, size)
-  screen.blit(loaded_img, pos + size)
+  loaded_img= pygame.image.load(image_name) # On load l'image
+  loaded_img = pygame.transform.scale(loaded_img, size) # On change son echelle
+  screen.blit(loaded_img, pos + size) # On affiche
 
 
 def render_rectangle(color: tuple,size: tuple,pos: tuple):
@@ -62,21 +62,21 @@ def render_time():
   render_text(time.strftime("%Y-%m-%d"),(522,385),varia.BLACK,20)
   render_text(str(hour) +':' + time.strftime("%M"),(520,355),varia.BLACK,40)
 
-def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20):
+def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20, size : tuple = (400,266)):
   '''
   Render le content d'un fichier
   '''
-  if type(file_contents) == list:
+  if type(file_contents) == list: # Si c'est du texte en plusieurs lignes
     for el in file_contents:
       render_text(el, (x,y), varia.WHITE,20)
       y += espacement_ligne
-  elif type(file_contents) == str:
-    if file_contents[len(file_contents)-3:len(file_contents)] == 'mp3':
+  elif type(file_contents) == str: 
+    if file_contents[len(file_contents)-3:len(file_contents)] == 'mp3': #si c'est de la musique
       pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
       pygame.mixer.music.play()
-    elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']:
-      render_image('Assets/Directory Files/'+file_contents, (x,y), (480,280))
+    elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
+      render_image('Assets/Directory Files/'+file_contents, (x,y), size)
     else:
-      render_text(file_contents, (x,y))
+      render_text(file_contents, (x,y)) # base, on render le texte
   else:
     pass

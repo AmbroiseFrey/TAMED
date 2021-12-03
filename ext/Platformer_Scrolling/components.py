@@ -2,8 +2,8 @@ from ext.Platformer_Scrolling.game_utils import Image, MotionSprite, Sprite, scr
 import pygame
 
 class Player(MotionSprite):
-  def __init__(self):
-    super.__init__()
+  def __init__(self,x,y,w=None,h=None):
+    super().__init__('Assets/Platformer/Player.png',x,y,w,h)
   def move(self, x, y):
     self.pos = (x,y)
     self.r = [self.r[i]+(x,y)[i%2] for i in range(4)]
@@ -22,7 +22,6 @@ class Player(MotionSprite):
     else:
       self.vector[1] += .5
 
-    # self.move() # On update la character
     # self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de l'ecran
     Image.relative = self.pos
     

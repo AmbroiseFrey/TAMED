@@ -11,14 +11,14 @@ YELLOW = (255, 255, 0)
 resolution = (600,400)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
-unlocked = []
+unlocked = [] #Variable type 'achievements' qui permet d'acceder à de nouveaux fichiers/messages
 
-recoverd_drive = {'D:':{
+recovered_drive = {'D:':{  #Le drive trouvé par le robot
   'Thing' : 'Thing',
 },
 }
 
-messages = {
+messages = { # les messages recus de base
   "J.M.T.D. Europe Meeting":[
     "from: Dir. Slane",
     "to: Group:JMTD-Europe",
@@ -37,4 +37,11 @@ messages = {
     "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
     "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé la boite noire."
   ]
+}
+
+unlockable_messages = {
+  1.1 : [],
+  1.2 : [],
+  1.3 : [],
+  1.4 : []
 }

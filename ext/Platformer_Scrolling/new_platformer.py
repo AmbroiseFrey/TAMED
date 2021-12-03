@@ -2,6 +2,7 @@ import pygame, time
 import ext.Core.operations as Opr
 import ext.Core.variables as varia
 from ext.Platformer_Scrolling.components import Floor, Player, Level_Flag, Lava
+from ext.Platformer_Scrolling.game_utils import Group
 
 ##Lien avec main.py
 ##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
@@ -21,9 +22,9 @@ def play_game(level = 0):
   varia.RUN_plat == True
   clock = pygame.time.Clock()
   player = Player(100, 200)
-  floor = []
+  floor = Group()
   for tile in range(0,650,50): 
-    floor.apend(Floor(tile,380))
+    floor.add(Floor(tile,380))
   #Boucle de jeu
   while varia.RUN_plat:
     #Ici on check les events autre que les touches fleches
