@@ -30,6 +30,8 @@ class Image:
 class Sprite(Image): # Cette classe permet de créer un Sprite, c'est à dire qu'on crée un `image` sur l'écran et cette image correspond à un objet Sprite de hauteur `height`, de largeur `width`, d'abscisse `x` et d'ordonnée `y`
   def __init__(self, image, x=0, y=0, w=None, h=None): 
     super().__init__(image, x, y, w, h)
+    self.borders = ()
+    self.updateBorders()
   
   def collides_with(self, environment, checkAll=False):
     result = [] if checkAll else None
@@ -42,18 +44,22 @@ class Sprite(Image): # Cette classe permet de créer un Sprite, c'est à dire qu
     return result
   def getTouchBorders(self,sprite):
     pass
-  def getBorderPoints(self,number:int):
-    """0 -> haut   1 -> droite   2 -> bas   3 -> gauche"""
-    assert number < 4 and number > 0, "il n'y a que 4 côtés autour d'un sprite"
-    r = self.rect
-    return (
-      ((r[0],r[1]),(r[2],r[1])) if number == 0 else
-      ((r[2],r[1]),(r[2],r[3])) if number == 1 else
-      ((r[2],r[3]),(r[0],r[3])) if number == 2 else
-      ((r[0],r[3]),(r[0],r[1]))
+  def updateBorders(self):
+    A,B,C,D = self.rect
+    self.borders = (
+      ((A,B),(C,B)),
+      ((C,B),(C,D)),
+      ((C,D),(A,D)),
+      ((A,D),(A,B))
     )
-  def borderCollide(self,border_number, environment):
-    pass
+  def borderCollide(self, border_number, environment):
+    border = self.borders[border_number]
+    borderType = border[0][0] == border[1][0] # si True: border is left or right, else, border is top or down
+    for i in environment:
+      if borderType:
+        if border[0][1]
+      else:
+        pass
   
 class MotionSprite(Sprite):
   def __init__(self, image: str, x: int, y: int, w: int, h: int, v: (list|tuple)[int] = [0,0], f: (list|tuple)[int] = [1, 1]):
@@ -65,70 +71,6 @@ class MotionSprite(Sprite):
     self.vector = v
     self.f = [1-i for i in f]
   def newRect(self):
-    return [self.r[i]+self.v[i%2] for i in range(4)]
+    return [self.r[i] + self.v[i%2] for i in range(4)]
   def updateVector(self):
-    self.v = [self.v[i]*self.f[i] for i in range(2)]
-
-
-##########  Components  ##########
-
-class Player(MotionSprite):
-  def __init__(self):
-    super.__init__()
-  def move(self, x, y):
-    self.pos = (x,y)
-    self.r = [self.r[i]+(x,y)[i%2] for i in range(4)]
-  def update(self, level, floor, flag, lava):
-    move = pygame.key.get_pressed()
-    self.vector = [
-      -4 if move[pygame.K_LEFT] else 4 if move[pygame.K_RIGHT] else 0,
-      -4 if move[pygame.K_UP] else 0
-    ]
-
-    # on regarde si le `player` touche le sol
-    touch_floor = self.collides_with(floor)
-    if touch_floor:
-      self.vector[1] = 0
-    else:
-      self.vector[1] += .5
-
-    if flag:
-      print("Flag")
-      return 'Flag'
-      
-
-    if lava:
-      print("Lava")
-      return 'Lava'
-
-    # self.move(h_move, v_move, floor) # On update la character
-    self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
-
-  def check_collision(self, x, y, environment):
-    self.rect.move_ip([x, y]) #On fait bouger le sprite
-    collide = pygame.sprite.spritecollideany(self, environment) #On check si il touche le sol
-    self.rect.move_ip([-x, -y]) #On le renvoit d'ou il vient
-    return collide
-    
-
-#On definit le sol
-class Floor(Sprite):
-  def __init__(self, x, y):
-    super().__init__("Assets/Platformer/Floor_(Test).png", x, y)
-
-
-class Level_Flag(Sprite):
-  def __init__(self, x, y):
-    super().__init__("Assets/Platformer/Checkpoint.png", x, y)
-
-class Lava(Sprite):
-  def __init__(self, x, y):
-    super().__init__("Assets/Platformer/Lava.png", x, y)
-
-class Platform(Sprite): #Moving platform
-  def __init__(self, x, y, speed):
-    super().__init__("Assets/Platformer/Floor_(Test).png", x, y)
-    self.speed = speed # Vitesse de deplacement
- 
-  def move(self):
-    pass
+    self.v = [self.v[i] * self.f[i] for i in range(2)]

@@ -237,8 +237,8 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = Compu.log_in()
-    #user_logged = True
+    #user_logged = Compu.log_in()
+    user_logged = True
       
   else:
 
