@@ -31,6 +31,7 @@ plat_check = 0
 level = 0
 #Cheat pour acceder directement a la messagerie (devellopment)
 varia.unlocked = [1,]
+message = None
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -315,6 +316,11 @@ while RUN:
 
         elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
           page = 'messages'
+        
+        if page == 'messages':
+          check = Compu.check_icons(event.pos)
+          if type(check) == str:
+            message = None
 
         #Back button
         if page == 'fd0':

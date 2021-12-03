@@ -20,6 +20,10 @@ def test():
 def play_game(level = 0):
   varia.RUN_plat == True
   clock = pygame.time.Clock()
+  player = Player(100, 200)
+  floor = []
+  for tile in range(0,650,50): 
+    floor.apend(Floor(tile,380))
   #Boucle de jeu
   while varia.RUN_plat:
     #Ici on check les events autre que les touches fleches
@@ -36,7 +40,8 @@ def play_game(level = 0):
           #On check si l'utilisateur veut quitter le jeu
           if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
             return 'home'
-
+    player.update(floor)
+    
     pygame.event.pump()
     screen.fill((0,0,0))
     Opr.render_image('Assets/Platformer/Background.png', (0,0), (600,400))

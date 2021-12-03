@@ -1,4 +1,4 @@
-from ext.Platformer_Scrolling.game_utils import MotionSprite, Sprite, screen_rect
+from ext.Platformer_Scrolling.game_utils import Image, MotionSprite, Sprite, screen_rect
 import pygame
 
 class Player(MotionSprite):
@@ -15,20 +15,16 @@ class Player(MotionSprite):
     ]
 
     # on regarde si le `player` touche le sol
-    touch_floor = self.collides_with(floor)
-    if touch_floor:
+    touch_floor_bottom = self.collides_with(floor)
+    if touch_floor_bottom:
+      print("touching floor")
       self.vector[1] = 0
     else:
       self.vector[1] += .5
 
     # self.move() # On update la character
-    self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de lecran
-
-  def check_collision(self, x, y, environment):
-    self.rect.move_ip([x, y]) #On fait bouger le sprite
-    collide = pygame.sprite.spritecollideany(self, environment) #On check si il touche le sol
-    self.rect.move_ip([-x, -y]) #On le renvoit d'ou il vient
-    return collide
+    # self.rect.clamp_ip(screen_rect) # Permet d'empecher le character de sortir de l'ecran
+    Image.relative = self.pos
     
 
 #On definit le sol

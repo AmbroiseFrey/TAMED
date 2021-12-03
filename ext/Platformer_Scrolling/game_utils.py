@@ -30,7 +30,7 @@ class Image:
 class Sprite(Image): # Cette classe permet de créer un Sprite, c'est à dire qu'on crée un `image` sur l'écran et cette image correspond à un objet Sprite de hauteur `height`, de largeur `width`, d'abscisse `x` et d'ordonnée `y`
   def __init__(self, image, x=0, y=0, w=None, h=None): 
     super().__init__(image, x, y, w, h)
-    self.borders = ()
+    self.borders = () # 0:top; 1:right; 2:bottom; 3:left
     self.updateBorders()
   
   def collides_with(self, environment, checkAll=False):
@@ -49,17 +49,20 @@ class Sprite(Image): # Cette classe permet de créer un Sprite, c'est à dire qu
     self.borders = (
       ((A,B),(C,B)),
       ((C,B),(C,D)),
-      ((C,D),(A,D)),
-      ((A,D),(A,B))
+      ((A,D),(C,D)),
+      ((A,B),(A,D))
     )
   def borderCollide(self, border_number, environment):
     border = self.borders[border_number]
     borderType = border[0][0] == border[1][0] # si True: border is left or right, else, border is top or down
     for i in environment:
       if borderType:
-        if border[0][1]
+        if i.rect[0]<border[0][0]<i.rect[2] and border[0][1]<i.rect[3] and border[1][1]>i.rect[1]:
+          return i
       else:
-        pass
+        if i.rect[1]<border[0][1]<i.rect[3] and border[0][0]<i.rect[2] and border[1][0]>i.rect[0]:
+          return i
+    return None
   
 class MotionSprite(Sprite):
   def __init__(self, image: str, x: int, y: int, w: int, h: int, v: (list|tuple)[int] = [0,0], f: (list|tuple)[int] = [1, 1]):
@@ -74,3 +77,10 @@ class MotionSprite(Sprite):
     return [self.r[i] + self.v[i%2] for i in range(4)]
   def updateVector(self):
     self.v = [self.v[i] * self.f[i] for i in range(2)]
+
+class Group:
+  def __init__(self):
+    self.length = 0
+  def add(self, thing):
+    self[self.length] = thing
+    self.length += 1    
