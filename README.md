@@ -1,6 +1,8 @@
 # Project-NSI
 Via https://replit.com/@AmbF/Project
+<br/>
 L'utilisation de repl.it ne permet pas de comprendre la totalité des contributions de chacun par les commits github.
+<br/>
 Voir `Project Plan/Notebook.md` pour un plan détaillé des contributions de chaque membres du groupe.
 
 ## But du jeu
