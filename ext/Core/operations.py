@@ -1,9 +1,10 @@
-import pygame, time
+import pygame, time 
 import ext.Core.variables as varia
 
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode(varia.resolution)
+save = None
 
 def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 30):
   '''
@@ -71,9 +72,8 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
       render_text(el, (x,y), varia.WHITE,20)
       y += espacement_ligne
   elif type(file_contents) == str: 
-    if file_contents[len(file_contents)-3:len(file_contents)] == 'mp3': #si c'est de la musique
-      pygame.mixer.music.load('Assets/Directory Files/'+file_contents)
-      pygame.mixer.music.play()
+    if file_contents[len(file_contents)-3:len(file_contents)] in ['mp3','wav']: #si c'est de la musique
+      varia.sound = 'Assets/Directory Files/' + file_contents
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
       render_image('Assets/Directory Files/'+file_contents, (x,y), size)
     else:

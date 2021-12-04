@@ -1,12 +1,11 @@
 #https://www.pygame.org/docs/ 
-import pygame ,time
-import ext.Alt.web_search as s
-import ext.Core.platformer as plat
-import ext.Core.file_explorer as files
+import pygame, time
+import ext.Apps.web_search as s
+import ext.Apps.file_explorer as files
 import ext.Core.operations as Opr
-import ext.Alt.snake as snk
+import ext.Apps.snake as snk
 import ext.Core.variables as varia
-import ext.Platformer_Scrolling.new_platformer as test
+import ext.Platformer.platformer as plat
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -33,6 +32,8 @@ level = 0
 #Cheat pour acceder directement a la messagerie (devellopment)
 varia.unlocked = [1,]
 message = varia.messages
+#variables specifiques a des sous stages quand il faut ecrire
+writing_data = [] #
 
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -216,8 +217,7 @@ def test_ext(time_sleep:int = 0.5):#tests des extensions
   Opr.render_text(snk.test(), (0,80))
   pygame.display.flip()
   time.sleep(time_sleep)
-
-test_ext()
+#test_ext()
 
 
 ##------------------------------##
@@ -240,19 +240,19 @@ while RUN:
 
     #HOME
     if page == 'home':
-      Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution)
-      Compu.render_barre_taches((55,350), False)
-      pygame.display.flip()
+      Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution) # On render le background
+      Compu.render_barre_taches((55,350), False) #On render la barre des taches
+      pygame.display.flip() #on display le tout
 
     #FILE Directory
     elif page == 'fd0':
-      Compu.render_barre_taches((55,350))
-      Compu.render_file_tree(file_dir_path)
-      file_dir_path = output
-      Compu.render_typing_text((70,9),25)
-      Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27))
-      open = True
-      pygame.display.flip()
+      Compu.render_barre_taches((55,350)) #On render la barre des taches
+      Compu.render_file_tree(file_dir_path) #on render les files/dossiers par rapport au chemin
+      file_dir_path = output # on synchronise le texte tapé avec le chemin
+      Compu.render_typing_text((70,9),25) # on render le texte qui est tapé
+      Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27)) # on render le bouton back
+      open = True # on permet de taper au clavier
+      pygame.display.flip() #on display le tout
     
     elif page == 'web':
       Compu.render_barre_taches((177,350))
@@ -261,29 +261,49 @@ while RUN:
       Opr.render_rectangle(varia.BLACK, (1,27), (66,1))
       Opr.render_rectangle(varia.BLACK, (600,1), (66,28))
       Opr.render_rectangle(varia.BLUE_GREY, (580,20), (70,5))
-      #open=True
       Compu.render_typing_text((72,10),20)
-      open=True
-      Opr.render_text('In construction', (200,300))
+      if not(open): #Si l'utilisateur ne tape plus
+        s.load_page(output) # on load la page
       pygame.display.flip()
 
     #Platformer
-    elif page == 'plat':
-      if type(plat_check) == str:
-        page = plat_check
+    elif page == 'plat': # si la page est celle du platformer
+      if type(plat_check) == str: #si le platformer renvoit le fait que il revient a un page de l'ordi
+        page = plat_check # on va a cette page
       else:
-        plat_check = test.play_game(plat_check)
-        if type(plat_check) == int:
-          level = plat_check
+        plat_check = plat.play_game(plat_check) # on check par rapport à ce que la fonction retourne
+        if type(plat_check) == int: # si la fonction retourne un chiffre
+          level = plat_check #on synchronise avec le level
 
     elif page == 'messages':
-      if 1 in varia.unlocked:
+      if 1 in varia.unlocked: # si on a unlock la boite mail
         Compu.render_barre_taches((232,350))
         if type(message) == dict: #si on est dans la boite de reception
           Compu.render_messagerie(message)
+        elif message == 'New message':
+          clickable_icons = {} #on clear les clickables icons 
+          #rectangle destinataire
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,50))
+          Opr.render_rectangle(varia.BLACK, (1,27), (66,50))
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,78))
+          Opr.render_rectangle(varia.GREY, (580,21), (70,54))
+          Opr.render_text("Destinataire:"+writing_data[1],(72,54),varia.BLACK,21)
+
+          #rectangle object du mail
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,88))
+          Opr.render_rectangle(varia.BLACK, (1,27), (66,88))
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,115))
+          Opr.render_rectangle(varia.GREY, (580,20), (70,92))
+          Opr.render_text("Objet:"+writing_data[2],(72,54),varia.BLACK,21)
+          if writing_data[0] == 'dest':
+            writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
+          elif writing_data[0] == 'topic':
+            writing_data[2] == output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
+
         else:
           Opr.render_file(message) #sinon on render l'email
         Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27))
+        Opr.render_image('Assets/Icons/pensil-replit.jpg', (60,0), (27,27))
         pygame.display.flip()
       else:
         Compu.render_barre_taches((232,350))
@@ -326,12 +346,20 @@ while RUN:
           clickable_icons = {} #on reset les clickable icons 
           page = 'web'
           output=''
+          open=False
 
         #Messagerie
         elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'messages'
+          
         
+        #URL
+        elif Opr.check_interaction(event.pos, (66,600,1,28), ['web'], page) == True:
+          open=True
+
+
+
         # Ouvrir des messages
         elif page == 'messages':
           check = Compu.check_icons(event.pos)
@@ -339,6 +367,15 @@ while RUN:
             message = varia.messages[check] #Si on click un mail on l'ouvre
           if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
             message = varia.messages #Si bouton back on revient a la boite mail
+          
+          elif Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True and message == 'New message':
+            writing_data[0] = 'dest'
+          
+          #écrire un mail  
+          elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], page) == True:
+            message = 'New message'
+            writing_data = ['dest', '','','']
+            open=True
 
         elif page == 'fd0':
           if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True: #Back button
@@ -364,11 +401,13 @@ while RUN:
       if open:
         if event.key == pygame.K_RETURN:
           open = False
-        if event.key == pygame.K_BACKSPACE:
-          output =  output[:-1]
+        elif event.key == pygame.K_BACKSPACE:
+          output =  output[:-1] #on enleve le dernier character
         else:
-          output += event.unicode
-
+          output += event.unicode # on ajoute le character au output
+      else:
+        if event.key == pygame.K_RETURN: # Si on ne peux pas ecrire et la touche est enter
+          open = True # on peut ecrire
   pygame.display.flip()
   clock.tick(60)
 

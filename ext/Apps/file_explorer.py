@@ -33,7 +33,7 @@ Files = {'C:':{
                                         },
                               'Telechargements':{
                                         '9348-598-g5h9.jpg':'9348-598-g5h9.jpg',
-                                        'Cow_laugh.mp3':'Cow_laugh.mp3',
+                                        'Cow_laugh.mp3':'Cow_laugh.wav',
                                         'fake-virus.exe':[
                                           'YOU HAVE BEEN HACKED',
                                           '--------------------',

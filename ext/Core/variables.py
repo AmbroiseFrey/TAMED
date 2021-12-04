@@ -9,6 +9,7 @@ LIGHT_BLUE = (173,216,230)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 resolution = (600,400)
+mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
 unlocked = [] #Variable type 'achievements' qui permet d'acceder à de nouveaux fichiers/messages
@@ -45,3 +46,5 @@ unlockable_messages = {
   1.3 : [],
   1.4 : []
 }
+
+sound = 'Assets/Computer-Start.wav'

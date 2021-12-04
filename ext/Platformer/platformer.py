@@ -1,8 +1,8 @@
 import pygame, time
 import ext.Core.operations as Opr
 import ext.Core.variables as varia
-from ext.Platformer_Scrolling.components import Floor, Player, Level_Flag, Lava
-from ext.Platformer_Scrolling.game_utils import Group
+from ext.Platformer.components import Floor, Player, Level_Flag, Lava
+from ext.Platformer.game_utils import Group
 
 ##Lien avec main.py
 ##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
@@ -22,11 +22,23 @@ def play_game(level = 0):
   varia.RUN_plat == True
   clock = pygame.time.Clock()
   player = Player(100, 200)
+  print(player.r)
+  print(player.size)
   floor = Group()
   for tile in range(0,650,50): 
-    floor.add(Floor(tile,380))
+    floor.add(Floor(tile,380+tile/12))
+  for tile in range(330,0,-50): 
+    floor.add(Floor(0,tile))
   #Boucle de jeu
   while varia.RUN_plat:
+    Opr.render_image('Assets/Platformer/Background.jpg', (0,0), (600,400)) #on display le Background
+
+    #On display et update les sprites ici
+    player.update(floor)
+    floor.display()
+
+    #On display l'icon pour revenir a l'ordi
+    Opr.render_image('Assets/Icons/home.png',(0,0),(50,50))
     #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
@@ -41,12 +53,6 @@ def play_game(level = 0):
           #On check si l'utilisateur veut quitter le jeu
           if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
             return 'home'
-    player.update(floor)
-    
-    pygame.event.pump()
-    screen.fill((0,0,0))
-    Opr.render_image('Assets/Platformer/Background.png', (0,0), (600,400))
-    Opr.render_image('Assets/Icons/home.png',(0,0),(50,50))
 
     clock.tick(60) #permet de s'adapter à nos boucles, les animations et même les mouvements sont beacoup plus 'smooth'
 
