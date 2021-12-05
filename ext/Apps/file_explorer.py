@@ -1,4 +1,4 @@
-Files = {'C:':{
+Files ={'C:':{
           'Utilisateurs':{
                     'Agent Doe':{
                               'Fichiers': {
@@ -62,11 +62,12 @@ Files = {'C:':{
                     },
           'Program Files':{
                     'chrome.exe':'<',
-                    'tamed.exe':'<'}
+                    'tamed.exe':'<',
+                    'snake.py': 'snake.py'}
           }
         }
 
-def explore_file(file_path:str = 'C:/Utilisateurs/Agent Doe/Fichiers:Manuel entretien.pdf/'):
+def explore_file(file_path:str = 'PC/C:/Utilisateurs/Agent Doe/Fichiers:Manuel entretien.pdf/'):
   '''
   Fonction qui prend en argument un file path.
   Pour signaler un nouveau dossier on utilise / au lieu de \

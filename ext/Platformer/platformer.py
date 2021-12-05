@@ -25,7 +25,7 @@ def play_game(level = 0):
   print(player.r)
   print(player.size)
   floor = Group()
-  for tile in range(0,650,50): 
+  for tile in range(0,10000,50): 
     floor.add(Floor(tile,380+tile/12))
   for tile in range(330,0,-50): 
     floor.add(Floor(0,tile))

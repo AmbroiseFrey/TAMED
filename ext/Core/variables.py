@@ -14,8 +14,11 @@ Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
 unlocked = [] #Variable type 'achievements' qui permet d'acceder à de nouveaux fichiers/messages
 
+page = 'home'
+file_dir_path = '' #Les fichiers
+
 recovered_drive = {'D:':{  #Le drive trouvé par le robot
-  'Thing' : 'Thing',
+  'User:' : 'Thing',
 },
 }
 

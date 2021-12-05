@@ -1,5 +1,6 @@
 import pygame, time 
 import ext.Core.variables as varia
+import ext.Apps.snake as snk
 
 pygame.init()
 pygame.mixer.init()
@@ -76,7 +77,11 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
       varia.sound = 'Assets/Directory Files/' + file_contents
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
       render_image('Assets/Directory Files/'+file_contents, (x,y), size)
+    elif file_contents == 'snake.py': #si c'est le snake game
+      snk.game()
+      return 'C:/'
     else:
       render_text(file_contents, (x,y)) # base, on render le texte
   else:
     pass
+  return varia.file_dir_path

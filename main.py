@@ -15,17 +15,15 @@ screen = pygame.display.set_mode(varia.resolution)
 
 #Nom et icon de notre fenetre
 pygame.display.set_caption("Krypt Corp")
-logo = pygame.image.load('Assets/Icons/Icon_(Test).png')
+logo = pygame.image.load('Assets/Icons/logo.svg')
 pygame.display.set_icon(logo)
 clock = pygame.time.Clock()
-
 
 #Variables pour faire marcher la base de notre programme
 RUN = True #est ce que la boucle while tourne
 user_logged = False #est ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
-page = 'home' #La page de l'ordi
-file_dir_path = 'C:/' #Les fichiers
+from ext.Core.variables import page, file_dir_path
 clickable_icons = {}  #
 plat_check = 0 #Ignorer
 level = 0
@@ -237,9 +235,11 @@ while RUN:
     user_logged = True
       
   else:
-
+    if 2 in varia.unlocked and not 'D:' in files.Files.keys():
+      files.Files = dict(files.Files,**varia.recovered_drive)
+      print(files.Files)
     #HOME
-    if page == 'home':
+    elif page == 'home':
       Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution) # On render le background
       Compu.render_barre_taches((55,350), False) #On render la barre des taches
       pygame.display.flip() #on display le tout
@@ -326,7 +326,7 @@ while RUN:
         if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'fd0'
-          output = 'C:/'
+          output = ''
 
         #Appli home
         elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], page) == True:
@@ -344,14 +344,14 @@ while RUN:
           page = 'plat'
         
         #Internet explorer
-        elif Opr.check_interaction(event.pos, (184,223,360,400), ['home','fd0','messages'], page) == True:
+        elif Opr.check_interaction(event.pos, (184,230,360,400), ['home','fd0','messages'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'web'
           output=''
           open=False
 
         #Messagerie
-        elif Opr.check_interaction(event.pos, (210,260,360,400), ['home','fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'messages'
           
@@ -379,19 +379,19 @@ while RUN:
           #Si click la boite destinataire
           elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], page) == True and message == 'New message':
             writing_data[0] = 'dest' # la writing stage est celle du destinataire
-            output = '' #on reset le texte du le lien avec le clavier
+            output = writing_data[1]
             open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite sujet
           elif Opr.check_interaction(event.pos, (66,598,89,115), ['messages'], page) == True and message == 'New message':
             writing_data[0] = 'topic'
-            output = '' #on reset le texte du le lien avec le clavier
+            output = writing_data[2]
             open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite corps du mail
           elif Opr.check_interaction(event.pos, (66,598,126,200), ['messages'], page) == True and message == 'New message':
             writing_data[0] = 'content'
-            output = '' #on reset le texte du le lien avec le clavier
+            output = writing_data[3]
             open = True # on autorise a faire le lien clavier - pygame
           
 

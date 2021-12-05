@@ -44,4 +44,5 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 - _Joachim_ : Travail sur la platformer. Correction de bugs.
 
 #### 05/12/2021:
-- _Ambroise_ : Un petit travail sur la messagerie
+- _Ambroise_ : Petit travail sur la messagerie
+- _Joachim_ : Documentation du platformer

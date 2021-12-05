@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+  Voici comment joachim l'aurais fait si on pouvait faire du JS
+  https://joachimlapl.github.io/projets_NSI/jeu/svgJSproto.html
+-->
+<html>
+
+<head>
+    <style>
+        html,
+        body,
+        svg {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        circle {
+            r: 2;
+            stroke: #000;
+            fill: #fff;
+        }
+
+        line {
+            stroke: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <svg>
+        <circle id="wheel0" />
+        <circle id="wheel1" />
+        <circle id="wheel2" />
+        <circle id="wheel3" />
+        <line />
+        <path />
+    </svg>
+    <script>
+        const $ = (s, p = document) => p.querySelector(s);
+        const svg = $('svg');
+        const keys = {};
+        onmousedown = ({ key }) => keys[key] = true;
+        onmouseup = ({ key }) => keys[key] = false;
+        const mouseposition = { x: 0, y: 0 };
+        onmousemove = ({ x, y }) => { mouseposition.x = x; mouseposition.y = y };
+        Object.defineProperties(String.prototype, {
+            map: {
+                value: function (callback) {
+                    r = [];
+                    for (let i = 0; i < this.length; i++) r.push(callback(this[i], i))
+                    return r
+                }
+            }
+        })
+        class Map {
+            static casestostr = {
+                '1111': [['M', 0, 0], ['L', 1, 0], ['L', 1, 1], ['L', 0, 1]],
+                '1110': [['M', 0, 0], ['L', 1, 0], ['L', 1, 1], ['L', .5, 1], ['L', 0, .5]],
+                '1101': [['M', 0, 0], ['L', 1, 0], ['L', 1, .5], ['L', .5, 1], ['L', 0, 1]],
+                '1100': [['M', 0, 0], ['L', 1, 0], ['L', 1, .5], ['L', 0, .5]],
+                '1011': [['M', 0, 0], ['L', .5, 0], ['L', 1, .5], ['L', 1, 1], ['L', 0, 1]],
+                '1010': [['M', 0, 0], ['L', .5, 0], ['L', 0, .5], ['M', .5, 1], ['L', 1, .5], ['L', 1, 1]],
+                '1001': [['M', 0, 0], ['L', .5, 0], ['L', .5, 1], ['L', 0, 1]],
+                '1000': [['M', 0, 0], ['L', .5, 0], ['L', 0, .5]],
+                '0111': [['M', .5, 0], ['L', 1, 0], ['L', 1, 1], ['L', 0, 1], ['L', 0, .5]],
+                '0110': [['M', .5, 0], ['L', 1, 0], ['L', 1, 1], ['L', .5, 1]],
+                '0101': [['M', .5, 0], ['L', 1, 0], ['L', 1, .5], ['M', .5, 1], ['L', 0, 1], ['L', 0, .5]],
+                '0100': [['M', .5, 0], ['L', 1, 0], ['L', 1, .5]],
+                '0011': [['M', 1, .5], ['L', 1, 1], ['L', 0, 1], ['L', 0, .5]],
+                '0010': [['M', 1, .5], ['L', 1, 1], ['L', .5, 1]],
+                '0001': [['M', 0, .5], ['L', .5, 1], ['L', 0, 1]],
+                '0000': [],
+            }
+            constructor(s, n, e) {
+                this.topology = s;
+                this.divider = n;
+                this.element = e;
+                const sp = s.split(',');
+                this.dimensions = [sp.length, sp[0].length];
+                this.matrix = sp.map(a => a.map(b => Number(b)));
+                var str = "";
+                for (let i = 0; i < this.dimensions[0] - 1; i++) {
+                    for (let j = 0; j < this.dimensions[1] - 1; j++) {
+                        const p = [[0, 0], [0, 1], [1, 1], [1, 0]].map(e => this.matrix[e[0] + i][e[1] + j]);
+                        Map.casestostr[p.join('')].forEach(e => {
+                            str += `${e[0]} ${(e[1] + j) * n},${(e[2] + i) * n} `;
+                        });
+                    }
+                }
+                e.setAttribute('d', str);
+                svg.setAttribute('viewBox', `0 0 ${(this.dimensions[1] - 1) * n} ${(this.dimensions[0] - 1) * n}`)
+            }
+            getY(x) {
+                for (let i in this.matrix)
+                    if (this.matrix[i][x]) return Number(i)
+            }
+            f(x) {
+                const div = x / this.divider;
+                if (x % this.divider === 0) {
+                    return this.getY(Math.floor(div)) * this.divider - 7.5;
+                } else {
+                    const fork_x = [Math.floor(div), Math.ceil(div)];
+                    const fork_y = fork_x.map(e => this.getY(e) * this.divider - 7.5);
+                    return (div - fork_x[0]) * (fork_y[1] - fork_y[0]) + fork_y[0];
+                }
+            }
+            force(wheel) {
+
+            }
+        }
+        class Wheel {
+            constructor(number, map) {
+                this.el = $(`#wheel${number}`, svg);
+                this.position = [number * 5 + 20, map.f(number * 5 + 20)]
+                console.log(this.position)
+                this.force = [0, 1];
+            }
+            update() {
+                this.el.cx.baseVal.value = this.position[0];
+                this.el.cy.baseVal.value = this.position[1];
+            }
+            get applyForce() {
+
+            }
+        }
+        class Chassis {
+            constructor(map) {
+                this.wheels = [0, 1, 2, 3].map(e => new Wheel(e, map));
+                console.log(this.wheels)
+                this.wheels.forEach(e => e.update());
+                this.line = $('line', svg);
+                this.p = [0, 0];
+                this.vector = [0, 0];
+                this.map = map;
+            }
+            update() {
+                const x = mouseposition.x / innerWidth * (this.map.dimensions[1] - 1) * this.map.divider;
+                this.wheels.forEach((e, i) => {
+                    e.position = [x + i * 5, this.map.f(x + i * 5)]
+                })
+                this.wheels.forEach(e => e.update());
+            }
+        }
+
+        const mapstr = `00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,00100000000000000000000000000000000000000111111000000000000000000000000000000000000000000,01111000000000000000000000000000100011111111111111000000000000001110000000000000000000001,11111111000000000000001100000111111111111111111111111100000000011111111000000000000001111,11111111111100000000011111011111111111111111111111111111001111111111111111000000000111111,11111111111111100001111111111111111111111111111111111111111111111111111111110000001111111,11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111`;
+        console.log(map = new Map(mapstr, 10, $('path', svg)));
+        console.log(chassis = new Chassis(map));
+        (loop = () => {
+            requestAnimationFrame(loop)
+            chassis.update()
+        })();
+    </script>
+</body>
+
+</html>

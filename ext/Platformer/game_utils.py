@@ -87,7 +87,7 @@ class MotionSprite(Sprite):
     """
     super().__init__(image, x, y, w, h)
     self.vector = v
-    self.f = [1-i for i in f]
+    self.f = tuple(1-i for i in f)
   def newRect(self):
     return [self.r[i] + self.v[i%2] for i in range(4)]
   def updateVector(self):
