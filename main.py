@@ -294,11 +294,13 @@ while RUN:
           Opr.render_rectangle(varia.BLACK, (1,27), (66,88))
           Opr.render_rectangle(varia.BLACK, (600,1), (66,115))
           Opr.render_rectangle(varia.GREY, (580,20), (70,92))
-          Opr.render_text("Objet:"+writing_data[2],(72,54),varia.BLACK,21)
+          Opr.render_text("Objet:"+writing_data[2],(72,92),varia.BLACK,21)
           if writing_data[0] == 'dest':
             writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'topic':
-            writing_data[2] == output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
+            writing_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
+          elif writing_data[0] == 'content':
+            writing_data[3] = output #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
 
         else:
           Opr.render_file(message) #sinon on render l'email
@@ -359,7 +361,6 @@ while RUN:
           open=True
 
 
-
         # Ouvrir des messages
         elif page == 'messages':
           check = Compu.check_icons(event.pos)
@@ -367,15 +368,32 @@ while RUN:
             message = varia.messages[check] #Si on click un mail on l'ouvre
           if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
             message = varia.messages #Si bouton back on revient a la boite mail
-          
-          elif Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True and message == 'New message':
-            writing_data[0] = 'dest'
-          
-          #écrire un mail  
+
+          #bouton écrire un mail  
           elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], page) == True:
             message = 'New message'
             writing_data = ['dest', '','','']
+            clickable_icons = {}
             open=True
+          
+          #Si click la boite destinataire
+          elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], page) == True and message == 'New message':
+            writing_data[0] = 'dest' # la writing stage est celle du destinataire
+            output = '' #on reset le texte du le lien avec le clavier
+            open = True # on autorise a faire le lien clavier - pygame
+          
+          #Si click la boite sujet
+          elif Opr.check_interaction(event.pos, (66,598,89,115), ['messages'], page) == True and message == 'New message':
+            writing_data[0] = 'topic'
+            output = '' #on reset le texte du le lien avec le clavier
+            open = True # on autorise a faire le lien clavier - pygame
+          
+          #Si click la boite corps du mail
+          elif Opr.check_interaction(event.pos, (66,598,126,200), ['messages'], page) == True and message == 'New message':
+            writing_data[0] = 'content'
+            output = '' #on reset le texte du le lien avec le clavier
+            open = True # on autorise a faire le lien clavier - pygame
+          
 
         elif page == 'fd0':
           if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True: #Back button

@@ -1,3 +1,5 @@
+###Travail d'ambroise pour comprendre les sprites pygame en suivant un tutoriel de repl.it###
+
 import pygame, time, numpy
 import ext.Core.operations as Opr
 import ext.Core.variables as varia

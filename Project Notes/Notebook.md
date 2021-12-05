@@ -1,7 +1,9 @@
 # Notebook
 
 ## Taches generales:
-Note: Tout le monde a travaillé sur d'autre parties, c'est un plan approximatif
+Note:<br/>
+Tout le monde a travaillé sur d'autre parties, c'est un plan approximatif<br/>
+Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. Elle renferme des scripts qui, même s'ils on été totalement remaniés ou remplacés par d'autres methodes, ont été créés pendant plusieurs jours par certains membres du groupe.
 - Ambroise:
   - Fonctions de base de l'ordinateur
   - File directory
@@ -16,7 +18,6 @@ Note: Tout le monde a travaillé sur d'autre parties, c'est un plan approximatif
   - Internet Explorer
   - Messagerie
   - Pauffinement de l'histoire et buts du jeu
-
 ## Logs
 
 #### 17/11/2021:
@@ -41,3 +42,6 @@ Note: Tout le monde a travaillé sur d'autre parties, c'est un plan approximatif
 #### 04/12/2021:
 - _Ambroise + Mathis_ : Ajout du fait qu'il faut clicker sur la barre de recherche pour pouvoir taper l'url
 - _Joachim_ : Travail sur la platformer. Correction de bugs.
+
+#### 05/12/2021:
+- _Ambroise_ : Un petit travail sur la messagerie
