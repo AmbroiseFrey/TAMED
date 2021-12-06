@@ -15,7 +15,6 @@ screen = pygame.display.set_mode(resolution)
 clock = pygame.time.Clock()
 
 snake_speed = 15
- #tu as vu le chat ?
 def render_snake(snake):
   for x in snake:
     if x == 1:

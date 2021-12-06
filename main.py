@@ -1,4 +1,4 @@
-#https://www.pygame.org/docs/ 
+#https://www.pygame.org/docs/
 import pygame, time
 import ext.Apps.web_search as s
 import ext.Apps.file_explorer as files
@@ -354,6 +354,7 @@ while RUN:
         elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web'], page) == True:
           clickable_icons = {} #on reset les clickable icons 
           page = 'messages'
+          output = ''
           
         
         #URL
