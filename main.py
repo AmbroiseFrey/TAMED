@@ -1,5 +1,5 @@
 #https://www.pygame.org/docs/
-import pygame, time
+import pygame, time, sys
 import ext.Apps.web_search as s
 import ext.Apps.file_explorer as files
 import ext.Core.operations as Opr
