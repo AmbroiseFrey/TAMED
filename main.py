@@ -295,6 +295,12 @@ while RUN:
           Opr.render_rectangle(varia.BLACK, (600,1), (66,115))
           Opr.render_rectangle(varia.GREY, (580,20), (70,92))
           Opr.render_text("Objet:"+writing_data[2],(72,92),varia.BLACK,21)
+          #rectangle du contenu du mail
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,126))
+          Opr.render_rectangle(varia.BLACK, (1,200), (66,126))
+          Opr.render_rectangle(varia.BLACK, (600,1), (66,326))
+          Opr.render_rectangle(varia.GREY, (580,184), (74,134))
+          Opr.render_text("Mail:"+writing_data[3],(76,134),varia.BLACK,21)
           if writing_data[0] == 'dest':
             writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'topic':
@@ -390,11 +396,10 @@ while RUN:
             open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite corps du mail
-          elif Opr.check_interaction(event.pos, (66,598,126,200), ['messages'], page) == True and message == 'New message':
+          elif Opr.check_interaction(event.pos, (74,598,134,326), ['messages'], page) == True and message == 'New message':
             writing_data[0] = 'content'
             output = writing_data[3]
             open = True # on autorise a faire le lien clavier - pygame
-          
 
         elif page == 'fd0':
           if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True: #Back button
