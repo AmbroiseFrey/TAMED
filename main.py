@@ -6,6 +6,7 @@ import ext.Core.operations as Opr
 import ext.Apps.snake as snk
 import ext.Core.variables as varia
 import ext.Platformer.platformer as plat
+import ext.Core.sphere2 as sphere
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -48,9 +49,12 @@ class Computer:
     #On demande le 'User'
     open = True
     output = ''
+    rY = 0
     while open:
+      rY+=.002
       screen.fill(varia.BASE_COLOR)
       Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
+      sphere.display_matrix(sphere.mat, sphere.mat_d, 0, rY, 0)
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
       pygame.display.flip()
@@ -68,8 +72,10 @@ class Computer:
     open = True
     output = ''
     while open:
+      rY +=.002
       screen.fill(varia.BASE_COLOR)
       Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
+      sphere.display_matrix(sphere.mat, sphere.mat_d, 0, rY, 0)
       Opr.render_text('User: '+user, (50,50))
       Opr.render_text('Password: '+len(output)*'*', (50,70))
       pygame.display.flip()
@@ -231,7 +237,7 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    #user_logged = Compu.log_in()
+    user_logged = Compu.log_in()
     user_logged = True
       
   else:

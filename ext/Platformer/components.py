@@ -32,8 +32,8 @@ class Player(MotionSprite):
             self.vector[1] = touch_floor_bottom.r[1] - self.r[3] + 1
             if self.energy< 100:
               self.energy += 1
-        elif not move[pygame.K_UP]:
-            self.vector[1] += 10#gravity effect
+        elif not (move[pygame.K_UP] and self.energy>0) :
+            self.vector[1] += 7#gravity effect
         
         touch_floor_left = self.vector[0]<0 and self.borderCollide(3, floor)
         if touch_floor_left:
