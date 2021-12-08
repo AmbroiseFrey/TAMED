@@ -28,7 +28,7 @@ def load_page(page):
   y = 40
   if page in Pages.keys(): # si la page est dans les clés des urls
     for el in Pages[page]:
-      Opr.render_text(el, (10,y), varia.WHITE, 25)
+      Opr.render_text(el, (10,y), varia.WHITE, 15)
       y += 20
   else:
     pass

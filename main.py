@@ -1,12 +1,12 @@
 #https://www.pygame.org/docs/
-import pygame, time, sys
+import pygame, time
 import ext.Apps.web_search as s
 import ext.Apps.file_explorer as files
 import ext.Core.operations as Opr
 import ext.Apps.snake as snk
 import ext.Core.variables as varia
 import ext.Platformer.platformer as plat
-import ext.Core.sphere2 as sphere
+import ext.Core.sphere as sphere
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -54,6 +54,7 @@ class Computer:
       rY+=.002
       screen.fill(varia.BASE_COLOR)
       Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
+      # screen.fill((50,50,150))
       sphere.display_matrix(sphere.mat, sphere.mat_d, 0, rY, 0)
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
@@ -140,17 +141,17 @@ class Computer:
     Render les dossiers dans un file path
     '''
     global clickable_icons
-    i = 50
+    i = 45
     files_loaded = files.explore_file(file_path)
     if type(files_loaded) == dict:
       for el in files_loaded:
         if el[-4:-3] == '.': #on render le icon d'un fichier
           Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(2,i-5),(22,22))
         else: # on render le icon d'un folder
-          Opr.render_image('Assets/Icons/Folder.png',(2,i-5),(22,22))
+          Opr.render_image('Assets/Icons/Folder.png',(2,i),(22,22))
         #On render le text
-        Opr.render_text(el,(25,i),varia.WHITE,30)
-        clickable_icons[(2,22,i-5,i-5+22)] = el +'/' # On rajoute l'element
+        Opr.render_text(el,(25,i-3),varia.WHITE,20)
+        clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'element
         i+=30 # On itere
     else:
       clickable_icons = {}
@@ -166,8 +167,8 @@ class Computer:
     for el in messages:
       #On render le text
       Opr.render_rectangle(varia.GREY, (11.5*len(el),22), (14, i-2)) #rectangle derriere le titre
-      Opr.render_text(el,(25,i),varia.WHITE,30)
-      clickable_icons[(2,12*len(el),i-5,i-5+22)] = el # On rajoute l'element
+      Opr.render_text(el,(25,i-3),varia.WHITE,20)
+      clickable_icons[(2,12*len(el),i-3,i-3+22)] = el # On rajoute l'element
       i+=30 # On itere
 
 
@@ -237,7 +238,7 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = Compu.log_in()
+    #user_logged = Compu.log_in()
     user_logged = True
       
   else:
@@ -293,20 +294,20 @@ while RUN:
           Opr.render_rectangle(varia.BLACK, (1,27), (66,50))
           Opr.render_rectangle(varia.BLACK, (600,1), (66,78))
           Opr.render_rectangle(varia.GREY, (580,21), (70,54))
-          Opr.render_text("Destinataire:"+writing_data[1],(72,54),varia.BLACK,21)
+          Opr.render_text("Destinataire:"+writing_data[1],(72,52),varia.BLACK,18)
 
           #rectangle object du mail
           Opr.render_rectangle(varia.BLACK, (600,1), (66,88))
           Opr.render_rectangle(varia.BLACK, (1,27), (66,88))
           Opr.render_rectangle(varia.BLACK, (600,1), (66,115))
           Opr.render_rectangle(varia.GREY, (580,20), (70,92))
-          Opr.render_text("Objet:"+writing_data[2],(72,92),varia.BLACK,21)
+          Opr.render_text("Objet:"+writing_data[2],(72,90),varia.BLACK,18)
           #rectangle du contenu du mail
           Opr.render_rectangle(varia.BLACK, (600,1), (66,126))
           Opr.render_rectangle(varia.BLACK, (1,200), (66,126))
           Opr.render_rectangle(varia.BLACK, (600,1), (66,326))
           Opr.render_rectangle(varia.GREY, (580,184), (74,134))
-          Opr.render_text("Mail:"+writing_data[3],(76,134),varia.BLACK,21)
+          Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
           if writing_data[0] == 'dest':
             writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'topic':

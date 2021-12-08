@@ -46,5 +46,10 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 #### 05/12/2021:
 - _Ambroise_ : Petit travail sur la messagerie
 - _Joachim_ : Documentation du platformer
-### 06/12/2021:
--_Mathis_ : Travail sur l'interface pour ecrire un nouveau mail
+
+#### 06/12/2021:
+- _Mathis_ : Travail sur l'interface pour ecrire un nouveau mail
+
+#### 07/12/2021:
+- _Ambroise_: Correction de bugs de font
+- _Joachim_: Ajout d'une sphere au load
