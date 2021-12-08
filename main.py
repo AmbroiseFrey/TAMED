@@ -74,7 +74,7 @@ class Computer:
     while open:
       rY +=.002
       screen.fill((83,130,168))
-      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Load_Icons.png')
+      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/logo_button.png')
       Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
       Opr.render_text('User: '+user, (50,50))
       Opr.render_text('Password: '+len(output)*'*', (50,70))

@@ -12,6 +12,7 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 
 - Joachim:
   - Platformer
+  - Sphere
   - Conretisation de l'histoire dans le jeu (Design SVG du robot)
 
 - Mathis:
