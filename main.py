@@ -52,10 +52,12 @@ class Computer:
     rY = 0
     while open:
       rY+=.002
-      screen.fill(varia.BASE_COLOR)
-      Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
-      # screen.fill((50,50,150))
+      # screen.fill(varia.BASE_COLOR)
+      # Opr.render_image(varia.Login_Background,(0,0),varia.resolution)
+      screen.fill((83,130,168))
       sphere.display_matrix(sphere.mat, sphere.mat_d, 0, rY, 0)
+      Opr.render_image('Assets/Icons/logo.png',(0,0), (200,200), True )
+      Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
       pygame.display.flip()
@@ -238,7 +240,7 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    #user_logged = Compu.log_in()
+    user_logged = Compu.log_in()
     user_logged = True
       
   else:
