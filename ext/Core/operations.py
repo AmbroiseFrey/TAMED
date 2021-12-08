@@ -74,7 +74,7 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
   '''
   if type(file_contents) == list: # Si c'est du texte en plusieurs lignes
     for el in file_contents:
-      render_text(el, (x,y), varia.WHITE,15)
+      render_text(el, (x,y), varia.WHITE,12)
       y += espacement_ligne
   elif type(file_contents) == str: 
     if file_contents[len(file_contents)-3:len(file_contents)] in ['mp3','wav']: #si c'est de la musique
