@@ -136,7 +136,7 @@ class Planet:
       for i in sorted(self.traits+self.flags,key=lambda t:t.z_index):
         i.display()
 
-planet = Planet(30,15)
+# planet = Planet(30,15)
 
 
 

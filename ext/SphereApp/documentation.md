@@ -1,5 +1,5 @@
 # Sphere App : PLANET VIEWER
-**`planet_viewer`** est une application (très performante) qui permet de voir la progression du robot sur la planète &Topf;&Aopf;&Mopf;&Eopf;&Dopf;. Un `circle` bleu indique le point d'atterrissage du robot, des `circle` verts indiquent les `flags` que le robot a déposés, sur lesquels on peut cliquer pour que le robot retourne à cet endroit (Attention, le robot a un nombre limité de `flags` qu'il peut placer) et un `circle` rouge indique la position actuelle du robot. Enfin, une courbe orange représente les endroits où le robot a déjà exploré.
+**`planet_viewer`** est une application (très performante) qui permet de voir la progression du robot sur la planète. Un `circle` bleu indique le point de départ du robot, des `circle` verts indiquent les `flags` que le robot a déposés, sur lesquels on peut cliquer pour que le robot retourne à cet endroit (Attention, le robot a un nombre limité de `flags` qu'il peut placer) et un `circle` rouge indique la position actuelle du robot. Enfin, une courbe orange représente les endroits où le robot a déjà exploré.
 
 ________________________
 

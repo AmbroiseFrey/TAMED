@@ -7,7 +7,7 @@ pygame.mixer.init()
 screen = pygame.display.set_mode(varia.resolution)
 save = None
 
-def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 23):
+def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size:int=23):
   '''
   Fonction qui permet d'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
@@ -17,7 +17,7 @@ def render_text(text: str,pos: tuple,color: tuple = varia.WHITE,size: int = 23):
   screen.blit(text,pos) # On affiche
 
 
-def render_image(image_name: str,pos: tuple,size: tuple, center = False):
+def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):
   '''
   Fonction qui permet d'afficher une image.
   Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
@@ -31,14 +31,35 @@ def render_image(image_name: str,pos: tuple,size: tuple, center = False):
   screen.blit(loaded_img, pos + size) # On affiche
 
 
-def render_rectangle(color: tuple,size: tuple,pos: tuple):
+def render_rectangle(color:tuple, size:tuple, pos:tuple):
   '''
   Fonction qui permet d\'afficher un rectangle.
   Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
   pygame.draw.rect(screen, color, pygame.Rect(pos + size))
 
 
-def render_circle(color: tuple,radius: int,pos: tuple):
+def render_rectangle_relative(color:tuple, p1:tuple, p2:tuple, relativity:tuple=(1,0)):
+  '''
+  Fonction qui permet d\'afficher un rectangle avec une position relative.
+  Prend en argument la couleur (un tuple), et le 2 points qui définissent le rectangle, le point1 `p1` a une position relative à coin en-haut à gauche et le point `p2` a un position relative au point en-bas à droite'''
+  p2 = (
+    varia.resolution[0] + p2[0] - p1[0] if relativity[0] else p2[0], 
+    varia.resolution[1] + p2[1] - p1[1] if relativity[1] else p2[1]
+  )
+  pygame.draw.rect(screen, color, pygame.Rect(p1 + p2))
+
+
+def render_rectangle_borders(color:tuple, p1:tuple, p2:tuple, width:float=1, relativity:tuple=(1,0)):
+  '''
+  Fonction qui permet d\'afficher les bords d\'un rectangle définit par les points `p1` et `p2` avec une coleur `couleur`'''
+  p2 = (
+    varia.resolution[0] + p2[0] - p1[0] if relativity[0] else p2[0], 
+    varia.resolution[1] + p2[1] - p1[1] if relativity[1] else p2[1]
+  )
+  pygame.draw.rect(screen, color, pygame.Rect(p1 + p2))
+
+
+def render_circle(color: tuple, radius: int, pos: tuple):
   '''
   Fonction qui permet d'afficher un cercle.
   Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
