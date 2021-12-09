@@ -14,6 +14,9 @@ Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
 unlocked = [] #Variable type 'achievements' qui permet d'acceder à de nouveaux fichiers/messages
 
+flags = [(0,0,0)]# Coordinates
+n_flags = 0
+
 page = 'home'
 file_dir_path = '' #Les fichiers
 

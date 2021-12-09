@@ -53,4 +53,18 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 
 #### 07/12/2021:
 - _Ambroise_: Correction de bugs de font
-- _Joachim_: Ajout d'une sphere au load
+- _Joachim_: Ajout d'une sphere au load. Création d'un `snake_game` sur https://replit.com/@JoachimLaplanch/snakegame uniquement avec des cases de couleurs
+- _Mathis_: Travail sur le `snake_game`
+
+#### 08/12/2021:
+- _Joachim_: 
+  - Travail sur le display au load
+  - Travail sur le `snake_game` dans le display: serpent formé de cercle plutôt que de cases, déplacement du serpent avec des courbes sinusoïdales, couleurs dégradées du serpent; et déplacement vertical et horizontal en fonction du vecteur
+  - Début de l'application `planet_viewer` et de sa documentation (plutôt réussies à mon goût)
+- _Ambroise_: Travail sur la messagerie ***`et je sais qu'il a fait autre chose mais je ne me rappelle plus quoi`***
+
+#### 09/12/2021:
+- _Joachim_: 
+  - Ajout des calculs dans le dossier _Archive_ pour pouvoir expliquer comment marche la classe `Planet`
+  - Travail sur les `Flag` pour qu'ils puissent apparaître à leur endroit réel sur la planète dans `planet_viewer` en créant des méthodes pour appliquer la matrice relative à l'orientation générale de la planète 
+  - Travail sur une _smooth map_ pour le platformer 

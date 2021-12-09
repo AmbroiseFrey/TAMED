@@ -5,10 +5,10 @@
 - **main.py** Un fichier pour construire la serie d'evenements et d'actions pour le  bon deroulement du jeu.
 - **ext** : Toutes les extensions
   - **Core**:
-    - **variables.py**: Variables importantes utilisés dans la puplart des programmes
-    - **operations.py**: Fonctions qui permetent de faciliter certaines actions de base
+    - **variables.py**: Variables importantes utilisées dans la plupart des programmes
+    - **operations.py**: Fonctions qui permettent de faciliter certaines actions de base
   - **Apps**:
-    - **file_explorer.py**: Continent le stockage de type json dans un dictionnaire qui correspond au files plus une fonction pour parcourir les dossiers
+    - **file_explorer.py**: Continent le stockage de type json dans un dictionnaire qui correspond au files dans l'ordinateur, plus une fonction pour parcourir les dossiers
     - **snake.py**: Un petit jeu snake auquel on peut jouer via l'ordinateur
     - **web_search.py**: 
   - **Platformer**:

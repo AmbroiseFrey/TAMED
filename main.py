@@ -313,7 +313,7 @@ while RUN:
             writing_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'content':
             writing_data[3] = output #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
-
+      
         else:
           Opr.render_file(message) #sinon on render l'email
         Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27))
