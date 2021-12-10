@@ -1,7 +1,7 @@
 import pygame, time
 from math import cos, sin, pi
-import ext.Core.variables as variables
-import ext.Core.operations as Opr
+from ext.Core import variables as variables
+from ext.Core import operations as Opr
 
 lon = 20#int(input("longitude"))
 lat = 10#int(input("latitude"))

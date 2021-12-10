@@ -1,5 +1,5 @@
 import pygame
-import ext.Core.variables as variables
+from ext.Core import variables
 
 screen = pygame.display.set_mode(variables.resolution)
 screen_rect = screen.get_rect()

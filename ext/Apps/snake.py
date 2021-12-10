@@ -1,6 +1,6 @@
 import pygame, time, random
-import ext.Core.variables as varia
-import ext.Core.operations as Opr
+from ext.Core import variables as varia
+from ext.Core import operations as Opr
 pygame.init()
 
 def test():

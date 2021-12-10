@@ -1,13 +1,13 @@
 #https://www.pygame.org/docs/ Tisaou
 import pygame, time
-import ext.Apps.web_search as s
-import ext.Apps.file_explorer as files
-import ext.Core.operations as Opr
-import ext.Apps.snake as snk
-import ext.Core.variables as varia
-import ext.Platformer.platformer as plat
-import ext.Core.sphere as sphere
-import ext.Core.scan_messages as scan
+from ext.Apps import web_search as s
+from ext.Apps import file_explorer as files
+from ext.Platformer import platformer as plat
+from ext.Apps import snake as snk
+from ext.Core import operations as Opr
+from ext.Core import variables as varia
+from ext.Core import sphere as sphere
+from ext.Core import scan_messages as scan
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -245,8 +245,8 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = Compu.log_in()
-    #user_logged = True
+    #user_logged = Compu.log_in()
+    user_logged = True
       
   else:
     if 2 in varia.unlocked and not 'D:' in files.Files.keys():
@@ -317,7 +317,13 @@ while RUN:
           elif writing_data[0] == 'content':
             writing_data[3] = output #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
           if writing_data[4] == 'vide':
-            Opr.render_text('Vous devez écrire du contenu dans le mail', (130,2))
+            Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (130,2), varia.WHITE, 15)
+          if writing_data[4] == 'casedestinatairevide':
+            Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (130,2))
+          if writing_data[4] == 'caseobjetvide':
+            Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (130,2))
+          if writing_data[4] == 'casemailvide':
+            Opr.render_text('Vous devez écrire du contenu dans le mail pour envoyer ce mail', (130,2))
           
         else:
           Opr.render_file(message) #sinon on render l'email
@@ -395,15 +401,21 @@ while RUN:
             clickable_icons = {}
             open=True
 
-          #bouton pour envoyer un mail
+          #bouton pour envoyer un mail scan
           elif Opr.check_interaction(event.pos, (90,117,0,27), ['messages'], page) == True and message == 'New message':
             
             #check si les contenus du mail ne sont pas vide
             if writing_data[1] and writing_data[2] and writing_data[3]:
               writing_data[4] = '!vide'
               print(scan.check_message(writing_data))
-            else:
+            elif writing_data[1]=='' and writing_data[2]=='' and writing_data[3]=='':
               writing_data[4] = 'vide'
+            elif writing_data[1]=='' :
+              writing_data[4] = 'casedestinatairevide'
+            elif writing_data[2]=='':
+              writing_data[4] = 'caseobjetvide'
+            elif writing_data[3]=='':
+              writing_data[4] = 'casemailvide'
               
           #Si click la boîte destinataire
           elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], page) == True and message == 'New message':

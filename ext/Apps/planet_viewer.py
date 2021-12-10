@@ -1,6 +1,6 @@
 import pygame, time
 from math import cos, sin, pi, ceil, atan
-import ext.Core.variables as variables
+from ext.Core import variables
 
 r = 100
 

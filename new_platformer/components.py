@@ -1,5 +1,5 @@
 from ext.Platformer.game_utils import Image, MotionSprite, Sprite, screen_rect
-import ext.Core.operations as Opr
+from ext.Core import operations as Opr
 import pygame
 
 

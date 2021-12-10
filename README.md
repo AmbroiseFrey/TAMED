@@ -2,7 +2,7 @@
 ## Nom:
 _T.A.M.E.D_ (Technologically Advanced Military Exploration Device)
 
-Peut etre lancé via [repl.it](https://replit.com/@AmbF/Project)
+Peut etre lancé via [le repl.it](https://replit.com/@AmbF/Project)
 
 **Attention**: L'utilisation de repl.it ne permet pas de comprendre la totalité des contributions de chacun par les commits github.
 

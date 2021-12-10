@@ -1,6 +1,6 @@
 import pygame, time
-import ext.Core.operations as Opr
-import ext.Core.variables as varia
+from ext.Core import operations as Opr
+from ext.Core import variables as varia
 from ext.Platformer.components import Floor, Player, Level_Flag, Lava
 from ext.Platformer.game_utils import Group
 

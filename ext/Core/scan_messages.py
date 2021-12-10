@@ -1,4 +1,4 @@
-import ext.Core.variables as varia
+from ext.Core import variables as varia
 
 scans = {
   0:(
@@ -8,24 +8,25 @@ scans = {
   ),
 
   1:(
-    "GROUP:JMTD",
+    "GROUP:JMTD-Europe",
     "Reussite de la Mission 1",
-    ('disque dur', 'crash', 'recupere')
+    ('disque', 'dur', 'crash', 'recupere')
   ),
 }
 
 
 def check_message(message_content:list):
+  print(varia.unlocked)
   for lock in scans.keys():
     if lock in varia.unlocked: #si on a unlock le message
       i = 1
       for contents in scans[lock]: #on scan le content que l'on veut
         if i == 3: #si c'est le message content
           for word in contents: #si les mots que l'on veut
-            if word in message_content[i].split(): #son dans le content
-              return True #alors c'est bon
+            if word in message_content[i].lower().split(): #son dans le content
+              return True #alors c'est bon 
             break # failed
-        elif message_content[i] == contents: # si il est bien egal a celui donné
+        elif message_content[i].lower() == contents.lower(): # si il est bien egal a celui donné
           i+= 1 #on peu continuer
         else:
          break #sinon c'est automatiquement failed

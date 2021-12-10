@@ -1,6 +1,6 @@
 import random
-import ext.Core.operations as Opr
-import ext.Core.variables as varia
+from ext.Core import variables as varia
+from ext.Core import operations as Opr
 Websites = ["www.cia.gov","www.twitter.com", "www.test.com","www.repl.it"]
 
 Pages = {"www.cia.gov":[
