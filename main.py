@@ -37,7 +37,7 @@ writing_data = [] #
 
 #-----------test area--------
 test_message = [1,'ambroise','Test',"Je suis tres bete. Eh oui je l'admet"]
-print('Message test: '+scan.check_message(test_message))
+# print('Message test: '+ scan.check_message(test_message))
 #-------end test area---------
 
 
@@ -245,8 +245,8 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    # user_logged = Compu.log_in()
-    user_logged = True
+    user_logged = Compu.log_in()
+    #user_logged = True
       
   else:
     if 2 in varia.unlocked and not 'D:' in files.Files.keys():
@@ -270,11 +270,8 @@ while RUN:
     
     elif page == 'web':
       Compu.render_barre_taches((177,350))
-      #Opr.render_rectangle(varia.GREY, (600,30), (66,0))
-      Opr.render_rectangle(varia.BLACK, (600,1), (66,1))
-      Opr.render_rectangle(varia.BLACK, (1,27), (66,1))
-      Opr.render_rectangle(varia.BLACK, (600,1), (66,28))
-      Opr.render_rectangle(varia.BLUE_GREY, (580,20), (70,5))
+      Opr.render_rectangle_borders(varia.BLACK, (66,1), (-66,29))
+      Opr.render_rectangle_relative(varia.BLACK, (70,5), (-70, 20))
       Compu.render_typing_text((72,10),20)
       if not(open): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
@@ -297,28 +294,22 @@ while RUN:
         elif message == 'New message':
           clickable_icons = {} #on clear les clickables icons 
           #rectangle destinataire
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,50))
-          Opr.render_rectangle(varia.BLACK, (1,27), (66,50))
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,78))
-          # Opr.render_rectangle(varia.GREY, (580,21), (70,54))
+          Opr.render_rectangle_borders(varia.BLACK, (66,50), (-66,29))
           Opr.render_rectangle_relative(varia.GREY, (70,54), (-70, 21))
-          Opr.render_text("Destinataire:"+writing_data[1],(72,52),varia.BLACK,18)
+          Opr.render_text("Destinataire:"+writing_data[1],(72,52),varia.BLACK,18) #texte destinataire
 
           #rectangle object du mail
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,88))
-          Opr.render_rectangle(varia.BLACK, (1,27), (66,88))
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,115))
-          # Opr.render_rectangle(varia.GREY, (580,20), (70,92))
+          Opr.render_rectangle_borders(varia.BLACK, (66,88), (-66,28))
           Opr.render_rectangle_relative(varia.GREY, (70,92), (-70, 20))
           Opr.render_text("Objet:"+writing_data[2],(72,90),varia.BLACK,18)
+
           #rectangle du contenu du mail
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,126))
-          Opr.render_rectangle(varia.BLACK, (1,200), (66,126))
-          Opr.render_rectangle(varia.BLACK, (600,1), (66,326))
-          # Opr.render_rectangle(varia.GREY, (580,184), (74,134))
+          Opr.render_rectangle_borders(varia.BLACK, (66,126), (-66,200))
           Opr.render_rectangle_relative(varia.GREY, (74,134), (-74, 184))
           Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
+          #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (90,0), (27,27))
+          #lien entre input et les differentes parties du mail.
           if writing_data[0] == 'dest':
             writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'topic':
@@ -326,7 +317,7 @@ while RUN:
           elif writing_data[0] == 'content':
             writing_data[3] = output #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
           if writing_data[4] == 'vide':
-            Opr.render_text('Vous devez écrire du contenu dans le mail', (100,100))
+            Opr.render_text('Vous devez écrire du contenu dans le mail', (130,2))
           
         else:
           Opr.render_file(message) #sinon on render l'email
@@ -399,22 +390,20 @@ while RUN:
           #bouton écrire un mail  
           elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], page) == True:
             message = 'New message'
+            output = '' #reset output
             writing_data = ['dest', '','','','']
             clickable_icons = {}
             open=True
 
+          #bouton pour envoyer un mail
           elif Opr.check_interaction(event.pos, (90,117,0,27), ['messages'], page) == True and message == 'New message':
             
+            #check si les contenus du mail ne sont pas vide
             if writing_data[1] and writing_data[2] and writing_data[3]:
-              pass
               writing_data[4] = '!vide'
+              print(scan.check_message(writing_data))
             else:
-              print('aze')
               writing_data[4] = 'vide'
-              print(writing_data[4])
-              #Opr.render_text('Vous devez écrire du contenu dans le mail', (100,100))
-              #pygame.display.flip()
-              #time.sleep(2) #je vais utiliser la liste wiritting data pour ca, je regarde si le mail n'est pas vide pour verifier si le rapport est bon
               
           #Si click la boîte destinataire
           elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], page) == True and message == 'New message':

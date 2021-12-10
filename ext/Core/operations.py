@@ -56,7 +56,11 @@ def render_rectangle_borders(color:tuple, p1:tuple, p2:tuple, width:float=1, rel
     varia.resolution[0] + p2[0] - p1[0] if relativity[0] else p2[0], 
     varia.resolution[1] + p2[1] - p1[1] if relativity[1] else p2[1]
   )
-  pygame.draw.rect(screen, color, pygame.Rect(p1 + p2))
+  w2 = width/2
+  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,p2[0]+w2,width)))
+  pygame.draw.rect(screen, color, pygame.Rect((p2[0]+p1[0]-w2,p1[1]-w2,width,p2[1]+w2)))
+  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p2[1]+p1[1]-w2,p2[0]+w2,width)))
+  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,width,p2[1]+w2)))
 
 
 def render_circle(color: tuple, radius: int, pos: tuple):

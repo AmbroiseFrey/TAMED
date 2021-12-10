@@ -136,27 +136,24 @@ class Planet:
       for i in sorted(self.traits+self.flags,key=lambda t:t.z_index):
         i.display()
 
-# planet = Planet(30,15)
-
-
 
 ##------------------------------##
 ##----------Utilisation---------##
 ##------------------------------##
 
+def render_planet():
+  planet = Planet(20,10,r,(0,1,0,0))
 
-# planet = Planet(20,10,r,(0,1,0,0))
-
-# RUN = True
-# while RUN:
-#     keys = pygame.key.get_pressed()
-#     rX = (keys[pygame.K_RIGHT]-keys[pygame.K_LEFT])*.01
-#     rY = (keys[pygame.K_UP]-keys[pygame.K_DOWN])*.01
-#     planet.rotate(rY,rX,0)
-#     planet.display()
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             RUN = False
-#     pygame.display.flip()
-#     clock.tick(60)
-# pygame.quit()
+  RUN = True
+  while RUN:
+      keys = pygame.key.get_pressed()
+      rX = (keys[pygame.K_RIGHT]-keys[pygame.K_LEFT])*.01
+      rY = (keys[pygame.K_UP]-keys[pygame.K_DOWN])*.01
+      planet.rotate(rY,rX,0)
+      planet.display()
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+          RUN = False
+      pygame.display.flip()
+      clock.tick(60)
+  pygame.quit()

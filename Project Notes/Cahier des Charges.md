@@ -1,7 +1,27 @@
 # Cahier des Charges
 
+## Caracteristiques
+- 1 joueur
+- Jeu 2D avec quelques petits elements 3D
+- Jeu en temps réél (boucle while)
+- Platformer:
+  - Une map avec plusieurs points de 'spawn', niveau de difficulté qui augmente au fur et a mesure que l'on avance
+  - Contrôler un robot sur une map
+  - Possibilité de PNJ
+- Système d'exploration:
+  Gestionnaire de fichier:
+    - Paroucir des dossiers
+    - Lire des fichiers
+    - Ecrire des fichiers simples
+   Messagerie:
+    - Lire des messages
+    - 'Envoyer' des messages et analyser son contenu
+  Web explorer:
+    - Afficher quelques pages web de base
+- Musique en fond et possibilité de lire des fichiers de musique
+
 ## Informations techniques:
-`944` lignes de code réparties en plusieurs fichiers
+~`1000` lignes de code réparties en plusieurs fichiers
 - **main.py** Un fichier pour construire la serie d'evenements et d'actions pour le  bon deroulement du jeu.
 - **ext** : Toutes les extensions
   - **Core**:
@@ -47,3 +67,4 @@ On est un technicien qui travaille pour une compagnie de haute technologie qui t
   - [X] Physique de murs
   - [ ] Render la map
   - [ ] Elements avec lequels l'on peut interagir
+  - [ ] Carte avec checkpoints

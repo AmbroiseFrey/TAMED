@@ -1,16 +1,16 @@
 import ext.Core.variables as varia
 
 scans = {
-  1:(
+  0:(
     'ambroise',
     'Test',
     ('tres', 'bete', 'je')
   ),
 
-  'Le niveau en int':(
-    "Le destinataire (s'il y en a plusieurs faire une liste de liste)",
-    "L'objet",
-    ('Les mots cles', 'a avoir', 'dans le contenu du mail')
+  1:(
+    "GROUP:JMTD",
+    "Reussite de la Mission 1",
+    ('disque dur', 'crash', 'recupere')
   ),
 }
 

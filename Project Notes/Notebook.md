@@ -88,6 +88,6 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 - _Joachim_: 
   - Ajout des calculs dans le dossier _Archive_ pour pouvoir expliquer comment marche la classe `Planet`
   - Travail sur les `Flag` pour qu'ils puissent apparaître à leur endroit réel sur la planète dans `planet_viewer` en créant des méthodes pour appliquer la matrice relative à l'orientation générale de la planète 
-  - Travail sur une _smooth map_ pour le platformer 
+  - Travail sur une _smooth map_ pour le platformer grâce au concept des _marching squares_
 - _Ambroise_: Creation de la fonction pour check le content d'un email envoyé
 -_Mathis_: Travail sur l'envoi d'un mail, avec création du bouton send mail, commencement pour regarder si le destinataire, l'objet et le mail est correcte pour valider la tache/ le niveau à l'aide de la fonction check message
