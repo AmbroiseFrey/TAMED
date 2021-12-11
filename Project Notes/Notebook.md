@@ -90,4 +90,14 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
   - Travail sur les `Flag` pour qu'ils puissent apparaître à leur endroit réel sur la planète dans `planet_viewer` en créant des méthodes pour appliquer la matrice relative à l'orientation générale de la planète 
   - Travail sur une _smooth map_ pour le platformer grâce au concept des _marching squares_
 - _Ambroise_: Creation de la fonction pour check le content d'un email envoyé
--_Mathis_: Travail sur l'envoi d'un mail, avec création du bouton send mail, commencement pour regarder si le destinataire, l'objet et le mail est correcte pour valider la tache/ le niveau à l'aide de la fonction check message
+- _Mathis_: Travail sur l'envoi d'un mail, avec création du bouton send mail, commencement pour regarder si le destinataire, l'objet et le mail est correcte pour valider la tache/ le niveau à l'aide de la fonction check message
+
+#### 10/12/2021:
+- *Ambroise + Mathis*: Travail sur la messagerie
+- *Joachim*: Travail sur la sphere et la map du platformer
+- *Ambroise*: Correction de tout les bugs liés à Pyzo
+
+#### 11/12/2021:
+- *Ambroise*:
+  - Travail sur la messagerie
+  - Travail sur le systeme des unlocks

@@ -26,31 +26,28 @@ recovered_drive = {'D:':{  #Le drive trouvé par le robot
 }
 
 messages = { # les messages recus de base
-  "J.M.T.D. Europe Meeting":[
-    "from: Dir. Slane",
-    "to: Group:JMTD-Europe",
-    "Bonjour a tous,",
-    "La reunion du departement J.M.T.D. aura lieu demain a 20:00 GMT+1.",
-    "Cordialement,",
-    "Director Slane,",
-    "J.M.T.D. Europe Director"],
-  "TAMED Mission - 1.0":[
-    "from: Gen. Michael Fredlyn ",
-    "to: Group:TAMED-Command",
-    "Bonjour,",
-    "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
-    "Nous devons déjà retrouver la boite noire de la station ___.",
-    "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
-    "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
-    "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé la boite noire."
-  ]
-}
-
-unlockable_messages = {
-  1.1 : [],
-  1.2 : [],
-  1.3 : [],
-  1.4 : []
+  0:{
+    "J.M.T.D. Europe Meeting":[
+      "from: Dir. Slane",
+      "to: Group:JMTD-Europe",
+      "Bonjour a tous,",
+      "La reunion du departement J.M.T.D. aura lieu demain a 20:00 GMT+1.",
+      "Cordialement,",
+      "Director Slane,",
+      "J.M.T.D. Europe Director"],
+  },
+  100:{
+    "TAMED Mission - 1":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED-Command",
+      "Bonjour,",
+      "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
+      "Nous devons déjà retrouver la boite noire de la station ___.",
+      "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
+      "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
+      "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé la boite noire."
+    ]
+  },
 }
 
 sound = 'Assets/Computer-Start.wav'

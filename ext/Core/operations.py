@@ -12,6 +12,7 @@ def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size:int=23):
   Fonction qui permet d'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
   '''
+  pygame.font.init()
   font = pygame.font.Font("Assets/FreeSansBold.ttf", size) # on definit la font
   text = font.render(text, True, color) # On definit le text
   screen.blit(text,pos) # On affiche
@@ -34,8 +35,23 @@ def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):
 def render_rectangle(color:tuple, size:tuple, pos:tuple):
   '''
   Fonction qui permet d\'afficher un rectangle.
-  Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)'''
+  Prend en argument la couleur (un tuple), sa taille (tuple), et sa position (tuple)
+  '''
   pygame.draw.rect(screen, color, pygame.Rect(pos + size))
+
+
+def understandValues(size):
+  if type(size) is int:
+    return size
+  if "vw" in size:
+    return int(size[:-2])/100 * varia.resolution[0]
+  if "vh" in size:
+    return int(size[:-2])/100 * varia.resolution[1]
+
+
+def div(color: tuple = (0,0,0), size:tuple = ("100vw","100vh"), top:float=0, left:float=0, bottom:float = None, right:float = None):
+  pass
+
 
 
 def render_rectangle_relative(color:tuple, p1:tuple, p2:tuple, relativity:tuple=(1,0)):
@@ -107,10 +123,9 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
       render_image('Assets/Directory Files/'+file_contents, (x,y), size)
     elif file_contents == 'snake.py': #si c'est le snake game
-      snk.game()
-      return 'C:/'
+      return 'snake'
     else:
       render_text(file_contents, (x,y)) # base, on render le texte
   else:
     pass
-  return varia.file_dir_path
+  return varia.page

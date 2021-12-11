@@ -26,18 +26,16 @@ RUN = True #est ce que la boucle while tourne
 user_logged = False #est ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
 from ext.Core.variables import page, file_dir_path
-clickable_icons = {}  #
-plat_check = 0 #Ignorer
+clickable_icons = {}
+plat_check = 0
 level = 0
-#Cheat pour acceder directement a la messagerie (devellopment)
-varia.unlocked = [1,]
 message = varia.messages
 #variables specifiques a des sous stages quand il faut ecrire
-writing_data = [] #
+writing_data = [] 
+varia.unlocked = [0, 100]
 
 #-----------test area--------
-test_message = [1,'ambroise','Test',"Je suis tres bete. Eh oui je l'admet"]
-# print('Message test: '+ scan.check_message(test_message))
+varia.unlocked.append(110)
 #-------end test area---------
 
 
@@ -106,16 +104,6 @@ class Computer:
       time.sleep(3)
       return False
 
-  def render_typing_text(pos:tuple, size:int = 30):
-    '''
-    Fonction qui permet d'afficher du texte qui est tapé et qui interagit avec le programme sans utiliser input().
-    Prend en argument le texte (str) et sa position (tuple)
-    '''
-    pygame.font.init()
-    font = pygame.font.SysFont('Comic Sans MS', size)
-    text = font.render(output, False, (255, 255, 255))
-    screen.blit(text,pos)
-
   def loading(animation_type: str,time_run: int):
     '''
     Fonction qui fait une animation de load. Type d'animation et temps de l'animation a spécifier
@@ -161,7 +149,7 @@ class Computer:
         i+=30 # On itere
     else:
       clickable_icons = {}
-      Opr.render_file(files_loaded)
+      varia.page = Opr.render_file(files_loaded)
 
 
   def render_messagerie(messages: dict):
@@ -170,12 +158,13 @@ class Computer:
     '''
     global clickable_icons
     i = 50
-    for el in messages:
-      #On render le text
-      Opr.render_rectangle(varia.GREY, (11.5*len(el),22), (14, i-2)) #rectangle derriere le titre
-      Opr.render_text(el,(25,i-3),varia.WHITE,20)
-      clickable_icons[(2,12*len(el),i-3,i-3+22)] = el # On rajoute l'element
-      i+=30 # On itere
+    for lock in messages:
+      for el in messages[lock]:
+        #On render le text
+        Opr.render_rectangle(varia.GREY, (11.5*len(el),22), (14, i-2)) #rectangle derriere le titre
+        Opr.render_text(el,(25,i-3),varia.WHITE,20)
+        clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
+        i+=30 # On itere
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
@@ -249,7 +238,7 @@ while RUN:
     user_logged = True
       
   else:
-    if 2 in varia.unlocked and not 'D:' in files.Files.keys():
+    if 110 in varia.unlocked and not 'D:' in files.Files.keys():
       files.Files = dict(files.Files,**varia.recovered_drive)
       print(files.Files)
     #HOME
@@ -263,7 +252,7 @@ while RUN:
       Compu.render_barre_taches((55,350)) #On render la barre des taches
       Compu.render_file_tree(file_dir_path) #on render les files/dossiers par rapport au chemin
       file_dir_path = output # on synchronise le texte tapé avec le chemin
-      Compu.render_typing_text((70,9),25) # on render le texte qui est tapé
+      Opr.render_text(output, (70,4),varia.WHITE, 17) # on render le texte qui est tapé
       Opr.render_image('Assets/Icons/arrow_ul.png', (30,0), (27,27)) # on render le bouton back
       open = True # on permet de taper au clavier
       pygame.display.flip() #on display le tout
@@ -272,11 +261,15 @@ while RUN:
       Compu.render_barre_taches((177,350))
       Opr.render_rectangle_borders(varia.BLACK, (66,1), (-66,29))
       Opr.render_rectangle_relative(varia.BLACK, (70,5), (-70, 20))
-      Compu.render_typing_text((72,10),20)
+      Opr.render_text(output, (70,4),varia.WHITE, 17)
       if not(open): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
       pygame.display.flip()
 
+    #Snake game link
+    elif page == 'snake':
+      page = snk.game()
+    
     #Platformer
     elif page == 'plat': # si la page est celle du platformer
       if type(plat_check) == str: #si le platformer renvoit le fait que il revient a un page de l'ordi
@@ -287,7 +280,8 @@ while RUN:
           level = plat_check #on synchronise avec le level
 
     elif page == 'messages':
-      if 1 in varia.unlocked: # si on a unlock la boite mail
+      scan.update_messagerie() #on update par rapport aux unlocks
+      if 0 in varia.unlocked: # si on a unlock la boite mail
         Compu.render_barre_taches((232,350))
         if type(message) == dict: #si on est dans la boite de reception
           Compu.render_messagerie(message)
@@ -388,8 +382,8 @@ while RUN:
         # Ouvrir des messages
         elif page == 'messages':
           check = Compu.check_icons(event.pos)
-          if type(check) == str:
-            message = varia.messages[check] #Si on click un mail on l'ouvre
+          if type(check) == tuple:
+            message = varia.messages[check[0]][check[1]] #Si on click un mail on l'ouvre
           if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
             message = varia.messages #Si bouton back on revient a la boite mail
 
@@ -401,13 +395,14 @@ while RUN:
             clickable_icons = {}
             open=True
 
-          #bouton pour envoyer un mail scan
+          #bouton pour envoyer un mail
           elif Opr.check_interaction(event.pos, (90,117,0,27), ['messages'], page) == True and message == 'New message':
             
             #check si les contenus du mail ne sont pas vide
             if writing_data[1] and writing_data[2] and writing_data[3]:
               writing_data[4] = '!vide'
               print(scan.check_message(writing_data))
+              varia.unlocked.append(scan.check_message(writing_data))
             elif writing_data[1]=='' and writing_data[2]=='' and writing_data[3]=='':
               writing_data[4] = 'vide'
             elif writing_data[1]=='' :

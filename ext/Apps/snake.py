@@ -50,4 +50,4 @@ def game():
             if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
               RUN = False
         pygame.display.flip()
-    pygame.quit()
+    return 'fd0'
