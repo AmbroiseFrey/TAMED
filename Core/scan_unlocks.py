@@ -3,20 +3,29 @@ from ext.Core import variables as varia
 #Voir Dev Info.md pour infos sur le format des 'codes'
 
 unlockable_messages = {
-  200 : ['message mission deux'],
-  10 : ['1er message charlotte'],
+  2000 : 
+    "TAMED Mission - 2":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED-Cmd",
+      "Bonjour,",
+    ],
+  1010 :
+    "from: Charlotte Coulson",
+      "to: John Doe",
+      "Bonjour Mr. Doe,",
+    ],
 }
 
 scans = {
-  (110,200):( #premier email a envoyer quand l'on retrouve le dique dur
-    ("Group:TAMED-Command",),
+  (1010,2000):( #premier email a envoyer quand l'on retrouve le dique dur
+    ("Group:TAMED-Cmd" or "gen. michael Fredlyn",),
     ("mission", "1" or "1.0"),
     ('disque', 'dur', 'crash' or "accident", 'recupere' or 'trouve')
   ),
 
-  (10,11):( #deuxieme mail "en reponse". Des documents suspects dans le disque dur retrouvé
-    ("charlotte.couslon@kryptkorp.org",),
-    ("suspects" or 'bizzare', "documents"),
+  (1010,10):( #deuxieme mai Des documents suspects dans le disque dur retrouvé
+    ("charlotte.coulson@kryptkorp.org" or 'Charlotte coulson',),
+    ("suspects" or 'bizzares', "documents"),
     ("decouvert" or "trouve", "documents", "disque", "dur")
   )
 }
@@ -47,7 +56,8 @@ def check_message(message_content:list):
 def update_messagerie():
   for lock_needed in unlockable_messages:
     if lock_needed in varia.unlocked and not lock_needed in varia.messages.keys():
-      varia.messages[lock_needed] = unlockable_messages[lock_needed]
+      message_add = {lock_needed: unlockable_messages[lock_needed]}
+      varia.messages.update(message_add)
     else:
       pass
   for lock in varia.messages:

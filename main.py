@@ -7,7 +7,7 @@ from ext.Apps import snake as snk
 from ext.Core import operations as Opr
 from ext.Core import variables as varia
 from ext.Core import sphere as sphere
-from ext.Core import scan_messages as scan
+from ext.Core import scan_unlocks as scan
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -32,10 +32,10 @@ level = 0
 message = varia.messages
 #variables specifiques a des sous stages quand il faut ecrire
 writing_data = [] 
-varia.unlocked = [0, 100]
+varia.unlocked = [0, 1000]
 
 #-----------test area--------
-varia.unlocked.append(110)
+varia.unlocked.append(1010)
 #-------end test area---------
 
 

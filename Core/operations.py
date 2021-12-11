@@ -1,6 +1,5 @@
 import pygame, time 
 from ext.Core import variables as varia
-from ext.Apps import snake as snk
 
 pygame.init()
 pygame.mixer.init()

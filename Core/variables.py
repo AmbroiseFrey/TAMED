@@ -36,10 +36,10 @@ messages = { # les messages recus de base
       "Director Slane,",
       "J.M.T.D. Europe Director"],
   },
-  100:{
+  1000:{
     "TAMED Mission - 1":[
       "from: Gen. Michael Fredlyn ",
-      "to: Group:TAMED-Command",
+      "to: Group:TAMED-Cmd",
       "Bonjour,",
       "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
       "Nous devons déjà retrouver la boite noire de la station ___.",
