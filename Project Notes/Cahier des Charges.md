@@ -9,14 +9,14 @@
   - Contrôler un robot sur une map
   - Possibilité de PNJ
 - Système d'exploration:
-  Gestionnaire de fichier:
+  - Gestionnaire de fichier:
     - Paroucir des dossiers
     - Lire des fichiers
     - Ecrire des fichiers simples
-   Messagerie:
+  - Messagerie:
     - Lire des messages
     - 'Envoyer' des messages et analyser son contenu
-  Web explorer:
+  - Web explorer:
     - Afficher quelques pages web de base
 - Musique en fond et possibilité de lire des fichiers de musique
 
