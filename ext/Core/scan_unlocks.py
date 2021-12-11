@@ -3,17 +3,20 @@ from ext.Core import variables as varia
 #Voir Dev Info.md pour infos sur le format des 'codes'
 
 unlockable_messages = {
-  2000 : 
+  2000 : {
     "TAMED Mission - 2":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED-Cmd",
       "Bonjour,",
     ],
-  1010 :
-    "from: Charlotte Coulson",
+  },
+  1010 : {
+    "Accident de la Station":[
+      "from: Charlotte Coulson",
       "to: John Doe",
       "Bonjour Mr. Doe,",
     ],
+  }
 }
 
 scans = {
@@ -23,7 +26,7 @@ scans = {
     ('disque', 'dur', 'crash' or "accident", 'recupere' or 'trouve')
   ),
 
-  (1010,10):( #deuxieme mai Des documents suspects dans le disque dur retrouvé
+  (1010,10):( #deuxieme mail Des documents suspects dans le disque dur retrouvé
     ("charlotte.coulson@kryptkorp.org" or 'Charlotte coulson',),
     ("suspects" or 'bizzares', "documents"),
     ("decouvert" or "trouve", "documents", "disque", "dur")
