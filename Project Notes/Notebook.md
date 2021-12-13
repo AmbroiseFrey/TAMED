@@ -124,7 +124,7 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 #### 08/12/2021:
 - _Joachim_: 
   - Travail sur le display au load
-  - Travail sur le `snake_game` dans le display: serpent formé de cercle plutôt que de cases, déplacement du serpent avec des courbes sinusoïdales, couleurs dégradées du serpent; et déplacement vertical et horizontal en fonction du vecteur
+  - Travail sur le `snake_game` dans le display: serpent formé de cercles plutôt que de cases, déplacement du serpent avec des courbes sinusoïdales, couleurs dégradées du serpent; et déplacement vertical et horizontal en fonction du vecteur
   - Début de l'application `planet_viewer` et de sa documentation
 - _Ambroise_: Travail sur la messagerie et le file directory
 
@@ -148,3 +148,9 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
   - Travail sur le file explorer et reformattage du source code pour les files
 - *Joachim*:
   - Création d'une fonction div (comme le &#60;div> en html) et d'une function understandValue pour dessiner des rectangles avec des positions et des tailles relatives à la résolution de l'écran et avec des bords
+
+### 13/12/2021:
+- *Mathis*:
+  - Notification de nouveau mail (dans la barre des tâches) et suppression de la notification quand on clique sur la boite mail
+- *Ambroise*:
+  - Ajout de icons pour la boite mail + systeme d'unlock terminé

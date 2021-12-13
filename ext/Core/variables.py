@@ -14,6 +14,8 @@ Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
 unlocked = [] #Variable type 'achievements' qui permet d'acceder à de nouveaux fichiers/messages
 
+popup = 0
+
 flags = [(0,0,0)]# Coordinates
 n_flags = 0
 
@@ -40,7 +42,7 @@ messages = { # les messages recus de base
   1000:{
     "TAMED Mission - 1":[
       "from: Gen. Michael Fredlyn ",
-      "to: Group:TAMED-Cmd",
+      "to: Group:TAMED",
       "Bonjour,",
       "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
       "Nous devons déjà retrouver la boite noire de la station Zeus.",

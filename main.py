@@ -37,6 +37,7 @@ varia.unlocked = [0, 1000]
 #-----------test area--------
 def dev_use():
   varia.unlocked.append(1010) #bypass steps
+  varia.popup +=1
   return True
 
 #user_logged = dev_use() #bypass login
@@ -166,8 +167,9 @@ class Computer:
     for lock in messages:
       for el in messages[lock]:
         #On render le text
-        Opr.render_rectangle(varia.GREY, (11.5*len(el),22), (14, i-2)) #rectangle derriere le titre
-        Opr.render_text(el,(25,i-3),varia.WHITE,20)
+        Opr.render_rectangle(varia.GREY, (11*len(el),24), (32, i-2)) #rectangle derriere le titre
+        Opr.render_image('Assets/Icons/Messages.png',(0,i-8),(35,35))
+        Opr.render_text(el,(32,i-2),varia.WHITE,20)
         clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
         i+=30 # On itere
 
@@ -192,6 +194,9 @@ class Computer:
     Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
     Opr.render_image('Assets/Icons/Internet_(Test).png',(180,350),(50,50))
     Opr.render_image('Assets/Icons/Messages.png',(234,350),(50,50))
+    if varia.popup != 0:
+      Opr.render_circle(varia.RED, 7, (279,362))
+      Opr.render_text(str(varia.popup),(276,356),varia.WHITE,10)
 
 
 
@@ -242,6 +247,7 @@ while RUN:
     user_logged = Compu.log_in()
       
   else:
+    scan.update_messagerie() #on update par rapport aux unlocks
     if 110 in varia.unlocked and not 'D:' in files.Files.keys():
       files.Files = dict(files.Files,**varia.recovered_drive)
       print(files.Files)
@@ -288,7 +294,6 @@ while RUN:
       if 0 in varia.unlocked: # si on a unlock la boite mail
         Compu.render_barre_taches((232,350))
         if type(message) == dict: #si on est dans la boite de reception
-          scan.update_messagerie() #on update par rapport aux unlocks
           message = varia.messages
           Compu.render_messagerie(message)
         elif message == 'New message':
@@ -378,6 +383,7 @@ while RUN:
           clickable_icons = {} #on reset les clickable icons 
           page = 'messages'
           output = ''
+          varia.popup = 0
           
         
         #URL
@@ -391,7 +397,8 @@ while RUN:
           if type(check) == tuple:
             message = varia.messages[check[0]][check[1]] #Si on click un mail on l'ouvre
           if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
-            message = varia.messages #Si bouton back on revient a la boite mail
+            message = varia.messages
+            varia.popup = 0 #Si bouton back on revient a la boite mail
 
           #bouton écrire un mail  
           elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], page) == True:

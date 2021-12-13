@@ -22,7 +22,7 @@ unlockable_messages = {
 
 scans = {
   (1010,2000):( #premier email a envoyer quand l'on retrouve le dique dur
-    ("Group:TAMED-Cmd" or "gen. michael Fredlyn",),
+    ("Group:TAMED" or "gen. michael Fredlyn",),
     ("mission", "1" or "1.0"),
     ('disque', 'dur', 'crash' or "accident" or 'epave', 'recupere' or 'trouve')
   ),
@@ -59,9 +59,10 @@ def check_message(message_content:list):
 
 def update_messagerie():
   for lock_needed in unlockable_messages:
-    if lock_needed in varia.unlocked and not lock_needed in varia.messages.keys():
-      message_add = {lock_needed: unlockable_messages[lock_needed]}
-      new_messages = varia.messages
+    if lock_needed in varia.unlocked and not lock_needed in varia.messages.keys(): #si un nouveau message est débloqué
+      varia.popup += 1
+      message_add = {lock_needed: unlockable_messages[lock_needed]} # on ajoute le message
+      new_messages = varia.messages 
       message_add.update(new_messages)
       varia.messages = message_add
     pass
