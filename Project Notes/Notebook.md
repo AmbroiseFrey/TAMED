@@ -5,11 +5,11 @@ J = Joachim
 A = Ambroise
 M = Mathis
 
--Semaine 1 (du 13/12/2021):
+- Semaine 1 (du 13/12/2021):
   - Terminer le systeme de unlocks et l'application messagerie - A
   - Continuer les sprites du joueur - J
   - Animation nouveau mail recu - M
--Semaine 2:
+- Semaine 2:
   - Coordonnées relatives - M
   - Essayer de terminer les physiques joueur et les lier à la map - J
   - Travailler sur les 'sites web' -> mettre du contenu dedans et creer plus d'interactions - A
