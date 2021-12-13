@@ -153,6 +153,9 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 ### 13/12/2021:
 - *Mathis*:
   - Notification de nouveau mail (dans la barre des tâches) et suppression de la notification quand on clique sur la boite mail
-  - notification en bas à droite d'un nouveaux recu + quand on click dessus redirection sur la boite mail
+  - Notification en bas à droite d'un nouveaux recu + quand on click dessus redirection sur la boite mail
 - *Ambroise*:
   - Ajout de icons pour la boite mail + systeme d'unlock terminé
+  - Correction d'un bug sur le systeme de notification de messagerie
+- *Joachim*:
+  - Pre-Travail sur les physiques du joueur et map du platformer en java script

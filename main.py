@@ -198,6 +198,11 @@ class Computer:
     if varia.popup != 0:
       Opr.render_circle(varia.RED, 7, (279,362))
       Opr.render_text(str(varia.popup),(276,356),varia.WHITE,10)
+      Opr.render_rectangle(varia.BLUE_GREY,(110,34),(491,316))
+      Opr.render_text('Nouveaux mail', (495,325), varia.WHITE,15)
+      Opr.render_rectangle(varia.BLACK,(350,1),(490,315))
+      Opr.render_rectangle(varia.BLACK,(1,35),(490,315))
+      pygame.display.flip()     
 
 
 
@@ -338,13 +343,7 @@ while RUN:
         pygame.display.flip()
       else:
         Compu.render_barre_taches((232,350))
-        Opr.render_text('Acces Sécurisé !', (varia.resolution[0]/2, varia.resolution[1]/2))
-    if varia.popup !=0:
-      Opr.render_rectangle(varia.BLUE_GREY,(110,34),(491,316))
-      Opr.render_text('Nouveaux mail', (495,325), varia.WHITE,15)
-      Opr.render_rectangle(varia.BLACK,(350,1),(490,315))
-      Opr.render_rectangle(varia.BLACK,(1,35),(490,315))
-      pygame.display.flip()      
+        Opr.render_text('Acces Sécurisé !', (varia.resolution[0]/2, varia.resolution[1]/2)) 
 
   #On check les events
   for event in pygame.event.get():
