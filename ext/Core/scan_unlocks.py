@@ -15,6 +15,7 @@ unlockable_messages = {
       "from: Charlotte Coulson",
       "to: John Doe",
       "Bonjour Mr. Doe,",
+      "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus"
     ],
   }
 }

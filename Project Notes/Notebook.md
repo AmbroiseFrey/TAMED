@@ -1,5 +1,48 @@
 # Notebook
 
+## Planning
+J = Joachim
+A = Ambroise
+M = Mathis
+-Semaine 1 (du 13/12/2021):
+  - Terminer le systeme de unlocks et l'application messagerie - A
+  - Continuer les sprites du joueur - J
+  - Animation nouveau mail recu - M
+-Semaine 2:
+  - Coordonnées relatives - M
+  - Essayer de terminer les physiques joueur et les lier à la map - J
+  - Travailler sur les 'sites web' -> mettre du contenu dedans et creer plus d'interactions - A
+- Semaine 3:
+  - Ecrire l'histoire  et la map dans les détails sur papier- A + M
+  - Commencer le render de la map (front-end, realisme) -J
+- Semaine 4:
+  - Ajout d'objet d'environment dans le platformer (tremplins, platformes qui bougent, lave) - J
+  - Ajout de l'histoire en terme de code dans l'ordinateur (messages/mail, files, documents) - A + M
+- Semaine 5:
+  - Terminer le snake game - J 
+  - Possibilité d'écrire des fichiers textes pour le joueur - A + M
+- Semaine 6:
+  - Ajout d'objets a interagir pour l'histoire dans le platformer (murs a detruires, objets a recuperer) - J
+  - Terminer la possiblité d'écrire des notes - A + M
+- Semaine 7:
+  - Ajout de la musique (plus compliqué que ce qu'on pourrait penser) - A
+  - Parametres permettant de changer le fond d'ecran ect. - M
+  - Debut de la construction de la map (en terme de chose a faire dans le platformer par le joueur) - J
+- Semaine 8:
+  - Terminer la map + ajout de flag et de sauvegarde - J + M + A
+- Semaine 9:
+  - Grande seance de test du jeu, repoter les bugs, suggestions ect.
+- Semaine 10:
+  - Travail sur tout les bugs/ suggestions + encore des tests
+- Semaine 11:
+  - Travail sur tout les bugs/ suggestions part 2
+ - Semaine 12:
+  - Ajout de fichiers 'rigolos' et inutiles qui caractérisent 'John Doe'
+
+
+
+
+
 ## Taches generales:
 Note:<br/>
 Tout le monde a travaillé sur d'autre parties, c'est un plan approximatif<br/>
