@@ -4,6 +4,7 @@
 J = Joachim
 A = Ambroise
 M = Mathis
+
 -Semaine 1 (du 13/12/2021):
   - Terminer le systeme de unlocks et l'application messagerie - A
   - Continuer les sprites du joueur - J
