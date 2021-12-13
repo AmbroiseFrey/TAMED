@@ -35,12 +35,13 @@ writing_data = []
 varia.unlocked = [0, 1000]
 
 #-----------test area--------
+varia.popup=2
 def dev_use():
   varia.unlocked.append(1010) #bypass steps
   varia.popup +=1
   return True
-
-#user_logged = dev_use() #bypass login
+print(varia.popup)
+user_logged = dev_use() #bypass login
 
 #-------end test area---------
 
@@ -338,7 +339,12 @@ while RUN:
       else:
         Compu.render_barre_taches((232,350))
         Opr.render_text('Acces Sécurisé !', (varia.resolution[0]/2, varia.resolution[1]/2))
-
+    if varia.popup !=0:
+      Opr.render_rectangle(varia.BLUE_GREY,(110,34),(491,316))
+      Opr.render_text('Nouveaux mail', (495,325), varia.WHITE,15)
+      Opr.render_rectangle(varia.BLACK,(350,1),(490,315))
+      Opr.render_rectangle(varia.BLACK,(1,35),(490,315))
+      pygame.display.flip()      
 
   #On check les events
   for event in pygame.event.get():
@@ -390,7 +396,11 @@ while RUN:
         elif Opr.check_interaction(event.pos, (66,600,1,28), ['web'], page) == True:
           open=True
 
-
+        #Regarde si on clique sur la notification d'un mail
+        elif Opr.check_interaction(event.pos,(490,600,320,350), ['home','fd0','web','plat',],page) == True:
+          varia.popup=0
+          page = 'messages'
+          
         # Ouvrir des messages
         elif page == 'messages':
           check = Compu.check_icons(event.pos)
