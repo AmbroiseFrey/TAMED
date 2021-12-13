@@ -32,16 +32,14 @@ level = 0
 message = varia.messages
 #variables specifiques a des sous stages quand il faut ecrire
 writing_data = [] 
-varia.unlocked = [0, 1000]
+varia.unlocked = [0, 0.1, 1000]
 
 #-----------test area--------
-varia.popup=2
 def dev_use():
   varia.unlocked.append(1010) #bypass steps
-  varia.popup +=1
   return True
-print(varia.popup)
-user_logged = dev_use() #bypass login
+
+#user_logged = dev_use() #bypass login
 
 #-------end test area---------
 
@@ -168,9 +166,9 @@ class Computer:
     for lock in messages:
       for el in messages[lock]:
         #On render le text
-        Opr.render_rectangle(varia.GREY, (11*len(el),24), (32, i-2)) #rectangle derriere le titre
+        Opr.render_rectangle(varia.GREY, (11*len(el),24), (36, i-2)) #rectangle derriere le titre
         Opr.render_image('Assets/Icons/Messages.png',(0,i-8),(35,35))
-        Opr.render_text(el,(32,i-2),varia.WHITE,20)
+        Opr.render_text(el,(36,i-2),varia.WHITE,20)
         clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
         i+=30 # On itere
 
@@ -199,11 +197,10 @@ class Computer:
       Opr.render_circle(varia.RED, 7, (279,362))
       Opr.render_text(str(varia.popup),(276,356),varia.WHITE,10)
       Opr.render_rectangle(varia.BLUE_GREY,(110,34),(491,316))
-      Opr.render_text('Nouveaux mail', (495,325), varia.WHITE,15)
+      Opr.render_text('Nouveau mail', (495,325), varia.WHITE,15)
       Opr.render_rectangle(varia.BLACK,(350,1),(490,315))
       Opr.render_rectangle(varia.BLACK,(1,35),(490,315))
       pygame.display.flip()     
-
 
 
   def check_icons(clickpos: tuple):

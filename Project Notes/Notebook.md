@@ -8,7 +8,7 @@ M = Mathis
 - Semaine 1 (du 13/12/2021):
   - Terminer le systeme de unlocks et l'application messagerie - A
   - Continuer les sprites du joueur - J
-  - Animation nouveau mail recu - M
+  - Animation/ Notification nouveau mail recu - M
 - Semaine 2:
   - Coordonnées relatives - M
   - Essayer de terminer les physiques joueur et les lier à la map - J
@@ -32,7 +32,7 @@ M = Mathis
 - Semaine 8:
   - Terminer la map + ajout de flag et de sauvegarde - J + M + A
 - Semaine 9:
-  - Grande seance de test du jeu, repoter les bugs, suggestions ect.
+  - Grande seance de test du jeu, reporter les bugs, suggestions ect.
 - Semaine 10:
   - Travail sur tout les bugs/ suggestions + encore des tests
 - Semaine 11:

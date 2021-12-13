@@ -6,7 +6,7 @@ unlockable_messages = {
   2000 : {
     "TAMED Mission - 2":[
       "from: Gen. Michael Fredlyn ",
-      "to: Group:TAMED-Cmd",
+      "to: Group:TAMED",
       "Bonjour,",
     ],
   },
@@ -24,13 +24,13 @@ scans = {
   (1010,2000):( #premier email a envoyer quand l'on retrouve le dique dur
     ("Group:TAMED" or "gen. michael Fredlyn",),
     ("mission", "1" or "1.0"),
-    ('disque', 'dur', 'crash' or "accident" or 'epave', 'recupere' or 'trouve')
+    ('disque', 'dur')
   ),
 
   (1010,10):( #deuxieme mail Des documents suspects dans le disque dur retrouvé
     ("charlotte.coulson@kryptkorp.org" or 'Charlotte coulson',),
     ("documents" or 'document',),
-    ("decouvert" or "trouve" or 'vu', "documents" or 'document' or 'file', "disque", "dur")
+    ("documents" or 'document' or 'file')
   )
 }
 
