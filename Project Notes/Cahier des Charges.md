@@ -49,6 +49,17 @@ On est un technicien qui travaille pour une compagnie de haute technologie qui t
 
 * **Charlotte Coulson** travaille aussi pour Krypt Korp
   * Amie de l'agent mort dans le crash de la station, elle envoi des emails au joueur par rapport à son sceptisme quand au raison du crash
+  * Elle travaillait sur le Project:Zeus
+
+* **Project:Zeus**:
+  * Un projet de station destiné a acceuilir des militaires dans l'espace profond
+  * Un certain *Colonel Thompson* avait pour mission de consituer les modules de base de la station mais un incident mysterieux c'est passé
+
+* **Project:TAMED**:
+  * Technologically Advanced Military Exploration Device
+    * Le robot en lui meme a d'abord été concu pour l'exploration militaire de zones tres dangereuses
+  * Partenariat avec l'armée francaise pour but de trouver une planete habitable
+    * Mené par le *General Michael Fredlyn*, chef du Commandement de l’Espace
 
 ## Besoins
 ### Ordinateur

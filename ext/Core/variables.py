@@ -20,8 +20,9 @@ n_flags = 0
 page = 'home'
 file_dir_path = '' #Les fichiers
 
-recovered_drive = {'D:':{  #Le drive trouvé par le robot
-  'User:' : 'Thing',
+recovered_drive = { #Le drive trouvé par le robot
+'D:':{
+  'Project:Zeus' : 'Thing',
 },
 }
 
@@ -42,7 +43,7 @@ messages = { # les messages recus de base
       "to: Group:TAMED-Cmd",
       "Bonjour,",
       "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
-      "Nous devons déjà retrouver la boite noire de la station ___.",
+      "Nous devons déjà retrouver la boite noire de la station Zeus.",
       "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
       "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
       "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé la boite noire."

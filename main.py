@@ -1,4 +1,4 @@
-#https://www.pygame.org/docs/ Tisaou
+#https://www.pygame.org/docs/
 import pygame, time
 from ext.Apps import web_search as s
 from ext.Apps import file_explorer as files
@@ -35,7 +35,12 @@ writing_data = []
 varia.unlocked = [0, 1000]
 
 #-----------test area--------
-varia.unlocked.append(1010)
+def dev_use():
+  varia.unlocked.append(1010) #bypass steps
+  return True
+
+#user_logged = dev_use() #bypass login
+
 #-------end test area---------
 
 
@@ -234,8 +239,7 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    #user_logged = Compu.log_in()
-    user_logged = True
+    user_logged = Compu.log_in()
       
   else:
     if 110 in varia.unlocked and not 'D:' in files.Files.keys():
@@ -259,8 +263,9 @@ while RUN:
     
     elif page == 'web':
       Compu.render_barre_taches((177,350))
-      Opr.render_rectangle_borders(varia.BLACK, (66,1), (-66,29))
-      Opr.render_rectangle_relative(varia.BLACK, (70,5), (-70, 20))
+      # Opr.render_rectangle_borders(varia.BLACK, (66,1), (-66,29))
+      # Opr.render_rectangle_relative(varia.BLACK, (70,5), (-70, 20))
+      Opr.div(top=5,height=20,left="10vw",width="80vw", padding=5, border=(0,0,0))
       Opr.render_text(output, (70,4),varia.WHITE, 17)
       if not(open): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
@@ -280,10 +285,11 @@ while RUN:
           level = plat_check #on synchronise avec le level
 
     elif page == 'messages':
-      scan.update_messagerie() #on update par rapport aux unlocks
       if 0 in varia.unlocked: # si on a unlock la boite mail
         Compu.render_barre_taches((232,350))
         if type(message) == dict: #si on est dans la boite de reception
+          scan.update_messagerie() #on update par rapport aux unlocks
+          message = varia.messages
           Compu.render_messagerie(message)
         elif message == 'New message':
           clickable_icons = {} #on clear les clickables icons 

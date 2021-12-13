@@ -99,5 +99,8 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 
 #### 11/12/2021:
 - *Ambroise*:
-  - Travail sur la messagerie
-  - Travail sur le systeme des unlocks
+  - Travail sur la messagerie et l'ajout de nouveaux messages
+  - Travail sur le systeme des unlocks et ajout de fonctions pour le décoder
+  - Travail sur le file explorer et reformattage du source code pour les files
+- *Joachim*:
+  - Création d'une fonction div (comme le &#60;div> en html) et d'une function understandValue pour dessiner des rectangles avec des positions et des tailles relatives à la résolution de l'écran et avec des bords

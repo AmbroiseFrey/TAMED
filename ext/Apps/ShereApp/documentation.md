@@ -1,8 +1,4 @@
-# file_explorer.py:
-
-# snake.py:
-
-# planet_viewer.py:
+# Sphere App : PLANET VIEWER
 **`planet_viewer`** est une application (très performante) qui permet de voir la progression du robot sur la planète. Un `circle` bleu indique le point de départ du robot, des `circle` verts indiquent les `flags` que le robot a déposés, sur lesquels on peut cliquer pour que le robot retourne à cet endroit (Attention, le robot a un nombre limité de `flags` qu'il peut placer) et un `circle` rouge indique la position actuelle du robot. Enfin, une courbe orange représente les endroits où le robot a déjà exploré.
 
 ________________________
@@ -48,7 +44,7 @@ ________________________
     L'argument `R` et un tuple contenant 3 tuples pour les rotation sur l'axe X, Y et Z respectivement qui contiennent les valeurs des cosinus et sinus respectivement des angles de ces rotations. Avec ces valeurs, on peut effectuer les modifications nécessaires grâce aux matrices de rotation pour changer la position du point en respectant la rotation demandée. Puis on redéfinit la le paramètre `draw_position` grâce à la position donnée.
 
   **_applyMatrixRotation_**: function(matrix: tuple(tuple(float,3),3))->None;
-    méthode qui applique à la position du point les modifications nécessaires dues à l'ensemble des rotations de la planète traduites par la matrice `matrix` (**⚠ il faut le tester**)
+    méthode qui applique à la position du point les modifications nécessaires dues à l'ensemble des rotations de la planète traduites par la matrice `matrix`
   
   **_applyPerspective_**: function()=>tuple(float, 2);
     cette méthode change d'abord le coéfficient `persp_coef` pour enfin retourner la position du point dans un plan en appliquant une perspective de `perspective_index` (note: on utilise du logarithme pour cela)
@@ -118,18 +114,14 @@ ________________________
   **_flags_**: list;
     paramètre dans lequel on stocke les flags sur la map
 
-  **_orientation_vertices_**: tuple(tuple(float,3),2);
-    2 vertices qui indiquent l'orientation de la planète selon l'écran
+  **_orientation_matrices_**: tuple(tuple(float,3),3);
+    matrices qui varie à chaque rotation par laquelle il faut multiplier un `Point` pour avoir la position réelle de ce point sur la planète (c'est une matrice qui permet de stocker l'entièreté des rotations effectuées par la planète)
 
   **_request_display_**: bool;
     paramètre qui permet de savoir s'il y a eu une modification afin dans la rotation de la planète afin que l'on ne calcule pas trop de choses pour rien
 
   **_addFlag_**: function(`flag`: Flag)=>None;
-    méthode qui permet d'ajouter le `flag` sur la planète et d'effectuer les rotations sur le `flag` relatives à l'ensemble de rotations de la planète que l'on trouve grâce à la méthode ``
-
-  **_getOrientationMatrix_**: function()->tuple(tuple(float, 3), 3);
-    cette méthode renvoie la matrice qui traduit l'ensemble des rotations appliquées à la planète que l'on peut retrouver grâce à ses `orientation_vertices` 
-    (le code est assez compliqué à comprendre, j'ai mis mes calculs dans les archives **⚠ je ne sais pas si ça marche car je ne l'ai pas encore testé**: ça semble, marcher, on a bien: ((1,0,0),(0,1,0),(0,0,1)) lorsque le script commence)
+    méthode qui permet d'ajouter le `flag` sur la planète et d'effectuer les rotations sur le `flag` relatives à l'ensemble de rotations de la planète que l'on trouve grâce à `_orientation_matrices_`
     
   **_rotate_**: function(`rotX`:float, `rotY`:float, `rotZ`:float)=>None;
     méthode qui permet d'effectuer les modifications nécessaires aux points dans la map uniquement s'il y a réellement une rotation à effectuer (afin de ne pas faire trop de calculs pour rien)

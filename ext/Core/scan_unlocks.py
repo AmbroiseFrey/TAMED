@@ -23,13 +23,13 @@ scans = {
   (1010,2000):( #premier email a envoyer quand l'on retrouve le dique dur
     ("Group:TAMED-Cmd" or "gen. michael Fredlyn",),
     ("mission", "1" or "1.0"),
-    ('disque', 'dur', 'crash' or "accident", 'recupere' or 'trouve')
+    ('disque', 'dur', 'crash' or "accident" or 'epave', 'recupere' or 'trouve')
   ),
 
   (1010,10):( #deuxieme mail Des documents suspects dans le disque dur retrouvé
     ("charlotte.coulson@kryptkorp.org" or 'Charlotte coulson',),
-    ("suspects" or 'bizzares', "documents"),
-    ("decouvert" or "trouve", "documents", "disque", "dur")
+    ("documents" or 'document',),
+    ("decouvert" or "trouve" or 'vu', "documents" or 'document' or 'file', "disque", "dur")
   )
 }
 
@@ -52,7 +52,7 @@ def check_message(message_content:list):
               break # failed
     else:
       pass
-  return None #c'est donc faux
+  return None #c'est donc un message qui ne correspond a rien
 
 
 
@@ -60,9 +60,12 @@ def update_messagerie():
   for lock_needed in unlockable_messages:
     if lock_needed in varia.unlocked and not lock_needed in varia.messages.keys():
       message_add = {lock_needed: unlockable_messages[lock_needed]}
-      varia.messages.update(message_add)
-    else:
-      pass
+      new_messages = varia.messages
+      message_add.update(new_messages)
+      varia.messages = message_add
+    pass
   for lock in varia.messages:
     if lock not in varia.unlocked and lock in varia.messages.keys():
       varia.messages.pop(lock_needed)
+    pass
+  return

@@ -39,18 +39,47 @@ def render_rectangle(color:tuple, size:tuple, pos:tuple):
   pygame.draw.rect(screen, color, pygame.Rect(pos + size))
 
 
-def understandValues(size):
-  if type(size) is int:
-    return size
-  if "vw" in size:
-    return int(size[:-2])/100 * varia.resolution[0]
-  if "vh" in size:
-    return int(size[:-2])/100 * varia.resolution[1]
+mi, ma = sorted(varia.resolution)
+def understandValue(s, op:1|0=0): # faire des positions qui dépendent de la résolution
+  if type(s) is int:
+    return s
+  if s[-1] == '%':
+    return int(s[:-1])/100 * varia.resolution[op]
+  if s[-2:] == 'vw':
+    return int(s[:-2])/100 * varia.resolution[0]
+  if s[-2:] == 'vh':
+    return int(s[:-2])/100 * varia.resolution[1]
+  if s[-4:] == 'vmin':
+    return int(s[:-4])/100 * mi
+  if s[-4:] == 'vmax':
+    return int(s[:-4])/100 * ma
 
+str(100/3)+"vw"
 
-def div(color: tuple = (0,0,0), size:tuple = ("100vw","100vh"), top:float=0, left:float=0, bottom:float = None, right:float = None):
-  pass
-
+def div(color:tuple=(0,0,0), height=0,width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
+  x1,y1 = 0,0
+  x2,y2 = 0,0
+  h = understandValue(height)
+  w = understandValue(width)
+  #position along the y-axis
+  if bottom != None:
+    y2 = understandValue(bottom)
+    y1 = y2 - h
+  else: 
+    y1 = understandValue(top)
+    y2 = y1 + h
+  #position along the x-axis
+  if right != None:
+    x2 = understandValue(right)
+    x1 = x2 - w
+  else: 
+    x1 = understandValue(left)
+    x2 = x1 + w
+  pygame.draw.rect(screen, color, pygame.Rect((x1,y1,x2-x1,y2-y1)))
+  if border:
+    p = understandValue(padding)
+    w = understandValue(border_width)
+    render_rectangle_borders(border, (x1-p,y1-p), (x2-x1+p*2, y2-y1+p*2), w, (0,0))
 
 
 def render_rectangle_relative(color:tuple, p1:tuple, p2:tuple, relativity:tuple=(1,0)):
@@ -72,9 +101,9 @@ def render_rectangle_borders(color:tuple, p1:tuple, p2:tuple, width:float=1, rel
     varia.resolution[1] + p2[1] - p1[1] if relativity[1] else p2[1]
   )
   w2 = width/2
-  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,p2[0]+w2,width)))
+  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,p2[0]+width,width)))
   pygame.draw.rect(screen, color, pygame.Rect((p2[0]+p1[0]-w2,p1[1]-w2,width,p2[1]+w2)))
-  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p2[1]+p1[1]-w2,p2[0]+w2,width)))
+  pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p2[1]+p1[1]-w2,p2[0]+width,width)))
   pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,width,p2[1]+w2)))
 
 
@@ -121,6 +150,8 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
       varia.sound = 'Assets/Directory Files/' + file_contents
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
       render_image('Assets/Directory Files/'+file_contents, (x,y), size)
+    elif file_contents[len(file_contents)-3:len(file_contents)] in ['mp4']: #si c'est une video
+      render_image('Assets/Directory Files/'+file_contents[:-4]+'.png', (x+25,y), (480,240))
     elif file_contents == 'snake.py': #si c'est le snake game
       return 'snake'
     else:

@@ -1,11 +1,11 @@
 # Unlocks (variables.unlocked)
 Dizaines, storyline avec le character Charlotte
 
-Centaines, storyline avec le platformer
+Milliers, storyline avec le platformer
 
 #
 
-## 100
+## 1000
 Mission 1 of Tamed
 - 1000, email sent by computer
 - 1010, Object retrieved
