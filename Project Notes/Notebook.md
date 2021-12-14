@@ -150,7 +150,7 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 - *Joachim*:
   - Création d'une fonction div (comme le &#60;div> en html) et d'une function understandValue pour dessiner des rectangles avec des positions et des tailles relatives à la résolution de l'écran et avec des bords
 
-### 13/12/2021:
+#### 13/12/2021:
 - *Mathis*:
   - Notification de nouveau mail (dans la barre des tâches) et suppression de la notification quand on clique sur la boite mail
   - Notification en bas à droite d'un nouveaux recu + quand on click dessus redirection sur la boite mail
@@ -161,5 +161,5 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 - *Joachim*:
   - Pre-Travail sur les physiques du joueur et map du platformer en java script
 
-### 14/12/2021:
+#### 14/12/2021:
 - *Ambroise*: Correction d'un bug relatif au lien ordi - snake game
