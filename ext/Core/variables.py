@@ -24,18 +24,46 @@ file_dir_path = '' #Les fichiers
 
 recovered_drive = { #Le drive trouvé par le robot
 'D:':{
-  'Project:Zeus' : 'Thing',
+  'Project:Zeus' : {
+    'Programs' : {
+      'gyro_system.exe' : 'FILE NOT FOUND'
+    },
+    'Station Logs' :{
+      'Zeus - Log 1' :[
+        'Jour 1',
+        'Colonel qql chose',
+      ]
+    }
+  },
 },
 }
 
 messages = { # les messages recus de base
+    1000:{
+    "[URGENT] TAMED Mission - 1":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour,",
+      "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
+      "Nous devons déjà retrouver la boite noire de la station Zeus.",
+      "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
+      "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
+      "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé le disque dur.",
+      "Veuillez:", 
+      "-Envoyer un mail intitulé Reussite de la Mission 1 une fois que vous avez recupere le disque dur.",
+      "-Evaluer le niveau de fichiers endommagés une fois le disque dur transféré sur votre ordinateur",
+      "Merci,",
+      "Général Michael Fredlyn",
+      "P.S.",
+      "Merci de faire toute communication a propos du projet TAMED à l'adresse Group:Tamed"]
+  },
   0.1:{
     "Bug Majeur de la Messagerie":[
       "from: Services Techniques",
       "to: Group:KryptCorp-Europe",
       "Bonjour a tous,",
       "Malheuresement, un bug ne permet plus d'utiliser de caractère accentués dans la messagerie.",
-      "Nous sommes désolé pour ce gêne et nous tentons de le réparer au plus vite"
+      "Nous sommes désolé pour ce gêne et nous tentons de le réparer au plus vite",
       "Cordialement,",
       "Services Techniques Internes de Krypt Corp Europe"],
   },
@@ -48,23 +76,6 @@ messages = { # les messages recus de base
       "Cordialement,",
       "Director Slane,",
       "J.M.T.D. Europe Director"],
-  },
-  1000:{
-    "[URGENT] TAMED Mission - 1":[
-      "from: Gen. Michael Fredlyn ",
-      "to: Group:TAMED",
-      "Bonjour,",
-      "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
-      "Nous devons déjà retrouver la boite noire de la station Zeus.",
-      "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
-      "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
-      "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé le disque dur.",
-      "Veuillez envoyer un mail intitulé Reussite de la Mission 1 une fois que vous avez recupere le disque dur.",
-      "Merci,",
-      "Général Michael Fredlyn",
-      "",
-      "P.S.",
-      "Merci de faire toute communication a propos du projet TAMED à l'adresse Group:Tamed"]
   },
 }
 

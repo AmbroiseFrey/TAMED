@@ -13,11 +13,11 @@ pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
 
 #Taille
-screen = pygame.display.set_mode(varia.resolution)
+screen = pygame.display.set_mode(varia.resolution) #pygame.NOFRAME - sans bordure
 
 #Nom et icon de notre fenetre
 pygame.display.set_caption("Krypt Corp")
-logo = pygame.image.load('Assets/Icons/logo.svg')
+logo = pygame.image.load('Assets/Icons/logo.png')
 pygame.display.set_icon(logo)
 clock = pygame.time.Clock()
 
@@ -25,7 +25,7 @@ clock = pygame.time.Clock()
 RUN = True #est ce que la boucle while tourne
 user_logged = False #est ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
-from ext.Core.variables import page, file_dir_path
+from ext.Core.variables import file_dir_path
 clickable_icons = {}
 plat_check = 0
 level = 0
@@ -63,7 +63,7 @@ class Computer:
     while open:
       rY+=.002
       screen.fill((83,130,168))
-      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/logo_button.png')
+      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
       Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
       Opr.render_text('User: '+output, (50,50))
       Opr.render_text('Password: ', (50,70))
@@ -84,7 +84,7 @@ class Computer:
     while open:
       rY +=.002
       screen.fill((83,130,168))
-      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/logo_button.png')
+      sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
       Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
       Opr.render_text('User: '+user, (50,50))
       Opr.render_text('Password: '+len(output)*'*', (50,70))
@@ -188,7 +188,7 @@ class Computer:
       #Carré bleu appli en cours
       Opr.render_rectangle(varia.LIGHT_BLUE, (55,55),pos)
     #Applications
-    Opr.render_image('Assets/Icons/Home_Button_(Test).png',(0,352),(45,45))
+    Opr.render_image('Assets/Icons/Home_Button.png',(0,352),(45,45))
     Opr.render_image('Assets/Icons/Folder.png',(60,350),(50,50))
     Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
     Opr.render_image('Assets/Icons/Internet_(Test).png',(180,350),(50,50))
@@ -251,17 +251,17 @@ while RUN:
       
   else:
     scan.update_messagerie() #on update par rapport aux unlocks
-    if 110 in varia.unlocked and not 'D:' in files.Files.keys():
+    if not 'D:' in files.Files.keys() and 1010 in varia.unlocked:
       files.Files = dict(files.Files,**varia.recovered_drive)
       print(files.Files)
     #HOME
-    elif page == 'home':
+    elif varia.page == 'home':
       Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution) # On render le background
       Compu.render_barre_taches((55,350), False) #On render la barre des taches
       pygame.display.flip() #on display le tout
 
     #FILE Directory
-    elif page == 'fd0':
+    elif varia.page == 'fd0':
       Compu.render_barre_taches((55,350)) #On render la barre des taches
       Compu.render_file_tree(file_dir_path) #on render les files/dossiers par rapport au chemin
       file_dir_path = output # on synchronise le texte tapé avec le chemin
@@ -270,10 +270,8 @@ while RUN:
       open = True # on permet de taper au clavier
       pygame.display.flip() #on display le tout
     
-    elif page == 'web':
+    elif varia.page == 'web':
       Compu.render_barre_taches((177,350))
-      # Opr.render_rectangle_borders(varia.BLACK, (66,1), (-66,29))
-      # Opr.render_rectangle_relative(varia.BLACK, (70,5), (-70, 20))
       Opr.div(top=5,height=20,left="10vw",width="80vw", padding=5, border=(0,0,0))
       Opr.render_text(output, (70,4),varia.WHITE, 17)
       if not(open): #Si l'utilisateur ne tape plus
@@ -281,19 +279,24 @@ while RUN:
       pygame.display.flip()
 
     #Snake game link
-    elif page == 'snake':
-      page = snk.game()
+    elif varia.page == 'snake':
+      snk.game()
+      varia.page = 'fd0'
+      file_dir_path = 'C:/Program Files/'
+      output = 'C:/Program Files/'
     
     #Platformer
-    elif page == 'plat': # si la page est celle du platformer
-      if type(plat_check) == str: #si le platformer renvoit le fait que il revient a un page de l'ordi
-        page = plat_check # on va a cette page
+    elif varia.page == 'plat': # si la page est celle du platformer
+      if type(plat_check) == str: #si le platformer renvoit le fait que il revient a un varia.page de l'ordi
+        varia.page = plat_check # on va a cette page
+        file_dir_path = 'C:/' #on reset le file dir au cas ou c'est un acces par le fichier exe
+        plat_check = 0
       else:
         plat_check = plat.play_game(plat_check) # on check par rapport à ce que la fonction retourne
         if type(plat_check) == int: # si la fonction retourne un chiffre
           level = plat_check #on synchronise avec le level
 
-    elif page == 'messages':
+    elif varia.page == 'messages':
       if 0 in varia.unlocked: # si on a unlock la boite mail
         Compu.render_barre_taches((232,350))
         if type(message) == dict: #si on est dans la boite de reception
@@ -353,61 +356,61 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
-        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], page) == True:
+        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
-          page = 'fd0'
+          varia.page = 'fd0'
           output = ''
 
         #Appli home
-        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], page) == True:
-          page = 'home'
+        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], varia.page) == True:
+          varia.page = 'home'
           clickable_icons = {} #on reset les clickable icons 
         
         #Bouton close
-        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], page) == True:
-          page = 'home'
+        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], varia.page) == True:
+          varia.page = 'home'
           clickable_icons = {} #on reset les clickable icons         
         
         #Acces au robot
-        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], page) == True:
+        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], varia.page) == True:
           plat_check = level
-          page = 'plat'
+          varia.page = 'plat'
         
         #Internet explorer
-        elif Opr.check_interaction(event.pos, (184,230,360,400), ['home','fd0','messages'], page) == True:
+        elif Opr.check_interaction(event.pos, (184,230,360,400), ['home','fd0','messages'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
-          page = 'web'
+          varia.page = 'web'
           output=''
           open=False
 
         #Messagerie
-        elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web'], page) == True:
+        elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
-          page = 'messages'
+          varia.page = 'messages'
           output = ''
           varia.popup = 0
           
         
         #URL
-        elif Opr.check_interaction(event.pos, (66,600,1,28), ['web'], page) == True:
+        elif Opr.check_interaction(event.pos, (66,600,1,28), ['web'], varia.page) == True:
           open=True
 
         #Regarde si on clique sur la notification d'un mail
-        elif Opr.check_interaction(event.pos,(490,600,320,350), ['home','fd0','web','plat',],page) == True:
+        elif Opr.check_interaction(event.pos,(490,600,320,350), ['home','fd0','web','plat',],varia.page) == True:
           varia.popup=0
-          page = 'messages'
+          varia.page = 'messages'
           
         # Ouvrir des messages
-        elif page == 'messages':
+        elif varia.page == 'messages':
           check = Compu.check_icons(event.pos)
           if type(check) == tuple:
             message = varia.messages[check[0]][check[1]] #Si on click un mail on l'ouvre
-          if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], page) == True:
+          if Opr.check_interaction(event.pos, (30,60,0,30), ['messages'], varia.page) == True:
             message = varia.messages
             varia.popup = 0 #Si bouton back on revient a la boite mail
 
           #bouton écrire un mail  
-          elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], page) == True:
+          elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], varia.page) == True:
             message = 'New message'
             output = '' #reset output
             writing_data = ['dest', '','','','']
@@ -415,7 +418,7 @@ while RUN:
             open=True
 
           #bouton pour envoyer un mail
-          elif Opr.check_interaction(event.pos, (90,117,0,27), ['messages'], page) == True and message == 'New message':
+          elif Opr.check_interaction(event.pos, (90,117,0,27), ['messages'], varia.page) == True and message == 'New message':
             
             #check si les contenus du mail ne sont pas vide
             if writing_data[1] and writing_data[2] and writing_data[3]:
@@ -432,25 +435,25 @@ while RUN:
               writing_data[4] = 'casemailvide'
               
           #Si click la boîte destinataire
-          elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], page) == True and message == 'New message':
+          elif Opr.check_interaction(event.pos, (66,598,51,77), ['messages'], varia.page) == True and message == 'New message':
             writing_data[0] = 'dest' # la writing stage est celle du destinataire
             output = writing_data[1]
             open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite sujet
-          elif Opr.check_interaction(event.pos, (66,598,89,115), ['messages'], page) == True and message == 'New message':
+          elif Opr.check_interaction(event.pos, (66,598,89,115), ['messages'], varia.page) == True and message == 'New message':
             writing_data[0] = 'topic'
             output = writing_data[2]
             open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite corps du mail
-          elif Opr.check_interaction(event.pos, (74,598,134,326), ['messages'], page) == True and message == 'New message':
+          elif Opr.check_interaction(event.pos, (74,598,134,326), ['messages'], varia.page) == True and message == 'New message':
             writing_data[0] = 'content'
             output = writing_data[3]
             open = True # on autorise a faire le lien clavier - pygame
 
-        elif page == 'fd0':
-          if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], page) == True: #Back button
+        elif varia.page == 'fd0':
+          if Opr.check_interaction(event.pos, (30,60,0,30), ['fd0'], varia.page) == True: #Back button
             clickable_icons = {} #reset les icons clickables
             file_dir_path = file_dir_path[:-1]
             for c in reversed(file_dir_path):

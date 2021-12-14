@@ -6,7 +6,7 @@ A = Ambroise
 M = Mathis
 
 - Semaine 1 (du 13/12/2021):
-  - Terminer le systeme de unlocks et l'application messagerie - A
+  - Terminer le système de unlocks et l'application messagerie - A
   - Continuer les sprites du joueur - J
   - Animation/ Notification nouveau mail recu - M
 - Semaine 2:
@@ -34,9 +34,9 @@ M = Mathis
 - Semaine 9:
   - Grande seance de test du jeu, reporter les bugs, suggestions ect.
 - Semaine 10:
-  - Travail sur tout les bugs/ suggestions + encore des tests
+  - Travail sur tous les bugs/ suggestions + encore des tests
 - Semaine 11:
-  - Travail sur tout les bugs/ suggestions part 2
+  - Travail sur tous les bugs/ suggestions part 2
  - Semaine 12:
   - Ajout de fichiers 'rigolos' et inutiles qui caractérisent 'John Doe'
 
@@ -157,5 +157,9 @@ Pour valoriser les efforts de chacuns, la categorie `Archive` a été créé. El
 - *Ambroise*:
   - Ajout de icons pour la boite mail + systeme d'unlock terminé
   - Correction d'un bug sur le systeme de notification de messagerie
+  - Correction d'un bug par rapport à la synchronisation des pages de l'ordinateur a travers tous les fichiers de code
 - *Joachim*:
   - Pre-Travail sur les physiques du joueur et map du platformer en java script
+
+### 14/12/2021:
+- *Ambroise*: Correction d'un bug relatif au lien ordi - snake game

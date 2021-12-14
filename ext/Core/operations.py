@@ -154,6 +154,8 @@ def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: in
       render_image('Assets/Directory Files/'+file_contents[:-4]+'.png', (x+25,y), (480,240))
     elif file_contents == 'snake.py': #si c'est le snake game
       return 'snake'
+    elif file_contents == 'tamed.exe': #si c'est le snake game
+      return 'plat'
     else:
       render_text(file_contents, (x,y)) # base, on render le texte
   else:

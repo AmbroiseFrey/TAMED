@@ -85,7 +85,7 @@ Files ={
   },
   'Program Files':{
     'chrome.exe':'<',
-    'tamed.exe':'<',
+    'tamed.exe':'tamed.exe',
     'snake.py': 'snake.py'
   },
 },

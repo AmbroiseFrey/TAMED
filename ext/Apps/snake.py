@@ -44,10 +44,10 @@ def game():
         if event.type == pygame.MOUSEBUTTONDOWN:
           mouse_presses = pygame.mouse.get_pressed()
           if mouse_presses[0]:
-            print(event.pos)
 
             #On check si l'utilisateur veut quitter le jeu
             if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
               RUN = False
+              return 'fd0'
         pygame.display.flip()
     return 'fd0'

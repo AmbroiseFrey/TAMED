@@ -38,7 +38,7 @@ def play_game(level = 0):
     floor.display()
 
     #On display l'icon pour revenir a l'ordi
-    Opr.render_image('Assets/Icons/home.png',(0,0),(50,50))
+    Opr.render_image('Assets/Icons/Normal_Home.png',(0,0),(50,50))
     #Ici on check les events autre que les touches fleches
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
