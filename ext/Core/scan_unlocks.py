@@ -19,7 +19,11 @@ unlockable_messages = {
       "Bonjour Mr. Doe,",
       "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus:",
       "Il consistait à rendre opérationnel une station qui orbitait autour de Kepler-272 alpha, pour ensuite",
-      ""
+      "verifier si la planète Kepler-272 alpha est habitable.",
+      "Malheuresement tu n'es pas le premier à tenter cette mission, Colonel Tompson à lui même tenté la",
+      " mission, mais sa station s'est écrasé dans des circonstances inconnues.",
+      "Peut regaqrder les fichiers que tu as recuperé pour verifier s'il n'y a pas quelque chose qui cloche",
+      " en regardant les logs de la station."
     ],
   }
 }

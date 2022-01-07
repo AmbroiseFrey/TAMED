@@ -40,7 +40,7 @@ def dev_use():
   varia.unlocked.append(1010) #bypass steps
   return True
 
-#user_logged = dev_use() #bypass login
+user_logged = dev_use() #bypass login
 
 #-------end test area---------
 

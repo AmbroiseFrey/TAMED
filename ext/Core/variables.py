@@ -44,7 +44,7 @@ recovered_drive = { #Le drive trouvé par le robot
       'Zeus - Log 52.odt' :[
         'Jour 52',
         'Colonel Thompson',
-        ""
+        "Je capte des signals inconnus"
       ]
     }
   },
