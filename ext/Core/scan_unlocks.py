@@ -9,6 +9,7 @@ unlockable_messages = {
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
+      "Merci "
     ],
   },
   1010 : {
@@ -16,7 +17,9 @@ unlockable_messages = {
       "from: Charlotte Coulson",
       "to: John Doe",
       "Bonjour Mr. Doe,",
-      "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus"
+      "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus:",
+      "Il consistait à rendre opérationnel une station qui orbitait autour de Kepler-272 alpha, pour ensuite",
+      ""
     ],
   }
 }

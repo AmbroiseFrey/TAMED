@@ -1,4 +1,4 @@
-00000000000000import pygame
+import pygame
 
 BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
@@ -23,13 +23,13 @@ flags = [(0,0,0)]# Coordinates
 n_flags = 0
 
 page = 'home'
-sub_page =''
+sub_page ='' #Sous page (utile pour le web)
 file_dir_path = '' #Les fichiers
 
 recovered_drive = { #Le drive trouvé par le robot
 'D:':{
   'Project:Zeus' : {
-    'Programs' : {
+    'Programmes' : {
       'gyro_system.exe' : 'FILE NOT FOUND'
     },
     'Station Logs' : {
@@ -57,7 +57,7 @@ messages = { # les messages recus de base
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
-      "Nous sommes prêts pour lancer la première mission du projet T.A.M.E.D.",
+      "Nous sommes enfin prêts pour lancer la première mission du projet T.A.M.E.D.",
       "Nous devons déjà retrouver la boîte noire de la station Zeus.",
       "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit être élucidé.",
       "Je compte donc sur vous pour pouvoir trouver les informations nécessaires à l'enquête.",
