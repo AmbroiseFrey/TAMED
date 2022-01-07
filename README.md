@@ -1,4 +1,10 @@
 # Project d'NSI
+
+## Bilan de séance
+
+- Nous avons bien suivi le plan des Semaines 1 et 2 et même avancé certaines étapes tels que l'application Note pendant les vacances
+- Joachim a fini des calculs et un modèle pour le platformer sur JS et il faut maintenant le dévelloper en python
+
 ## Nom:
 _T.A.M.E.D_ (Technologically Advanced Military Exploration Device)
 
