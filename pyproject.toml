@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "Projet-NSI"
-version = "0.2.1"
-description = ""
+name = "TAMED"
+version = "0.3.2"
+description = "T.A.M.E.D., le jeu. Vous etes dans la peau d'un technicien qui travaille pour une compagnie de haute technologie et qui collabore avec l'armée francaise sur un projet ultra secret."
 authors = ["Ambroise, Joachim, Mathis"]
 
 [tool.poetry.dependencies]

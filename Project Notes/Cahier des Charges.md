@@ -8,7 +8,7 @@
   - Une map avec plusieurs points de 'spawn', niveau de difficulté qui augmente au fur et a mesure que l'on avance
   - Contrôler un robot sur une map
   - Possibilité de PNJ
-- Système d'exploration:
+- Système d'exploitation:
   - Gestionnaire de fichier:
     - Paroucir des dossiers
     - Lire des fichiers
@@ -21,12 +21,14 @@
 - Musique en fond et possibilité de lire des fichiers de musique
 
 ## Informations techniques:
-~`1000` lignes de code réparties en plusieurs fichiers
+~`2000` lignes de code réparties en plusieurs fichiers
 - **main.py** Un fichier pour construire la serie d'evenements et d'actions pour le  bon deroulement du jeu.
 - **ext** : Toutes les extensions
   - **Core**:
     - **variables.py**: Variables importantes utilisées dans la plupart des programmes
     - **operations.py**: Fonctions qui permettent de faciliter certaines actions de base
+    - **scan_unlocks.py**: Tout le systeme d'unlocks qui permet de lier messagerie, platformer et fichiers
+    - **sphere.py**: Permet le render de la sphere au login
   - **Apps**:
     - **file_explorer.py**: Continent le stockage de type json dans un dictionnaire qui correspond au files dans l'ordinateur, plus une fonction pour parcourir les dossiers
     - **snake.py**: Un petit jeu snake auquel on peut jouer via l'ordinateur
@@ -35,8 +37,9 @@
     - **components.py**: On y definit les differents sprites du platformer (Player, Floor etc.)
     - **game_utils.py**: Partie technique du platformer avec les classes et sous classes des sprites
     - **platformer.py**: Boucle infinie du platformer dans un fonction qui permet de faire le lien Ordinateur - Platformer
-- **Assets** : Contient tous les fichiers necessaire au jeu
+- **Assets** : Contient tous les fichiers necessaires au jeu
 
+---
 >Vous pouvez aussi trouver des programmes qui ont été dévellopés mais abandonés au profit d'un autre script dans le dossier `Project Notes/Archive`
 
 ## But du jeu
@@ -66,10 +69,10 @@ On est un technicien qui travaille pour une compagnie de haute technologie qui t
 - File directory:
   - [X] Paroucir des dossiers
   - [X] Lire des fichiers
-  - [ ] Ecrire des fichiers simples
+  - [X] Ecrire des fichiers simples
 - Messagerie:
   - [X] Lire des messages
-  - [ ] 'Envoyer' des messages
+  - [X] 'Envoyer' des messages
 - Web explorer:
   - [ ] Lire quelques pages de base
 

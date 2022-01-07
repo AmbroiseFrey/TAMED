@@ -16,6 +16,48 @@ def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size:int=23):
   text = font.render(text, True, color) # On definit le text
   screen.blit(text,pos) # On affiche
 
+def textInZone(color, zonerect):
+  """
+  Attention, ça ne marchera pas si le texte est de la même couleur que le background
+  """
+  pxarray = pygame.PixelArray(screen)
+  value = screen.map_rgb(color)
+  # mat = ()
+  for x in range(zonerect[0][0], zonerect[1][0]):
+    line = ()
+    for y in range(zonerect[0][1], zonerect[1][1]):
+      line += ( pxarray[x,y],)
+      if pxarray[x,y] == value:
+        return True
+    # mat += (line,)
+    # print(mat, value)
+  return False
+
+
+# to be tried
+def textarea(textData:tuple=("",), size:tuple=(0,0), pos:tuple=(0,0), background=(255,255,255), color=(0,0,0), padding:float=0, border=None,  border_width:float=1, font_size:int=23, font_spacing:float=5):
+  size = tuple(understandValue(s) for s in size)
+  pos = tuple(understandValue(p) for p in pos)
+  div(background, size[1],size[0],pos[1],pos[0],border=border, border_width=border_width, padding=padding)
+  for i in range(len(textData)):
+    s = textData[i]
+    p = pos[0]+font_spacing,pos[1]+font_size*i+font_spacing*(i+1)
+    render_text(s, p, color, font_size)
+  i = len(textData)
+  x,y = int(pos[0]+size[0]-font_spacing),int(pos[1]+font_size*(i-1)+font_spacing*i)
+  #wait until it displays (if possible)
+  if textInZone(color, ((x-5,y),(x,y+font_size))):
+    l = textData[-1].rfind(' ')
+    if l == -1:
+      return textData[:-1]+(textData[-1][:-1],textData[-1][-1])
+    ls = textData[-1][l+1:]
+    b = () if ls == '' else (ls,)
+    return textData[:-1]+(textData[-1][:l],)+b
+  return textData
+
+def textData_str(textData, sep='\n'):
+  return sep.join(textData)
+
 
 def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):
   '''
@@ -41,7 +83,7 @@ def render_rectangle(color:tuple, size:tuple, pos:tuple):
 
 mi, ma = sorted(varia.resolution)
 def understandValue(s, op:1|0=0): # faire des positions qui dépendent de la résolution
-  if type(s) is int:
+  if type(s) is int or type(s) is float:
     return s
   if s[-1] == '%':
     return int(s[:-1])/100 * varia.resolution[op]
@@ -53,27 +95,38 @@ def understandValue(s, op:1|0=0): # faire des positions qui dépendent de la ré
     return int(s[:-4])/100 * mi
   if s[-4:] == 'vmax':
     return int(s[:-4])/100 * ma
+  if '*' in s:
+    x = s.split('*',1)
+    return understandValue(x[0]) * understandValue(x[1])
+  if '/' in s:
+    x = s.split('/',1)
+    return understandValue(x[0]) / understandValue(x[1])
+  if '+' in s:
+    x = s.split('+',1)
+    return understandValue(x[0]) + understandValue(x[1])
+  if '-' in s:
+    x = s.split('-',1)
+    return understandValue(x[0]) - understandValue(x[1])
+  return float(s)
 
-str(100/3)+"vw"
-
-def div(color:tuple=(0,0,0), height=0,width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
+def div(color:tuple=(0,0,0), height=0, width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
   x1,y1 = 0,0
   x2,y2 = 0,0
   h = understandValue(height)
   w = understandValue(width)
   #position along the y-axis
   if bottom != None:
-    y2 = understandValue(bottom)
+    y2 = understandValue(bottom,1)
     y1 = y2 - h
   else: 
-    y1 = understandValue(top)
+    y1 = understandValue(top, 1)
     y2 = y1 + h
   #position along the x-axis
   if right != None:
-    x2 = understandValue(right)
+    x2 = understandValue(right,0)
     x1 = x2 - w
   else: 
-    x1 = understandValue(left)
+    x1 = understandValue(left,0)
     x2 = x1 + w
   pygame.draw.rect(screen, color, pygame.Rect((x1,y1,x2-x1,y2-y1)))
   if border:

@@ -12,6 +12,9 @@
 
 **_render_time_**: function() => None
 
+**_div_**: function(?color:tuple, ?height, ?width, ?top, ?left, ?bottom, ?right, ?border:tuple, ?border_width=1, ?padding=0) => None;
+  cette fonction permet de faire une boîte (comme une division tag en HTML) dans la quelle on entre des valeurs qui peuvent varier en fonction de la résolution que l'on peut comprendre grâce à la fonction *understandValue*
+
 # variables.py:
 
   **_BASE_COLOR_**: tuple(3);

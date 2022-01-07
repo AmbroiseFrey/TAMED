@@ -2,8 +2,8 @@
 
 ## Bilan de séance
 
-- Nous avons bien suivi le plan des Semaines 1 et 2 et même avancé certaines étapes tels que l'application Note pendant les vacances
-- Joachim a fini des calculs et un modèle pour le platformer sur JS et il faut maintenant le dévelloper en python
+- Nous avons a peu près finis toutes nos étapes des 4 semaines a quelques exceptions près (coordonées relatives (remplacer les valeurs)), étape que l'on va finir à la maison
+- Joachim a fini des calculs et un modèle pour le platformer sur JS et il faut maintenant juste le dévelloper en python
 
 ## Nom:
 _T.A.M.E.D_ (Technologically Advanced Military Exploration Device)

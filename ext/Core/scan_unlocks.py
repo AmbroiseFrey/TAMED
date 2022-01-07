@@ -1,4 +1,5 @@
 from ext.Core import variables as varia
+from ext.Core import operations as Opr
 
 #Voir Dev Info.md pour infos sur le format des 'codes'
 
@@ -21,7 +22,7 @@ unlockable_messages = {
 }
 
 scans = {
-  (1010,2000):( #premier email a envoyer quand l'on retrouve le dique dur
+  (1010,2000):( #premier email a envoyer quand l'on retrouve le disque dur
     ("Group:TAMED" or "gen. michael Fredlyn",),
     ("mission", "1" or "1.0"),
     ('disque', 'dur')
@@ -42,7 +43,7 @@ def check_message(message_content:list):
       for contents in scans[lock]: #on scan le content que l'on veut
         if i == 3: #si c'est le message content
           for word in contents: #si les mots que l'on veut
-            if word.lower() in message_content[i].lower().split(): #son dans le content
+            if word.lower() in Opr.textData_str(message_content)[i].lower().split(): #son dans le content
               return lock[1] #alors c'est bon 
             break # failed
         else:

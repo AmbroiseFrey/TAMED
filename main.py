@@ -34,16 +34,19 @@ message = varia.messages
 writing_data = [] 
 varia.unlocked = [0, 0.1, 1000]
 
+
 #-----------test area--------
 def dev_use():
   varia.unlocked.append(1010) #bypass steps
   return True
 
-#user_logged = dev_use() #bypass login
+user_logged = dev_use() #bypass login
 
 #-------end test area---------
 
-
+#note test area
+#J'ai reconvertit ton systeme dans variables.py et j'ai optimisé le code pour render et corrigé quelques trucs
+#end note area
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
 ##--------------------------------------------------------------------------##
@@ -147,7 +150,7 @@ class Computer:
         if el[-4:-3] == '.': #on render le icon d'un fichier
           Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(2,i-5),(22,22))
         else: # on render le icon d'un folder
-          Opr.render_image('Assets/Icons/Folder.png',(2,i),(22,22))
+          Opr.render_image('Assets/Icons/App Icons/Folder.png',(2,i),(22,22))
         #On render le text
         Opr.render_text(el,(25,i-3),varia.WHITE,20)
         clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'element
@@ -167,7 +170,7 @@ class Computer:
       for el in messages[lock]:
         #On render le text
         Opr.render_rectangle(varia.GREY, (11*len(el),24), (36, i-2)) #rectangle derriere le titre
-        Opr.render_image('Assets/Icons/Messages.png',(0,i-8),(35,35))
+        Opr.render_image('Assets/Icons/App Icons/Messages.png',(0,i-8),(35,35))
         Opr.render_text(el,(36,i-2),varia.WHITE,20)
         clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
         i+=30 # On itere
@@ -179,28 +182,23 @@ class Computer:
     '''
     if app:
       screen.fill(varia.BLUE_GREY) #Background
-    Opr.render_rectangle(varia.WHITE, (600,70), (0,350)) #Rectangle de la barre des taches
-    Opr.render_time()
-    if app:
       #Bar haut de Fenetre
       Opr.render_rectangle(varia.GREY, (600,30), (0,0))
       Opr.render_image('Assets/Icons/cross.png',(1,1),(27,27))
       #Carré bleu appli en cours
       Opr.render_rectangle(varia.LIGHT_BLUE, (55,55),pos)
+    Opr.render_rectangle(varia.WHITE, (600,70), (0,350)) #Rectangle de la barre des taches
+    Opr.render_time()
     #Applications
-    Opr.render_image('Assets/Icons/Home_Button.png',(0,352),(45,45))
-    Opr.render_image('Assets/Icons/Folder.png',(60,350),(50,50))
-    Opr.render_image('Assets/Icons/Platformer_Button_(Test).png',(120,350),(50,50))
-    Opr.render_image('Assets/Icons/Internet_(Test).png',(180,350),(50,50))
-    Opr.render_image('Assets/Icons/Messages.png',(234,350),(50,50))
+    Opr.render_image('Assets/Icons/App Icons/Home_Button.png',(0,352),(45,45))
+    Opr.render_image('Assets/Icons/App Icons/Folder.png',(60,350),(50,50))
+    Opr.render_image('Assets/Icons/App Icons/Platformer_Button.png',(120,350),(50,50))
+    Opr.render_image('Assets/Icons/App Icons/Internet.png',(180,350),(50,50))
+    Opr.render_image('Assets/Icons/App Icons/Messages.png',(234,350),(50,50))
+    Opr.render_image('Assets/Icons/App Icons/Notes.png',(294,350),(50,50))
     if varia.popup != 0:
       Opr.render_circle(varia.RED, 7, (279,362))
       Opr.render_text(str(varia.popup),(276,356),varia.WHITE,10)
-      Opr.render_rectangle(varia.BLUE_GREY,(110,34),(491,316))
-      Opr.render_text('Nouveau mail', (495,325), varia.WHITE,15)
-      Opr.render_rectangle(varia.BLACK,(350,1),(490,315))
-      Opr.render_rectangle(varia.BLACK,(1,35),(490,315))
-      pygame.display.flip()     
 
 
   def check_icons(clickpos: tuple):
@@ -231,6 +229,10 @@ def test_ext(time_sleep:int = 0.5):#tests des extensions
   Opr.render_text(snk.test(), (0,80))
   pygame.display.flip()
   time.sleep(time_sleep)
+
+
+ctrlKeyPressed = False
+
 #test_ext()
 
 
@@ -276,8 +278,11 @@ while RUN:
       Opr.render_text(output, (70,4),varia.WHITE, 17)
       if not(open): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
-      pygame.display.flip()
 
+      if varia.sub_page == 'bin':
+        Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0))
+        Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0))
+        #def div(color:tuple=(0,0,0), height=0, width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
     #Snake game link
     elif varia.page == 'snake':
       snk.game()
@@ -317,7 +322,9 @@ while RUN:
           #rectangle du contenu du mail
           Opr.render_rectangle_borders(varia.BLACK, (66,126), (-66,200))
           Opr.render_rectangle_relative(varia.GREY, (74,134), (-74, 184))
-          Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
+          # Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
+          Opr.render_text("Mail:",(76,132),varia.BLACK,18)
+          t=Opr.textarea(writing_data[3], ("100vw-148",160), (74,158), varia.GREY, font_size=15)
           #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (90,0), (27,27))
           #lien entre input et les differentes parties du mail.
@@ -326,14 +333,23 @@ while RUN:
           elif writing_data[0] == 'topic':
             writing_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'content':
-            writing_data[3] = output #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
-          if writing_data[4] == 'vide':
+            if len(output)<len(t):
+              #either we removed some text or we added a break
+              if len(Opr.textData_str(output,' '))<len(Opr.textData_str(t,' ')):
+                writing_data[3] = output
+              else:
+                writing_data[3]=t
+                output=t
+            else:  
+              writing_data[3] = output
+            #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
+          elif writing_data[4] == 'vide':
             Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (130,2), varia.WHITE, 15)
-          if writing_data[4] == 'casedestinatairevide':
+          elif writing_data[4] == 'casedestinatairevide':
             Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (130,2))
-          if writing_data[4] == 'caseobjetvide':
+          elif writing_data[4] == 'caseobjetvide':
             Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (130,2))
-          if writing_data[4] == 'casemailvide':
+          elif writing_data[4] == 'casemailvide':
             Opr.render_text('Vous devez écrire du contenu dans le mail pour envoyer ce mail', (130,2))
           
         else:
@@ -344,6 +360,19 @@ while RUN:
       else:
         Compu.render_barre_taches((232,350))
         Opr.render_text('Acces Sécurisé !', (varia.resolution[0]/2, varia.resolution[1]/2)) 
+    
+    elif varia.page == 'notes':
+      Compu.render_barre_taches((177,350))
+      Opr.div(top=50,height=200,left=20,width="100vw-40", padding=5, border=(0,0,0))
+      for i in range(len(varia.notes[1])):
+        varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]]
+        Opr.render_text(varia.notes[1][i], (6.66*varia.resolution[0]/100, 45+i*7*varia.resolution[1]/100))
+        clickable_icons[(6.66*varia.resolution[0]/100, 600 ,45+i*7*varia.resolution[1]/100, 45+i*7*varia.resolution[1]/100 + 22)] = i
+
+      varia.notes[1][varia.notes[0]] += output
+      output = ''
+
+    
 
   #On check les events
   for event in pygame.event.get():
@@ -356,52 +385,65 @@ while RUN:
       if mouse_presses[0]:
         print(event.pos)
 
-        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages'], varia.page) == True:
+        if Opr.check_interaction(event.pos, (55,110,360,400), ['home','web','messages','notes'], varia.page) == True: #si l'on click l'app des files
           clickable_icons = {} #on reset les clickable icons 
-          varia.page = 'fd0'
+          varia.page = 'fd0' # on change la 'page'
           output = ''
 
         #Appli home
-        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages'], varia.page) == True:
+        elif Opr.check_interaction(event.pos, (0,50,360,400), ['home', 'fd0','web','messages','notes'], varia.page) == True:
           varia.page = 'home'
           clickable_icons = {} #on reset les clickable icons 
         
         #Bouton close
-        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages'], varia.page) == True:
+        elif Opr.check_interaction(event.pos, (0,30,0,30), ['fd0','web','messages','notes'], varia.page) == True:
           varia.page = 'home'
           clickable_icons = {} #on reset les clickable icons         
         
-        #Acces au robot
-        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages'], varia.page) == True:
+        #Accès au robot
+        elif Opr.check_interaction(event.pos, (124,163,355,400), ['home','fd0','web','messages','notes'], varia.page) == True:
           plat_check = level
           varia.page = 'plat'
         
         #Internet explorer
-        elif Opr.check_interaction(event.pos, (184,230,360,400), ['home','fd0','messages'], varia.page) == True:
+        elif Opr.check_interaction(event.pos, (184,230,360,400), ['home','fd0','messages','notes'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
           varia.page = 'web'
           output=''
           open=False
 
         #Messagerie
-        elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web'], varia.page) == True:
+        elif Opr.check_interaction(event.pos, (230,290,360,400), ['home','fd0','web','notes'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
           varia.page = 'messages'
           output = ''
           varia.popup = 0
-          
         
-        #URL
+        elif Opr.check_interaction(event.pos, (301,334, 355,400), ['home','fd0','web', 'messages'], varia.page) == True:
+          clickable_icons = {}
+          varia.page = 'notes'
+          writing_data = ''
+          output = ''
+          open=True
+        
+        #Si on click sur la barre de recherches dans l'internet explorer
         elif Opr.check_interaction(event.pos, (66,600,1,28), ['web'], varia.page) == True:
           open=True
 
-        #Regarde si on clique sur la notification d'un mail
-        elif Opr.check_interaction(event.pos,(490,600,320,350), ['home','fd0','web','plat',],varia.page) == True:
-          varia.popup=0
-          varia.page = 'messages'
-          
-        # Ouvrir des messages
+  
+        #clicker sur une ligne dans les notes
+        elif varia.page == 'notes':
+          check = Compu.check_icons(event.pos) # Icons
+          print(check)
+          if type(check) == int:
+            varia.notes[0] = check
+            output = ''
+            print(varia.notes[0])
+
+        
+        # Ouvrir des messages via la messagerie
         elif varia.page == 'messages':
+          
           check = Compu.check_icons(event.pos)
           if type(check) == tuple:
             message = varia.messages[check[0]][check[1]] #Si on click un mail on l'ouvre
@@ -413,7 +455,7 @@ while RUN:
           elif Opr.check_interaction(event.pos, (60,87,0,27), ['messages'], varia.page) == True:
             message = 'New message'
             output = '' #reset output
-            writing_data = ['dest', '','','','']
+            writing_data = ['dest', '','',('',),'']
             clickable_icons = {}
             open=True
 
@@ -425,13 +467,13 @@ while RUN:
               writing_data[4] = '!vide'
               print(scan.check_message(writing_data))
               varia.unlocked.append(scan.check_message(writing_data))
-            elif writing_data[1]=='' and writing_data[2]=='' and writing_data[3]=='':
+            elif writing_data[1]=='' and writing_data[2]=='' and writing_data[3]==('',):
               writing_data[4] = 'vide'
             elif writing_data[1]=='' :
               writing_data[4] = 'casedestinatairevide'
             elif writing_data[2]=='':
               writing_data[4] = 'caseobjetvide'
-            elif writing_data[3]=='':
+            elif writing_data[3]==('',):
               writing_data[4] = 'casemailvide'
               
           #Si click la boîte destinataire
@@ -463,26 +505,60 @@ while RUN:
               else:
                 file_dir_path = file_dir_path[:-1]
 
+        
           check = Compu.check_icons(event.pos) # Icons
           if type(check) == str:
             clickable_icons = {} #reset les icons clickables
-            file_dir_path += check # ajoute le fichier clické
+            file_dir_path += check # ajoute le fichier cliqué
             output = file_dir_path # fait le lien avec le clavier
-
+        
+        #Regarde si on clique sur la notification d'un mail s'il y en a une
+        elif varia.popup != 0:
+          if Opr.check_interaction(event.pos,(490,600,320,350), ['home','fd0','web','plat','notes'],varia.page) == True:
+            varia.popup=0
+            varia.page = 'messages'
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
-
       #Lien entre le clavier et le script sans utiliser input
       if open:
         if event.key == pygame.K_RETURN:
-          open = False
+          if varia.page == 'notes':
+            varia.notes[1].append('')
+            varia.notes[0] += 1
+            output = ''
+          elif varia.page == 'messages':
+            output += ('',)
+          else:
+            open = False
         elif event.key == pygame.K_BACKSPACE:
-          output =  output[:-1] #on enleve le dernier character
+          if varia.page == 'notes':
+            varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]][:-1]
+            output = ''
+          else:
+            if type(output) is str:
+              output = output[:-1] # on ajoute le character au output
+            else:
+              keysDown = pygame.key.get_pressed() 
+              if keysDown[pygame.K_LCTRL] or keysDown[pygame.K_RCTRL]:
+                l = output[-1].rfind(' ')
+                if l == -1:
+                  if len(output) == 1:
+                    output = ('',)
+                  else:
+                    output = output[:-1]
+                else:
+                  output = output[:-1]+(output[-1][:l],)
+              else:
+                if len(output[-1]) == 0:
+                  if len(output) > 1:
+                    output = output[:-2]+(output[-2][:-1],)
+                else: 
+                  output = output[:-1]+(output[-1][:-1],) #on enleve le dernier character 
         else:
-          output += event.unicode # on ajoute le character au output
-      else:
-        if event.key == pygame.K_RETURN: # Si on ne peux pas ecrire et la touche est enter
-          open = True # on peut ecrire
+          if type(output) is str:
+            output += event.unicode # on ajoute le character au output
+          else:
+            output = output[:-1]+(output[-1]+event.unicode,)
   pygame.display.flip()
   clock.tick(60)
 

@@ -9,12 +9,12 @@ Files ={
             'Auteur: Delta',
             'A destination de: Joint Military Technology Department - Europe',
             'Sur les dangers du groupement Armadilo',
-            'I. Controlle de la chaine Cluster-2',
+            'I. Contrôle de la chaîne Cluster-2',
             'Niveau : Extremement Elevé'
             ],
           'Manuel entretien.pdf':[
-            'Manuel de redemmarage du robot:',
-            'Etape 1: Redemarrer le programme',
+            'Manuel de redémmarage du robot:',
+            'Etape 1: Redémarrer le programme',
             'Etape 2: Relancer les tests',
             'Etape 3: Donner les instructions'
             ],
@@ -49,12 +49,17 @@ Files ={
           'flat-earth-manifest.pdf':[
             'The Flat Earth Society Manifest',
             '------------------------------',
-            'The earth is flat'
+            'The Earth is flat'
             ],
         },
-        'Coffre Fort [KRYPT CORP]': 'Acces Sécurisé',
+        'Coffre Fort [KRYPT CORP]': [
+          'Accès Sécurisé',
+          'Veuillez vous reconnecter sur www.kryptcorp.org'
+          ],
         'Musique':{
-          'La Totomobile.mp3':'>'
+          'La Totomobile.mp3':'>',
+          'Chandelier - Sia.mp3':'>',
+          'Never Gonna Give You Up - Rick Astley.mp3':'>',
         },
         'Videos':{
           'Personel' : {
@@ -71,15 +76,15 @@ Files ={
     'Administrateur':{
       'Magma-Wall' : {
         'Magma-Wall.txt':[
-        'Magam Wall v3.2.6 - Premium[Max Security]',
-        'High performance firewall develloped by Krypt Corp',
-        'Includes Internet, Files and E-Mail scanners',
-        'Note: Your version includes:',
-        '- Complex defence, attack and counter-attack hack systems',
-        '- Computer lockdown and file auto destruction'
-        ],
+          'Magam Wall v3.2.6 - Premium[Max Security]',
+          'High performance firewall developped by Krypt Corp',
+          'Includes Internet, Files and E-Mail scanners',
+          'Note: Your version includes:',
+          '- Complex defence, attack and counter-attack hack systems',
+          '- Computer lockdown and file auto destruction'
+          ],
       'pc-lockdown.exe' : '>',
-      'source-code':'This action requires acces to Project:Magma Wall',
+      'source-code':'This action requires access to Project: Magma Wall',
       }
     },
   },

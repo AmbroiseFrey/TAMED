@@ -1,3 +1,5 @@
+00000000000000import pygame
+
 BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
 GREY = (211,211,211)
@@ -8,6 +10,7 @@ BLUE = (0, 0, 255)
 LIGHT_BLUE = (173,216,230)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
+TRANSPARENT = pygame.Color(0,0,0,0) # si jamais
 resolution = (600,400)
 mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
@@ -20,6 +23,7 @@ flags = [(0,0,0)]# Coordinates
 n_flags = 0
 
 page = 'home'
+sub_page =''
 file_dir_path = '' #Les fichiers
 
 recovered_drive = { #Le drive trouvé par le robot
@@ -28,10 +32,19 @@ recovered_drive = { #Le drive trouvé par le robot
     'Programs' : {
       'gyro_system.exe' : 'FILE NOT FOUND'
     },
-    'Station Logs' :{
-      'Zeus - Log 1' :[
+    'Station Logs' : {
+      'Zeus - Log 1.odt' :[
         'Jour 1',
-        'Colonel qql chose',
+        'Colonel Thompson',
+        "Je suis bien arrivé sur le site d'orbite de la station.",
+        "Déployement du bras robotique: 83/100",
+        "Arrimage des modules lab et main: 96/100"
+      ],
+      '???' : 'Hardware damaged',
+      'Zeus - Log 52.odt' :[
+        'Jour 52',
+        'Colonel Thompson',
+        ""
       ]
     }
   },
@@ -44,14 +57,14 @@ messages = { # les messages recus de base
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
-      "Nous somme près pour lancer la premiere mission du projet T.A.M.E.D.",
-      "Nous devons déjà retrouver la boite noire de la station Zeus.",
-      "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit etre élucidé.",
-      "Je compte donc sur vous pour pouvoir trouver les informations necessaires à l'enquete.",
-      "Nous nous lancerons dans le but pincipal de cette mission apres avoir trouvé le disque dur.",
+      "Nous sommes prêts pour lancer la première mission du projet T.A.M.E.D.",
+      "Nous devons déjà retrouver la boîte noire de la station Zeus.",
+      "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit être élucidé.",
+      "Je compte donc sur vous pour pouvoir trouver les informations nécessaires à l'enquête.",
+      "Nous nous lancerons dans le but pincipal de cette mission après avoir trouvé le disque dur.",
       "Veuillez:", 
-      "-Envoyer un mail intitulé Reussite de la Mission 1 une fois que vous avez recupere le disque dur.",
-      "-Evaluer le niveau de fichiers endommagés une fois le disque dur transféré sur votre ordinateur",
+      " - Envoyer un mail intitulé Réussite de la Mission 1 une fois que vous avez récupéré le disque dur.",
+      " - Evaluer le niveau de fichiers endommagés une fois le disque dur transféré sur votre ordinateur",
       "Merci,",
       "Général Michael Fredlyn",
       "P.S.",
@@ -78,5 +91,8 @@ messages = { # les messages recus de base
       "J.M.T.D. Europe Director"],
   },
 }
+
+
+notes = [0,['']]
 
 sound = 'Assets/Computer-Start.wav'

@@ -79,4 +79,3 @@ def display_matrix_image(matrix,d, rotX, rotY, rotZ, image):
   for i in range(x, len(traits)):
     trait = traits[i]
     pygame.draw.line(screen, (255*min(trait[2]-.25,1),)*3, trait[0], trait[1], width=trait[3])
-

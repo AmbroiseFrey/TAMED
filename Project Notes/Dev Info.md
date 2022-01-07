@@ -3,7 +3,11 @@ Dizaines, storyline avec le character Charlotte
 
 Milliers, storyline avec le platformer
 
-#
+#0
+Emails sans but, pour 'faire beau'
+- 0 - Email de la directrice du JMTD
+- 0.1 - Email du service technique pour annoncer que les accents ne marchent pas (limitation pygame)
+- 0.2 - 
 
 ## 1000
 Mission 1 of Tamed
@@ -17,5 +21,8 @@ Mission 2 of Tamed
 
 ## 10
 Storyline with Charlotte
-- 10 (When 1010) First email sent by C
+- 1010, premier mail de C
+  -  --> 10
+- 10 C repond au fichiers
+  - --> 11
 - 11 User responds

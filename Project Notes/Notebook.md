@@ -5,18 +5,19 @@ J = Joachim
 A = Ambroise
 M = Mathis
 
-- Semaine 1 (du 13/12/2021):
+
+- Semaine 1 (du 13/12/2021, dernière semaine avant les vacances):
   - Terminer le système de unlocks et l'application messagerie - A
-  - Continuer les sprites du joueur - J
-  - Animation/ Notification nouveau mail recu - M
-- Semaine 2:
+  - Continuer les physiques du joueur - J
+  - Animation/ Notification nouveau mail recu - M 
+- Semaine 2 (du 20/12/2021, première semaine des vacances):
   - Coordonnées relatives - M
   - Essayer de terminer les physiques joueur et les lier à la map - J
   - Travailler sur les 'sites web' -> mettre du contenu dedans et creer plus d'interactions - A
-- Semaine 3:
+- Semaine 3 (du 27/12/2021, dernière semaine des vacances):
   - Ecrire l'histoire  et la map dans les détails sur papier- A + M
-  - Commencer le render de la map (front-end, realisme) -J
-- Semaine 4:
+  - Commencer le render de la map (front-end, realisme) - J
+- Semaine 4 (du 03/01/2022, première semaine de la rentrée):
   - Ajout d'objet d'environment dans le platformer (tremplins, platformes qui bougent, lave) - J
   - Ajout de l'histoire en terme de code dans l'ordinateur (messages/mail, files, documents) - A + M
 - Semaine 5:
@@ -39,6 +40,11 @@ M = Mathis
   - Travail sur tous les bugs/ suggestions part 2
  - Semaine 12:
   - Ajout de fichiers 'rigolos' et inutiles qui caractérisent 'John Doe'
+- Semaine 13:
+  - Travail sur parametre de changement de resolution
+- Semaine 14:
+  - Terminer la resolutions
+  - Seance de tests avec les nouveaux parametres de resolution
 
 
 

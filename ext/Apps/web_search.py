@@ -1,7 +1,7 @@
 import random
 from ext.Core import variables as varia
 from ext.Core import operations as Opr
-Websites = ["www.cia.gov","www.twitter.com", "www.test.com","www.repl.it"]
+Websites = ["www.cia.gov","www.twitter.com", "www.test.com","www.repl.it","www.binaire.it"]
 
 Pages = {"www.cia.gov":[
     "Central Intelligence Agency",
@@ -11,7 +11,8 @@ Pages = {"www.cia.gov":[
   "www.test.com":[
     "Test Page"],
   "www.repl.it":[
-    "Replit"]
+    "Replit"],
+  "www.binaire.it": 'binaire.exe'
 }
 
 def random_page():
@@ -27,8 +28,11 @@ def load_page(page):
   '''
   y = 40
   if page in Pages.keys(): # si la page est dans les clés des urls
-    for el in Pages[page]:
-      Opr.render_text(el, (10,y), varia.WHITE, 15)
-      y += 20
+    if type(Pages[page]) == str: #si c'est le convertisseur bianire
+      varia.sub_page = 'bin'
+    else:
+      for el in Pages[page]:
+        Opr.render_text(el, (10,y), varia.WHITE, 15)
+        y += 20
   else:
     pass
