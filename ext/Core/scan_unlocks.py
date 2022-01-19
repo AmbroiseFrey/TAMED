@@ -9,7 +9,9 @@ unlockable_messages = {
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
-      "Merci "
+      "Merci d'avoir récupéré le disque dur, il va nous etre très utile!",
+      "Il faut maintenant que vous récupériez un morceau de la planète pour l'analyser et savoir si elle est",
+      "habitable."
     ],
   },
   1010 : {
@@ -18,8 +20,8 @@ unlockable_messages = {
       "to: John Doe",
       "Bonjour Mr. Doe,",
       "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus:",
-      "Il consistait à rendre opérationnel une station qui orbitait autour de Kepler-272 alpha, pour ensuite",
-      "verifier si la planète Kepler-272 alpha est habitable.",
+      "Il consistait à rendre opérationnel une station qui orbitait autour de Kepler-272 Alpha, pour ensuite",
+      "verifier si la planète Kepler-272 Alpha est habitable.",
       "Malheuresement tu n'es pas le premier à tenter cette mission, Colonel Tompson à lui même tenté la",
       " mission, mais sa station s'est écrasé dans des circonstances inconnues.",
       "Peut regaqrder les fichiers que tu as recuperé pour verifier s'il n'y a pas quelque chose qui cloche",

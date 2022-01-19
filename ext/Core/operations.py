@@ -6,11 +6,15 @@ pygame.mixer.init()
 screen = pygame.display.set_mode(varia.resolution)
 save = None
 
-def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size:int=23):
+res0=varia.resolution[0]/100
+res1=varia.resolution[1]/100
+
+def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size=6*res1):
   '''
   Fonction qui permet d'afficher du texte.
   Prend en argument le texte (str) et sa position (tuple)
   '''
+  size = int(size)
   pygame.font.init()
   font = pygame.font.Font("Assets/FreeSansBold.ttf", size) # on definit la font
   text = font.render(text, True, color) # On definit le text
@@ -85,16 +89,6 @@ mi, ma = sorted(varia.resolution)
 def understandValue(s, op:1|0=0): # faire des positions qui dépendent de la résolution
   if type(s) is int or type(s) is float:
     return s
-  if s[-1] == '%':
-    return int(s[:-1])/100 * varia.resolution[op]
-  if s[-2:] == 'vw':
-    return int(s[:-2])/100 * varia.resolution[0]
-  if s[-2:] == 'vh':
-    return int(s[:-2])/100 * varia.resolution[1]
-  if s[-4:] == 'vmin':
-    return int(s[:-4])/100 * mi
-  if s[-4:] == 'vmax':
-    return int(s[:-4])/100 * ma
   if '*' in s:
     x = s.split('*',1)
     return understandValue(x[0]) * understandValue(x[1])
@@ -107,6 +101,16 @@ def understandValue(s, op:1|0=0): # faire des positions qui dépendent de la ré
   if '-' in s:
     x = s.split('-',1)
     return understandValue(x[0]) - understandValue(x[1])
+  if s[-1] == '%':
+    return float(s[:-1])/100 * varia.resolution[op]
+  if s[-2:] == 'vw':
+    return float(s[:-2])/100 * varia.resolution[0]
+  if s[-2:] == 'vh':
+    return float(s[:-2])/100 * varia.resolution[1]
+  if s[-4:] == 'vmin':
+    return float(s[:-4])/100 * mi
+  if s[-4:] == 'vmax':
+    return float(s[:-4])/100 * ma
   return float(s)
 
 def div(color:tuple=(0,0,0), height=0, width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
@@ -187,10 +191,12 @@ def render_time():
   '''
   hour = time.strftime("%H")
   hour = int(hour) +1
-  render_text(time.strftime("%Y-%m-%d"),(522,377),varia.BLACK,15)
-  render_text(str(hour) +':' + time.strftime("%M"),(520,347),varia.BLACK,30)
+  p = understandValue('100vw-78'),understandValue('100vh-23') 
+  t = understandValue('100vw-80'),understandValue('100vh-53')
+  render_text(time.strftime("%Y-%m-%d"),p,varia.BLACK,15)
+  render_text(str(hour) +':' + time.strftime("%M"),t,varia.BLACK,30)
 
-def render_file(file_contents: list, file_name: str = 'File', x: int = 20, y: int =50, espacement_ligne : int = 20, size : tuple = (400,266)):
+def render_file(file_contents: list, file_name: str = 'File', x: int=20, y: int=50, espacement_ligne : int = 20, size : tuple = (400,266)):
   '''
   Render le content d'un fichier
   '''

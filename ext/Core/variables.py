@@ -1,5 +1,6 @@
 import pygame
 
+#Couleurs
 BASE_COLOR = (32,194,14)
 BLACK = (0, 0, 0)
 GREY = (211,211,211)
@@ -11,7 +12,9 @@ LIGHT_BLUE = (173,216,230)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 TRANSPARENT = pygame.Color(0,0,0,0) # si jamais
-resolution = (600,400)
+
+#resolution (probablement la variable la plus importante du projet)
+resolution = (750,500)
 mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
