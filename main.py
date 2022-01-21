@@ -22,23 +22,25 @@ pygame.display.set_icon(logo)
 clock = pygame.time.Clock()
 
 #Variables pour faire marcher la base de notre programme
-RUN = True #est ce que la boucle while tourne
-user_logged = False #est ce que le joueur est dans l'ordi
+RUN = True #est-ce que la boucle while tourne
+user_logged = False #est-ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
 from ext.Core.variables import file_dir_path
 clickable_icons = {}
 plat_check = 0
 level = 0
 message = varia.messages
-#variables specifiques a des sous stages quand il faut ecrire
+#variables spécifiques a des sous stages quand il faut écrire
 writing_data = [] 
 varia.unlocked = [0, 0.1, 1000]
 
-res0=varia.resolution[0]/100
-res1=varia.resolution[1]/100
+res0,res1 = tuple(i/100 for i in varia.resolution)#variables qui seront utilisées pour positionner et dimensionner les rectangles/images/etc. en fonction de la taille de l'écran
 
 #-----------test area--------
 def dev_use():
+  '''
+  Bypass du login
+  '''
   varia.unlocked.append(1010) #bypass steps
   return True
 
@@ -47,7 +49,7 @@ user_logged = dev_use() #bypass login
 #-------end test area---------
 
 #note test area
-#J'ai reconvertit ton systeme dans variables.py et j'ai optimisé le code pour render et corrigé quelques trucs
+#J'ai reconvertit ton systeme dans variables.py et j'ai optimisé le code pour render et corriger quelques trucs
 #end note area
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
@@ -155,8 +157,8 @@ class Computer:
           Opr.render_image('Assets/Icons/App Icons/Folder.png',(2,i),(22,22))
         #On render le text
         Opr.render_text(el,(25,i-3),varia.WHITE,20)
-        clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'element
-        i+=30 # On itere
+        clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
+        i+=30
     else:
       clickable_icons = {}
       varia.page = Opr.render_file(files_loaded)
@@ -186,7 +188,7 @@ class Computer:
       screen.fill(varia.BLUE_GREY) #Background
       #Bar haut de Fenetre
       Opr.render_rectangle(varia.GREY, (varia.resolution[0],7.5*varia.resolution[1]/100), (0,0))
-      Opr.render_image('Assets/Icons/cross.png',(0.16*res0,(7.5*varia.resolution[1]/100-6.75*varia.resolution[1]/100)/2),(6.75*varia.resolution[1]/100,6.75*varia.resolution[1]/100))
+      Opr.render_image('Assets/Icons/cross.png',(0.16*res0,(7.5*res1-6.75*res1)/2),(6.75*res1,6.75*res1))
       #Carré bleu appli en cours
       Opr.render_rectangle(varia.LIGHT_BLUE, (55,55),pos)
     Opr.render_rectangle(varia.WHITE, (varia.resolution[0],12.5*varia.resolution[1]/100), (0,87.5*varia.resolution[1]/100)) #Rectangle de la barre des taches
@@ -204,6 +206,9 @@ class Computer:
 
 
   def check_icons(clickpos: tuple):
+    '''
+    On check par rapport a la position de la souris quand on click (clickpos), si cette position correspond à une zone avec la quelle l'utilisatuer peut intéragir
+    '''
     for wanted_area in clickable_icons.keys():
       if wanted_area[0]<=clickpos[0]<=wanted_area[1] and wanted_area[2]<=clickpos[1]<=wanted_area[3]:
         return clickable_icons[wanted_area] # On renvoit le content correspondant à la zone
@@ -211,6 +216,9 @@ class Computer:
 Compu = Computer
 
 def test_ext(time_sleep:int = 0.5):#tests des extensions
+  '''
+  On test si les extensions sont bien connéctées
+  '''
   print(plat.test())
   screen.fill(varia.BASE_COLOR)
   Opr.render_text('Tests: This is v0.2.1',(0,0))
@@ -263,7 +271,6 @@ while RUN:
       #Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution) # On render le background
       Opr.render_image("Assets/Backgrounds/fond d'écran.jpg",(0,0),varia.resolution)
       Compu.render_barre_taches((55,350), False) #On render la barre des taches
-      pygame.display.flip() #on display le tout
 
     #FILE Directory
     elif varia.page == 'fd0':
@@ -271,27 +278,27 @@ while RUN:
       Compu.render_file_tree(file_dir_path) #on render les files/dossiers par rapport au chemin
       file_dir_path = output # on synchronise le texte tapé avec le chemin
       Opr.render_text(output, (70,4),varia.WHITE, 17) # on render le texte qui est tapé
-      Opr.render_image('Assets/Icons/arrow_ul.png', (5*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1/100)) # on render le bouton back
+      Opr.render_image('Assets/Icons/arrow_ul.png', (5*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
       open = True # on permet de taper au clavier
-      pygame.display.flip() #on display le tout
     
-    elif varia.page == 'web':
-      Compu.render_barre_taches((30*varia.resolution[0]/100,87.5*varia.resolution[1]/100))
-      Opr.div(top=1.25*varia.resolution[1]/100,height=5*varia.resolution[1]/100,left="10vw",width="80vw", padding=5, border=(0,0,0))
-      Opr.render_text(output, (11.66*varia.resolution[0]/100,varia.resolution[1]/100),varia.WHITE, round(4.25*varia.resolution[1]/100))
+    #Navigateur Internet
+    elif varia.page == 'web': #on regarde si on est dans l'application web(le navigateur)
+      Compu.render_barre_taches((30*varia.resolution[0]/100,87.5*varia.resolution[1]/100))#on affiche la bare des taches
+      Opr.div(top=1.25*varia.resolution[1]/100,height=5*varia.resolution[1]/100,left="10vw",width="80vw", padding=5, border=(0,0,0)) #on affiche le rectangle pour saisir l'url, avec un rectangle en coordonné relative
+      Opr.render_text(output, (11.66*varia.resolution[0]/100,varia.resolution[1]/100),varia.WHITE, round(4.25*varia.resolution[1]/100))#permet d'afficher l'url tapé par l'utilisateur dans le rectangle du dessus
       if not(open): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
 
-      if varia.sub_page == 'bin':
-        Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0))
-        Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0))
-        #def div(color:tuple=(0,0,0), height=0, width=0, top=0, left=0, bottom=None, right=None, border:tuple=False, border_width=1, padding=0):
-    #Snake game link
-    elif varia.page == 'snake':
-      snk.game()
-      varia.page = 'fd0'
-      file_dir_path = 'C:/Program Files/'
-      output = 'C:/Program Files/'
+      if varia.sub_page == 'bin':#c'est ce qu'on affiche quand on va sur le site www.binarie.it. Site web non terminé
+        Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
+        Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
+        
+    #SSi le fichier snake.py est ouvert (snake.py etant dans le jeu et se trouvant dans le file directory: C:Program Files)
+    elif varia.page == 'snake': 
+      snk.game() #lance le snake game
+      varia.page = 'fd0' #quand le snake game est terminé on revient dans le file directory
+      file_dir_path = 'C:/Program Files/' #on revient ici
+      output = 'C:/Program Files/' #on affiche en haut là où on est dans les fichiers
     
     #Platformer
     elif varia.page == 'plat': # si la page est celle du platformer
@@ -304,26 +311,27 @@ while RUN:
         if type(plat_check) == int: # si la fonction retourne un chiffre
           level = plat_check #on synchronise avec le level
 
+    #Messagerie
     elif varia.page == 'messages':
       if 0 in varia.unlocked: # si on a unlock la boite mail
-        Compu.render_barre_taches((39*varia.resolution[0]/100,87.5*varia.resolution[1]/100))
+        Compu.render_barre_taches((39*varia.resolution[0]/100,87.5*varia.resolution[1]/100)) #on affiche la bare des taches
         if type(message) == dict: #si on est dans la boite de reception
-          message = varia.messages
+          message = varia.messages #on initialise les messages d'après les messages que l'on a unlock
           Compu.render_messagerie(message)
-        elif message == 'New message':
+        elif message == 'New message': #quand on est dans la page pour ecrire un mail
           clickable_icons = {} #on clear les clickables icons 
           #rectangle destinataire
-          Opr.div(varia.GREY, height='5.25vh', left='11.66vw', width="76.68vw", top=13.5*res1, border=(0,0,0), padding=4)
-          Opr.render_text("Destinataire: "+writing_data[1],(12*res0,13*res1),varia.BLACK,int(4.5*res1)) #texte destinataire 
+          Opr.div(varia.GREY, height='5.25vh', left='11.66vw', width="76.68vw", top=13.5*res1, border=(0,0,0), padding=4) #on render le padding qui constitue l'espace du texte
+          Opr.render_text("Destinataire: "+writing_data[1],(12*res0,13*res1),varia.BLACK,int(4.5*res1)) # texte destinataire ecrit par l'utilisateur
 
           #rectangle object du mail
           Opr.div(varia.GREY, height=5*res1, left=11.66*res0, width="100vw-140", top=23*res1, border=(0,0,0), padding=4)
-          Opr.render_text("Objet: "+writing_data[2],(12*res0,22.5*res1),varia.BLACK,int(4.5*res1))
+          Opr.render_text("Objet: "+writing_data[2],(12*res0,22.5*res1),varia.BLACK,int(4.5*res1)) #texte de l'objet du mail ecrit par l'utilisateur
 
           #rectangle du contenu du mail
           Opr.div(varia.GREY, height=46*res1, left=11.66*res0, width="100vw-140", top=33.5*res1, border=(0,0,0), padding=4)
           # Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
-          Opr.render_text("Mail: ",(12.66*res0,33*res1),varia.BLACK,4.5*res1)
+          Opr.render_text("Mail: ",(12.66*res0,33*res1),varia.BLACK,4.5*res1) #on affiche ce que l'utilisateur ecrit dans le contenu du mail
           t=Opr.textarea(writing_data[3], ("100vw-148",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
           #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (15*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
@@ -334,21 +342,23 @@ while RUN:
             writing_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
           elif writing_data[0] == 'content':
             if len(output)<len(t):
-              #either we removed some text or we added a break
+              #soit on a enlevé du texte ou on a fait un saut a la ligne
               if len(Opr.textData_str(output,' '))<len(Opr.textData_str(t,' ')):
-                writing_data[3] = output
+                writing_data[3] = output #on initialise le crops du texte au texte tappé
               else:
-                writing_data[3]=t
-                output=t
+                writing_data[3]=t # ou alors on prend le corps du texte formaté en plusieurs lignes
+                output=t # on initialise le texte tapé au corps de texte
             else:  
               writing_data[3] = output
             #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
+
+          #Si on a essayé d'envoyer un mail mais il ya des parties vides
           elif writing_data[4] == 'vide':
-            Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (130,2), varia.WHITE, 15)
+            Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (21.66*res0,0.5*res1), varia.WHITE, 15)
           elif writing_data[4] == 'casedestinatairevide':
-            Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (130,2))
+            Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (21.66*res0,0.5*res1))
           elif writing_data[4] == 'caseobjetvide':
-            Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (130,2))
+            Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (21.66*res0,0.5*res1))
           elif writing_data[4] == 'casemailvide':
             Opr.render_text('Vous devez écrire du contenu dans le mail pour envoyer ce mail', (130,2))
           
@@ -369,12 +379,14 @@ while RUN:
         Opr.render_text(varia.notes[1][i], (6.66*varia.resolution[0]/100, 45+i*7*varia.resolution[1]/100))
         clickable_icons[(6.66*varia.resolution[0]/100, 600 ,45+i*7*varia.resolution[1]/100, 45+i*7*varia.resolution[1]/100 + 22)] = i
 
-      varia.notes[1][varia.notes[0]] += output
+      varia.notes[1][varia.notes[0]] += output #On ajoute le texte tapé au texte des notes
       output = ''
 
     
 
-  #On check les events
+  ###----------------------------------------------------------###
+  ###------Ici on check toutes les ineractions possibles-------###
+  ###----------------------------------------------------------###
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       RUN = False
@@ -495,7 +507,7 @@ while RUN:
             open = True # on autorise a faire le lien clavier - pygame
 
         elif varia.page == 'fd0':
-          if Opr.check_interaction(event.pos, (5*varia.resolution[0]/100,10*varia.resolution[0]/100,0,7.5*varia.resolution[1]/100), ['fd0'], varia.page) == True: #Back button
+          if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True: #Back button
             clickable_icons = {} #reset les icons clickables
             file_dir_path = file_dir_path[:-1]
             for c in reversed(file_dir_path):
