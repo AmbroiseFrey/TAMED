@@ -24,8 +24,8 @@ def textInZone(color, zonerect):
   """
   Attention, ça ne marchera pas si le texte est de la même couleur que le background
   """
-  pxarray = pygame.PixelArray(screen)
-  value = screen.map_rgb(color)
+  pxarray = pygame.PixelArray(screen) # les pixels de l'écran
+  value = screen.map_rgb(color) #
   # mat = ()
   for x in range(zonerect[0][0], zonerect[1][0]):
     line = ()
@@ -40,6 +40,8 @@ def textInZone(color, zonerect):
 
 # to be tried
 def textarea(textData:tuple=("",), size:tuple=(0,0), pos:tuple=(0,0), background=(255,255,255), color=(0,0,0), padding:float=0, border=None,  border_width:float=1, font_size:int=23, font_spacing:float=5):
+  '''Permet de retourner à la ligne quand on appuie sur entrée
+  '''
   size = tuple(understandValue(s) for s in size)
   pos = tuple(understandValue(p) for p in pos)
   div(background, size[1],size[0],pos[1],pos[0],border=border, border_width=border_width, padding=padding)
@@ -69,7 +71,7 @@ def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):
   Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
   loaded_img= pygame.image.load(image_name) # On load l'image
   loaded_img = pygame.transform.scale(loaded_img, size) # On change son echelle
-  if center:
+  if center: #si c'st une image centrée
     pos = tuple(
       pos[i]-size[i]/2 +varia.mid_screen[i]
       for i in (0,1)

@@ -1,6 +1,10 @@
 import pygame, time
 from math import ceil, sin, pi, floor
 from random import randint
+###################################
+####voir documentation.md!!!!!!####
+###################################
+
 
 resolution = (600,600)
 screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF, 32)
