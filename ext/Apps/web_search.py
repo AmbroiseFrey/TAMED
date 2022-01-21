@@ -26,13 +26,13 @@ def load_page(page):
   '''
   On load une page par rapport a son url qui correspond a la clé de Pages
   '''
-  y = 40
+  y = 10*varia.resolution[1]/100 # le texte a imprimer commence a cette position
   if page in Pages.keys(): # si la page est dans les clés des urls
-    if type(Pages[page]) == str: #si c'est le convertisseur bianire
-      varia.sub_page = 'bin'
-    else:
-      for el in Pages[page]:
-        Opr.render_text(el, (10,y), varia.WHITE, 15)
-        y += 20
+    if type(Pages[page]) == str: #si c'est le convertisseur binaire
+      varia.sub_page = 'bin' # on initialise le convertisseur binaire
+    else: #sinon, si c'est du texte
+      for el in Pages[page]: #pour chaque ligne
+        Opr.render_text(el, (1.66*varia.resolution[0]/100,y), varia.WHITE, 3.75*varia.resolution[1]/100) #on l'imprime sur l'ecran
+        y += 5*varia.resolution[1]/100 #on fait un "saut à la ligne"
   else:
     pass

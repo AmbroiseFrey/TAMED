@@ -1,6 +1,172 @@
 # file_explorer.py:
 
 # snake.py:
+import pygame, time
+from math import ceil, sin, pi, floor
+from random import randint
+
+resolution = (600,600)
+screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF, 32)
+mid_screen = tuple(i/2 for i in resolution)
+clock = pygame.time.Clock()
+pygame.mouse.set_cursor(*pygame.cursors.broken_x)
+
+def minInt(a,b): return a if a<b else b
+
+class Fruit:
+  def __init__(self, carte):
+    self.offsetPos = tuple(map(lambda x: randint(0,x-1),carte.dimensions))
+    self.pos = tuple(map(lambda x: (x+.5)*carte.case_taille,self.offsetPos))
+    self.r = carte.case_taille*.4
+  def display(self):
+    pygame.draw.circle(screen, (255,0,0), self.pos, self.r)
+
+class Serpent:
+  tilePerCase = 20
+  def __init__(self, p, caseT: float, v = (1,0), taille = 30, d = ((255,255,0),(0,255,0))):
+    self.taille = taille
+    self.p = tuple((i+.5)*caseT for i in p)
+    print(self.p)
+    self.vecteur=v
+    self.current_v=v
+    self.off = 2*pi/caseT
+    self.caseT = caseT
+    self.tiles = tuple(
+      tuple(self.p[i]-j*v[i]*caseT/Serpent.tilePerCase for i in range(2)) for j in range(taille)
+    )
+    self.cs = tuple(
+      (d[0][i], d[1][i]-d[0][i]) for i in range(3)
+      )
+  def coefColor(self, coef):
+    return tuple(i[0]+i[1]*coef for i in self.cs)
+  def slither(self, p, coef=1):
+    return tuple(p[i]+sin(p[1-i]*self.off)*self.caseT/7*(.5+.5*coef) for i in range(2))
+  def change_destination(self):
+    if self.vecteur == self.current_v:
+      return
+    if self.current_v[0]:
+      e=(self.p[0]+self.caseT*.5)%self.caseT
+      if self.current_v[0] == 1: e = self.caseT-e
+    else:
+      e=(self.p[1]+self.caseT*.5)%self.caseT
+      if self.current_v[1] == 1: e = self.caseT-e
+    if (e<self.caseT/Serpent.tilePerCase):
+      self.p = (
+        int(2*(self.p[0]+e*self.current_v[0]))/2,
+        int(2*(self.p[1]+e*self.current_v[1]))/2
+      )
+      self.current_v = self.vecteur
+  def closePosition(self, p=None):
+    return tuple(map(lambda x:ceil(x/self.caseT-1), p or self.p))
+  def update(self, carte):
+    self.change_destination()
+    self.p= tuple(self.p[i]+self.current_v[i]*self.caseT/Serpent.tilePerCase for i in range(2))
+    self.tiles = (self.p,)+self.tiles[:self.taille-1]
+    close_p = self.closePosition()
+    if (close_p[0]<0 or close_p[0]>=carte.dimensions[0] or close_p[1]<0 or close_p[1]>=carte.dimensions[1]):
+      return True
+    if (close_p == carte.fruit.offsetPos):
+      self.taille += 25
+      carte.nouveau_Fruit()
+    return False
+  def display(self):
+    i_p = self.closePosition()
+    getaway = (False,) 
+    for i in range(len(self.tiles)-1,-1,-1):
+      tile = self.tiles[i]
+      coef1 = i/self.taille
+      coef2=(1-coef1)
+      coef = .5+.5*coef2
+      c = self.coefColor(coef1)
+      r = (.3 if i else .35)*self.caseT*coef
+      p = self.slither(tile, 2**(-i/100))
+      pygame.draw.circle(screen, c, p, r)
+      j_p = self.closePosition(tile)
+      if getaway[-1] != (j_p == i_p):
+        getaway+=(j_p == i_p,)
+    return len(getaway)>2
+
+
+________________________
+
+## class Map:
+
+  **_middle_**:tuple; 
+    la case la plus proche du milieu de la carte
+
+  **_dimensions_**:tuple;
+    dimension de la carte à partir des classe
+  
+  **_matrix_**: tuple(tuple);
+    contient les cases et leur couleur
+  
+  **_case_taille_**: float;
+    la taille des cases qui composent la carte
+
+  **_constructor_**: function(`w`:int, `h`:int)=>Map;
+    Cette classe crée une carte sur laquelle on va mettre des fruits et le serpent
+
+  def ajouter_Serpent(self):
+    self.serpent = Serpent(self.middle, self.case_taille)
+  def nouveau_Fruit(self):
+    self.fruit = Fruit(self)
+  def draw_rectangle(self, x,y):
+    pygame.draw.rect(screen, self.matrix[y][x], pygame.Rect((x*self.case_taille,y*self.case_taille) + (self.case_taille,)*2))
+  def update(self):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_UP] and self.serpent.current_v[1]!=+1: self.serpent.vecteur = (0,-1)
+    elif keys[pygame.K_DOWN] and self.serpent.current_v[1]!=-1: self.serpent.vecteur = (0,+1)
+    elif keys[pygame.K_LEFT] and self.serpent.current_v[0]!=+1: self.serpent.vecteur = (-1,0)
+    elif keys[pygame.K_RIGHT] and self.serpent.current_v[0]!=-1: self.serpent.vecteur = (+1,0)
+    return self.serpent.update(self)
+  def display(self):
+    for i in range(self.dimensions[0]):
+      for j in range(self.dimensions[1]):
+        self.draw_rectangle(i,j)
+    self.fruit.display()
+    return self.serpent.display()
+  **_pos_**: tuple(float, 3);
+    paramètre dans lequel on stocke le point
+
+  **_persp_coef_**: int;
+    coéfficient qui dépend de la profondeur `z` du point par lequel il faut multiplier l'abscisse `x` et l'ordonnée `y` de ce point pour avoir sa position sur un plan à partir de l'indice de perspective `perspective_index`
+  
+  **_draw_position_**:
+    position du point sur le plan après toutes les modifications éffectuées: bouger en fonction de la perspective et déplacer le point jusqu'au milieu grâce à la fonction `applyScreen` qui utiliser la variable `mid_screen`
+
+  **_rotate_**: function(`R`: tuple(tuple(float,2),3))=>None;
+    L'argument `R` et un tuple contenant 3 tuples pour les rotation sur l'axe X, Y et Z respectivement qui contiennent les valeurs des cosinus et sinus respectivement des angles de ces rotations. Avec ces valeurs, on peut effectuer les modifications nécessaires grâce aux matrices de rotation pour changer la position du point en respectant la rotation demandée. Puis on redéfinit la le paramètre `draw_position` grâce à la position donnée.
+
+  **_applyMatrixRotation_**: function(matrix: tuple(tuple(float,3),3))->None;
+    méthode qui applique à la position du point les modifications nécessaires dues à l'ensemble des rotations de la planète traduites par la matrice `matrix` (**⚠ il faut le tester**)
+  
+  **_applyPerspective_**: function()=>tuple(float, 2);
+    cette méthode change d'abord le coéfficient `persp_coef` pour enfin retourner la position du point dans un plan en appliquant une perspective de `perspective_index` (note: on utilise du logarithme pour cela)
+
+  **_updateDrawPosition_**: function()->None;
+    méthode qui permet de rafraichir le position du point sur l'écran `draw_position` (sans l'afficher)
+
+________________________
+
+**_drawAlphaRecct_**: function(pos, size, color)->bool;
+  affiche un rectangle qui a une couleur qui peut-être traslucide 
+
+**_drawAlphaImage_**: function(pos,size,href,alpha,center:bool)->bool;
+  affiche une image qui peut être centrée grâce à l'argument center avec une opacité alpha et retourne la position des boutons _play_ et _exit_
+
+**_requireStop_**: function()->bool;
+  retourne True si le joueur a quitté la page pygame sinon retourne False
+
+**_loop_**: function()->None;
+  fonction principal qui sert comme une boucle _while_ qui update et display la carte et qui appelle la fonction gameover si le serpent se mord la queue ou s'il est hors de la carte 
+
+**_mn_**:int;
+  la plus petite taille de la résolution
+
+**_gameover_**: function()->None;
+  on affiche l'image de GAMEOVER qui se trouve dans les assets qui devient graduellement opaque puis on regarde si le joueur veut sortir du jeu ou bien rejouer, s'il veut rejouer on appelle la `loop` sinon, on sort le la boucle
+
+________________________
 
 # planet_viewer.py:
 **`planet_viewer`** est une application (très performante) qui permet de voir la progression du robot sur la planète. Un `circle` bleu indique le point de départ du robot, des `circle` verts indiquent les `flags` que le robot a déposés, sur lesquels on peut cliquer pour que le robot retourne à cet endroit (Attention, le robot a un nombre limité de `flags` qu'il peut placer) et un `circle` rouge indique la position actuelle du robot. Enfin, une courbe orange représente les endroits où le robot a déjà exploré.

@@ -14,10 +14,11 @@ mat = tuple(tuple((cos(i/lon*2*pi)*cos((j/lat-.5)*pi)*r, sin(i/lon*2*pi)*r, cos(
 screen = pygame.display.set_mode(variables.resolution) #initiation de l'écran
 mid_screen = variables.mid_screen+(r*2,) # coordonnées du milieu de l'écran
 clock = pygame.time.Clock() 
-perspective_index = 150 # indice de perspective pour la sphère
+perspective_index = 1.5*r # indice de perspective pour la sphère
 
 a = (cos,sin) # variable pour simplifier les commandes
-def applyRotation(p, R:tuple): # on applique les rotations définies par le tuple `R` au point `p`
+def applyRotation(p, R:tuple): # 
+  """prend un point et une Rotation et renvoie le point auquel on a appliqué les rotations définies par `R`"""
   (cx,sx), (cy,sy), (cz,sz)=R
   k = (
     p[0],
@@ -42,16 +43,19 @@ def width(A,B):
   return int((A[2]+B[2])/1.25*2)
 def applyScreen(p):
   """prend un point en argument et renvoie la position de ce point en fonction du milieu de l'écran pour centrer la sphère"""
-  return tuple(p[i]+mid_screen[i] for i in range(2))+(p[2],) # 
+  return tuple(p[i]+mid_screen[i] for i in range(2))+(p[2],)
 def applyPerspective(p):
-  """prend un point et renvoie la coordonnée de ce point en 2 dimensions après application de la perspective et l""" 
-  return tuple(p[i]*2**(p[2]/perspective_index) for i in range(2))+(2**(p[2]/(1.5*r)),)
+  """prend un point et renvoie la coordonnée de ce point en 2 dimensions après application de la perspective et le coefficient qui a permis d'ateindre ce""" 
+  coef = 2**(p[2]/perspective_index)
+  return tuple(p[i]*coef for i in range(2))+(coef,)
 
-def update_matrix(matrix, rX, rY,rZ): # on change tous les points de la matrice pour qu'ils puissent être affichés
+def update_matrix(matrix, rX, rY,rZ):
+  """on prend la matrice en argument et les rotations x,y et z et on renvoie la matrice issue de la matrice mais à laquelle on a changé tous les points pour avoir leurs positions en fonction de ces rotations""" 
   rot = tuple(tuple(a[i](j) for i in range(2)) for j in (rX,rY,rZ)) 
   return tuple(tuple(applyScreen(applyPerspective(applyRotation(j, rot))) for j in i) for i in matrix)
 
-def display_matrix(matrix,d, rotX, rotY, rotZ): # on affiche la matrice directement
+def display_matrix(matrix,d, rotX, rotY, rotZ):
+  """affiche la matrice directement sans se soucier de la prodfondeur moyenne des traits""" 
   updated_matrix = update_matrix(matrix, rotX, rotY, rotZ)
   for i in range(d[0]):
     for j in range(d[1]-1):
@@ -61,7 +65,8 @@ def display_matrix(matrix,d, rotX, rotY, rotZ): # on affiche la matrice directem
       pygame.draw.line(screen, (255,255,255), point[:2], p_right[:2], width=width(point, p_right))
       pygame.draw.line(screen, (255,255,255), point[:2], p_down[:2], width=width(point, p_down))
 
-def display_matrix_image(matrix,d, rotX, rotY, rotZ, image): # on affiche la matrice avec une image à l'intérieur
+def display_matrix_image(matrix,d, rotX, rotY, rotZ, image):
+  """affiche la matrice avec une image à l'intérieur""" 
   updated_matrix = update_matrix(matrix, rotX, rotY, rotZ)
   traits = ()
   for i in range(d[0]):
