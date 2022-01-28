@@ -62,7 +62,10 @@ def textarea(textData:tuple=("",), size:tuple=(0,0), pos:tuple=(0,0), background
   return textData
 
 def textData_str(textData, sep='\n'):
-  return sep.join(textData)
+  if type(textData)!=str:
+    return sep.join(textData)
+  else:
+    return textData
 
 
 def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):

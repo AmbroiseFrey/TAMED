@@ -297,11 +297,10 @@ while RUN:
 
 
       if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
-                
         binary_values = output.split()
         ascii_string = ""
         for binary_number in binary_values:
-          if binary_number.isdigit() and 0<= binary_number >= 1:
+          if binary_number.isdigit() and 0<= int(binary_number) <= 1:
             decimal_value = int(binary_number, 2)
             ascii_character = chr(decimal_value)
             web_data += ascii_character
@@ -457,7 +456,6 @@ while RUN:
         elif Opr.check_interaction(event.pos, (50.16*res0,55.66*res0,88.75*res1,varia.resolution[1]), ['home','fd0','web', 'messages'], varia.page) == True: #si on click dans la zone de l'appli notes
           clickable_icons = {} #reset les clickables icons
           varia.page = 'notes'
-          email_data = '' #variable permettant de revenier à la ligne quand on click sur entrée mis à vide
           output = ''
           clavier_open=True #le clavier est activé, l'utilisateur peut taper du code
         
@@ -498,8 +496,8 @@ while RUN:
             #check si les contenus du mail ne sont pas vide
             if email_data[1] and email_data[2] and email_data[3]:
               email_data[4] = '!vide'
-              print(scan.check_message(email_data))
               varia.unlocked.append(scan.check_message(email_data))
+              print(email_data)
             elif email_data[1]=='' and email_data[2]=='' and email_data[3]==('',): # si tous les elements de texte sont vides
               email_data[4] = 'vide' # alors on renvoit que vide
             elif email_data[1]=='' : # si la case destinataire est vide

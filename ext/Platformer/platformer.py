@@ -5,30 +5,30 @@ from ext.Platformer.map_matrix import map_matrix as matrix
 
 # matrix = (0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0),(1,2,0,0,0,0,1,2,2,2),(1,1,0,1,1,1,1,2,2,2),(1,1,1,1,1,1,1,1,1,2)
 def play_game(level = 0):
-  map = mp.MAP(matrix, mi/100)
+  map = mp.MAP(matrix, mi/10)
 
   r=mi/32
 
-  wheel = mp.Wheel((50,50),r)
+  wheel = mp.Wheel((700,10),r)
   map.addWheel(wheel)
 
-  wheel2 = mp.Wheel((50+mi/8*1.1,50),r)
+  wheel2 = mp.Wheel((700+mi/8*0.7,0),r)
   map.addWheel(wheel2)
 
-  wheel3 = mp.Wheel((50+mi/4*1.1,50-mi/4*1.1),r)
+  wheel3 = mp.Wheel((700+mi/4*0.7,0),r)
   map.addWheel(wheel3)
 
-  e = .9
-  ressort1 = mp.Ressort(wheel, wheel2, e,mi/8*1.1)
-  ressort2 = mp.Ressort(wheel, wheel3, e,mi/8*1.1)
-  ressort3 = mp.Ressort(wheel2,wheel3, e,mi/8*1.1)
+  e = .92 # l'elasticité des ressorts
+  ressort1 = mp.Ressort(wheel, wheel2, e,mi/8*0.7)
+  ressort2 = mp.Ressort(wheel, wheel3, e,mi/8*0.7)
+  #ressort3 = mp.Ressort(wheel2,wheel3, e,mi/8*0.6)
   RUN = True
   while RUN:
     screen.fill(0xffffff)
     map.draw()
     ressort1.update()
     ressort2.update()
-    ressort3.update()
+    #ressort3.update()
     wheel.update()
     wheel2.update()
     wheel3.update()

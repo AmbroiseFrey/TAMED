@@ -56,6 +56,7 @@ scans = {
 
 
 def check_message(message_content:list):
+  print(message_content)
   for lock in scans.keys():
     if lock[0] in varia.unlocked: #si on a unlock le message
       i = 1
@@ -67,7 +68,7 @@ def check_message(message_content:list):
             break # failed
         else:
           for word in contents: #si les mots que l'on veut
-            if word.lower() in message_content[i].lower().split(): #son dans le titre
+            if word.lower() in Opr.textData_str(message_content[i]).lower().split(): #son dans le titre
               i+= 1 #alors c'est bon
             else:
               break # failed

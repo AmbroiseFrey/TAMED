@@ -247,8 +247,8 @@ class Wheel:
             self.rotate = (vector[0] / v[0] if v[0] else vector[1] / v[1]) # la rotation effectuée par la roue 
 
             keys = pygame.key.get_pressed()
-            if (keys[pygame.K_SPACE]):
-                power = 2 ** (-abs(self.rotate))
+            if (keys[pygame.K_SPACE]): # si on active le 'frein'
+                power = 3 ** (-abs(self.rotate))
                 wished_rotation = 0
             else:
                 wished_rotation = (keys[pygame.K_LEFT] - keys[pygame.K_RIGHT]) * self.decuplation * self.powerIndex * pi / 2
@@ -266,7 +266,7 @@ class Wheel:
         self.forces.append(force)
     def display(self):
         self.map.drawCircle(self.pos, self.r, 0xff0000)
-        Vector.draw(self.vector, mid_screen, 0, 1)
+        # Vector.draw(self.vector, mid_screen, 0, 1)
     def drawVec(self):
         # Vector.draw(self.vector, Vector.subtract(self.pos, self.map.relative), self.map.svg, "#0005", .3)
         pass
