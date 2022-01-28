@@ -14,6 +14,16 @@ unlockable_messages = {
       "habitable."
     ],
   },
+  2000 : {
+    "TAMED Mission - 2":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour,",
+      "Merci d'avoir récupéré le disque dur, il va nous etre très utile!",
+      "Il faut maintenant que vous récupériez un morceau de la planète pour l'analyser et savoir si elle est",
+      "habitable."
+    ],
+  },
   1010 : {
     "Accident de la Station":[
       "from: Charlotte Coulson",

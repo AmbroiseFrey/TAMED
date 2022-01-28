@@ -70,6 +70,10 @@ def render_image(image_name:str, pos:tuple, size:tuple, center:bool=False):
   Fonction qui permet d'afficher une image.
   Prend en argument le nom de l'image (str), sa position (tuple), et sa taille (tuple)'''
   loaded_img= pygame.image.load(image_name) # On load l'image
+  size = list(size)
+  size[0] = int(size[0])
+  size[1] = int(size[1])
+  size = tuple(size)
   loaded_img = pygame.transform.scale(loaded_img, size) # On change son échelle
   if center: #si c'st une image centrée
     pos = tuple(

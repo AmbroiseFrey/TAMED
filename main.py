@@ -31,7 +31,8 @@ plat_check = 0 #variable qui permet de faire le lien platformer - ordinateur
 level = 0 # ⚠️ variable possiblement obsolete
 message = varia.messages
 #variables spécifiques a des sous stages quand il faut écrire
-writing_data = [] 
+email_data = []
+web_data = ''
 varia.unlocked = [0, 0.1, 1000]
 
 res0,res1 = tuple(i/100 for i in varia.resolution)#variables qui seront utilisées pour positionner et dimensionner les rectangles/images/etc. en fonction de la taille de l'écran
@@ -64,10 +65,10 @@ class Computer:
     '''
 
     #On demande le 'User'
-    open = True
+    clavier_open = True
     output = ''
     rY = 0
-    while open:
+    while clavier_open:
       rY+=.002
       screen.fill((83,130,168))
       sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
@@ -79,16 +80,16 @@ class Computer:
         if event.type == pygame.KEYDOWN: #si on presse une touche
           if event.key == pygame.K_RETURN: # on revient à la ligne
             user = output
-            open = False
+            clavier_open = False
           elif event.key == pygame.K_BACKSPACE: #on delete
             output =  output[:-1]
           else:
             output += event.unicode # on ajoute le character
 
     #On demande le 'Password'
-    open = True
+    clavier_open = True
     output = ''
-    while open:
+    while clavier_open:
       rY +=.002
       screen.fill((83,130,168))
       sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
@@ -100,7 +101,7 @@ class Computer:
         if event.type == pygame.KEYDOWN: #si on presse une touche
           if event.key == pygame.K_RETURN:# on revient à la ligne
             password = output
-            open = False
+            clavier_open = False
           elif event.key == pygame.K_BACKSPACE: #on delete
             output =  output[:-1]
           else:
@@ -280,23 +281,39 @@ while RUN:
       file_dir_path = output # on synchronise le texte tapé avec le chemin
       Opr.render_text(output, (11.66*res0,res1),varia.WHITE, 4*res1) # on render le texte qui est tapé
       Opr.render_image('Assets/Icons/arrow_ul.png', (5*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
-      open = True # on permet de taper au clavier
+      clavier_open = True # on permet de taper au clavier
       pygame.display.flip() #on display
     
     #Navigateur Internet
     elif varia.page == 'web': #on regarde si on est dans l'application web(le navigateur)
       Compu.render_barre_taches((30*res0,87.5*res1))#on affiche la bare des taches
       Opr.div(top=1.25*res1,height=5*res1,left="10vw",width="80vw", padding=5, border=(0,0,0)) #on affiche le rectangle pour saisir l'url, avec un rectangle en coordonné relative
-      Opr.render_text(output, (11.66*res0,res1),varia.WHITE, round(4.25*res1))#permet d'afficher l'url tapé par l'utilisateur dans le rectangle du dessus
-      if not(open): #Si l'utilisateur ne tape plus
+      Opr.render_text(varia.sub_page, (11.66*res0,res1),varia.WHITE, round(4.25*res1))#permet d'afficher l'url tapé par l'utilisateur dans le rectangle du dessus
+      if clavier_open == False and output != '' and varia.sub_page.startswith('www'): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
+        output = ''
+      elif clavier_open == True:
+        varia.sub_page = output
 
-      if varia.sub_page == 'bin':#c'est ce qu'on affiche quand on va sur le site www.binarie.it. Site web non terminé
+
+      if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
+                
+        binary_values = output.split()
+        ascii_string = ""
+        for binary_number in binary_values:
+          if binary_number.isdigit() and 0<= binary_number >= 1:
+            decimal_value = int(binary_number, 2)
+            ascii_character = chr(decimal_value)
+            web_data += ascii_character
+          else:
+            Opr.render_text("Ce n'est pas un nombre binaire",(8*res0,43*res1),varia.WHITE,round(2*res1))
         Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
+        Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))
+        Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
       pygame.display.flip() #on display
         
-    #SSi le fichier snake.py est ouvert (snake.py etant dans le jeu et se trouvant dans le file directory: C:Program Files)
+    #Si le fichier snake.py est ouvert (snake.py etant dans le jeu et se trouvant dans le file directory: C:Program Files)
     elif varia.page == 'snake': 
       snk.loop() #lance le snake game
       varia.page = 'fd0' #quand le snake game est terminé on revient dans le file directory
@@ -325,44 +342,44 @@ while RUN:
           clickable_icons = {} #on clear les clickables icons 
           #rectangle destinataire
           Opr.div(varia.GREY, height='5.25vh', left='11.66vw', width="76.68vw", top=13.5*res1, border=(0,0,0), padding=4) #on render le padding qui constitue l'espace du texte
-          Opr.render_text("Destinataire: "+writing_data[1],(12*res0,13*res1),varia.BLACK,int(4.5*res1)) # texte destinataire ecrit par l'utilisateur
+          Opr.render_text("Destinataire: "+email_data[1],(12*res0,13*res1),varia.BLACK,int(4.5*res1)) # texte destinataire ecrit par l'utilisateur
 
           #rectangle object du mail
           Opr.div(varia.GREY, height=5*res1, left=11.66*res0, width="100vw-140", top=23*res1, border=(0,0,0), padding=4)
-          Opr.render_text("Objet: "+writing_data[2],(12*res0,22.5*res1),varia.BLACK,int(4.5*res1)) #texte de l'objet du mail ecrit par l'utilisateur
+          Opr.render_text("Objet: "+email_data[2],(12*res0,22.5*res1),varia.BLACK,int(4.5*res1)) #texte de l'objet du mail ecrit par l'utilisateur
 
           #rectangle du contenu du mail
           Opr.div(varia.GREY, height=46*res1, left=11.66*res0, width="100vw-140", top=33.5*res1, border=(0,0,0), padding=4)
-          # Opr.render_text("Mail:"+writing_data[3],(76,132),varia.BLACK,18)
+          # Opr.render_text("Mail:"+email_data[3],(76,132),varia.BLACK,18)
           Opr.render_text("Mail: ",(12.66*res0,33*res1),varia.BLACK,4.5*res1) #on affiche ce que l'utilisateur ecrit dans le contenu du mail
-          t=Opr.textarea(writing_data[3], ("100vw-148",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
+          t=Opr.textarea(email_data[3], ("100vw-148",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
           #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (15*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
           #lien entre input et les differentes parties du mail.
-          if writing_data[0] == 'dest':
-            writing_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
-          elif writing_data[0] == 'topic':
-            writing_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
-          elif writing_data[0] == 'content':
+          if email_data[0] == 'dest':
+            email_data[1] = output #on fait le lien entre le destinataire sauvegardé et ce qu'on ecrit
+          elif email_data[0] == 'topic':
+            email_data[2] = output #on fait le lien entre le sujet sauvegardé et ce qu'on ecrit
+          elif email_data[0] == 'content':
             if len(output)<len(t):
               #soit on a enlevé du texte ou on a fait un saut a la ligne
               if len(Opr.textData_str(output,' '))<len(Opr.textData_str(t,' ')):
-                writing_data[3] = output #on initialise le crops du texte au texte tappé
+                email_data[3] = output #on initialise le crops du texte au texte tappé
               else:
-                writing_data[3]=t # ou alors on prend le corps du texte formaté en plusieurs lignes
+                email_data[3]=t # ou alors on prend le corps du texte formaté en plusieurs lignes
                 output=t # on initialise le texte tapé au corps de texte
             else:  
-              writing_data[3] = output
+              email_data[3] = output
             #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
 
           #Si on a essayé d'envoyer un mail mais il ya des parties vides
-          elif writing_data[4] == 'vide':
+          elif email_data[4] == 'vide':
             Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #si le mail est complétement vide lors de l'envoi du mail
-          elif writing_data[4] == 'casedestinatairevide':
+          elif email_data[4] == 'casedestinatairevide':
             Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #si pas de destinataire
-          elif writing_data[4] == 'caseobjetvide':
+          elif email_data[4] == 'caseobjetvide':
             Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #objet
-          elif writing_data[4] == 'casemailvide':
+          elif email_data[4] == 'casemailvide':
             Opr.render_text('Vous devez écrire du contenu dans le mail pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1))#contenu du mail
           
         else:
@@ -425,8 +442,9 @@ while RUN:
         elif Opr.check_interaction(event.pos, (30.66*res0,38.33*res0,90*res1,varia.resolution[1]), ['home','fd0','messages','notes'], varia.page) == True:
           clickable_icons = {} #on reset les clickable icons 
           varia.page = 'web' #comme avant
+          varia.sub_page = ''
           output=''
-          open=False #le clavier est desactivé, l'utilisateur ne peux plus taper du texte
+          clavier_open=False #le clavier est desactivé, l'utilisateur ne peux plus taper du texte
 
         #Messagerie
         elif Opr.check_interaction(event.pos, (38.33*res0,48.33*res0,90*res1,varia.resolution[1]), ['home','fd0','web','notes'], varia.page) == True: #si on click dans la zone de l'appli mail
@@ -439,14 +457,13 @@ while RUN:
         elif Opr.check_interaction(event.pos, (50.16*res0,55.66*res0,88.75*res1,varia.resolution[1]), ['home','fd0','web', 'messages'], varia.page) == True: #si on click dans la zone de l'appli notes
           clickable_icons = {} #reset les clickables icons
           varia.page = 'notes'
-          writing_data = '' #variable permettant de revenier à la ligne quand on click sur entrée mis à vide
+          email_data = '' #variable permettant de revenier à la ligne quand on click sur entrée mis à vide
           output = ''
-          open=True #le clavier est activé, l'utilisateur peut taper du code
+          clavier_open=True #le clavier est activé, l'utilisateur peut taper du code
         
         #Si on click sur la barre de recherches dans l'internet explorer
-        elif Opr.check_interaction(event.pos, (11*res0,varia.resolution[0],0.25*res1,7*res1), ['web'], varia.page) == True:
-          open=True #on active le clavier
-
+        elif Opr.check_interaction(event.pos, (7.2*res0,varia.resolution[0],0.25*res1,7*res1), ['web'], varia.page) == True:
+          clavier_open=True #on active le clavier
   
         #Test si click sur une ligne des notes
         elif varia.page == 'notes': # si on est bien sur la page notes
@@ -471,44 +488,44 @@ while RUN:
           elif Opr.check_interaction(event.pos, (10*res0,14.5*res0,0,6.75*res1), ['messages'], varia.page) == True: #si on click sur la zone pour écrire un mail
             message = 'New message' 
             output = '' #reset output
-            writing_data = ['dest', '','',('',),''] #on réinitialise la liste writing_data essentiel pour écrire l'objet, le destinataire, et le contenue du mail
+            email_data = ['dest', '','',('',),''] #on réinitialise la liste email_data essentiel pour écrire l'objet, le destinataire, et le contenue du mail
             clickable_icons = {} 
-            open=True
+            clavier_open=True
 
           #bouton pour envoyer un mail
           elif Opr.check_interaction(event.pos, (15*res0,19.5*res0,0,6.75*res1), ['messages'], varia.page) == True and message == 'New message':
             
             #check si les contenus du mail ne sont pas vide
-            if writing_data[1] and writing_data[2] and writing_data[3]:
-              writing_data[4] = '!vide'
-              print(scan.check_message(writing_data))
-              varia.unlocked.append(scan.check_message(writing_data))
-            elif writing_data[1]=='' and writing_data[2]=='' and writing_data[3]==('',): # si tous les elements de texte sont vides
-              writing_data[4] = 'vide' # alors on renvoit que vide
-            elif writing_data[1]=='' : # si la case destinataire est vide
-              writing_data[4] = 'casedestinatairevide' # alors on renvoit que vide
-            elif writing_data[2]=='': # si l'objet est vide
-              writing_data[4] = 'caseobjetvide' # alors on renvoit que vide
-            elif writing_data[3]==('',): # si le corps de texte est vide
-              writing_data[4] = 'casemailvide' # alors on renvoit que vide
+            if email_data[1] and email_data[2] and email_data[3]:
+              email_data[4] = '!vide'
+              print(scan.check_message(email_data))
+              varia.unlocked.append(scan.check_message(email_data))
+            elif email_data[1]=='' and email_data[2]=='' and email_data[3]==('',): # si tous les elements de texte sont vides
+              email_data[4] = 'vide' # alors on renvoit que vide
+            elif email_data[1]=='' : # si la case destinataire est vide
+              email_data[4] = 'casedestinatairevide' # alors on renvoit que vide
+            elif email_data[2]=='': # si l'objet est vide
+              email_data[4] = 'caseobjetvide' # alors on renvoit que vide
+            elif email_data[3]==('',): # si le corps de texte est vide
+              email_data[4] = 'casemailvide' # alors on renvoit que vide
               
           #Si click la boîte destinataire
           elif Opr.check_interaction(event.pos, (11*res0,99.66*res0,12.75*res1,19.25*res1), ['messages'], varia.page) == True and message == 'New message':
-            writing_data[0] = 'dest' # la writing stage est celle du destinataire
-            output = writing_data[1]
-            open = True # on autorise a faire le lien clavier - pygame
+            email_data[0] = 'dest' # la writing stage est celle du destinataire
+            output = email_data[1]
+            clavier_open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite sujet
           elif Opr.check_interaction(event.pos, (11*res0,99.66*res0,22.25*res1,28.75*res1), ['messages'], varia.page) == True and message == 'New message':
-            writing_data[0] = 'topic'
-            output = writing_data[2]
-            open = True # on autorise a faire le lien clavier - pygame
+            email_data[0] = 'topic'
+            output = email_data[2]
+            clavier_open = True # on autorise a faire le lien clavier - pygame
           
           #Si click la boite corps du mail
           elif Opr.check_interaction(event.pos, (12.33*res1,99.66*res0,33.5*res1,81.5*res1), ['messages'], varia.page) == True and message == 'New message':
-            writing_data[0] = 'content'
-            output = writing_data[3]
-            open = True # on autorise a faire le lien clavier - pygame
+            email_data[0] = 'content'
+            output = email_data[3]
+            clavier_open = True # on autorise a faire le lien clavier - pygame
 
         elif varia.page == 'fd0':
           if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True: #Si on click sur le boutton 'arrière'
@@ -537,7 +554,14 @@ while RUN:
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:
       #Lien entre le clavier et le script sans utiliser input
-      if open:
+      if varia.page == 'web' and varia.sub_page == 'binaire.it':
+        print('bintetext')
+        if event.key == pygame.K_BACKSPACE:
+          output = output[:-1]
+        else:#si le texte tapé est du simple texte
+          print('ajout de charactère')
+          output += event.unicode # on ajoute le character au output
+      elif clavier_open:
         if event.key == pygame.K_RETURN: # si on utilise la touche entrée
           if varia.page == 'notes': #si on est dans les notes
             varia.notes[1].append('') # on ajoute une ligne
@@ -546,7 +570,7 @@ while RUN:
           elif varia.page == 'messages': # si on est dans la messagerie
             output += ('',) # on rajoute une ligne vide
           else:
-            open = False
+            clavier_open = False
         elif event.key == pygame.K_BACKSPACE:
           if varia.page == 'notes':
             varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]][:-1]

@@ -1,59 +1,45 @@
 import pygame, time
-from ext.Core import operations as Opr
-from ext.Core import variables as varia
-from ext.Platformer.components import Floor, Player, Level_Flag, Lava
-from ext.Platformer.game_utils import Group
+from ext.Platformer.plat_variables import screen, clock, mi
+import ext.Platformer.map_utils as mp
+from ext.Platformer.map_matrix import map_matrix as matrix
 
-##Lien avec main.py
-##Appeler une fonction dans ce script qui interagit avec pygame terminate la fenetre du main et la remplace par celle d'ici.
-##Quand la fonction finit, on revient à la fenetre de main. De là où la fonction est appelée
-
-pygame.init()
-screen = pygame.display.set_mode(varia.resolution)
-screen_rect = screen.get_rect()
-
-#Test des extensions via main.py
-def test():
-  screen.fill((0,0,0))
-  return 'Platformer connected'
-
-#Boucle du jeu platformer
+# matrix = (0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0),(1,2,0,0,0,0,1,2,2,2),(1,1,0,1,1,1,1,2,2,2),(1,1,1,1,1,1,1,1,1,2)
 def play_game(level = 0):
-  varia.RUN_plat == True
-  clock = pygame.time.Clock()
-  player = Player(100, 200)
-  print(player.r)
-  print(player.size)
-  floor = Group()
-  for tile in range(0,10000,50): 
-    floor.add(Floor(tile,380+tile/12))
-  for tile in range(330,0,-50): 
-    floor.add(Floor(0,tile))
-  #Boucle de jeu
-  while varia.RUN_plat:
-    Opr.render_image('Assets/Platformer/Background.jpg', (0,0), (600,400)) #on display le Background
+  map = mp.MAP(matrix, mi/100)
 
-    #On display et update les sprites ici
-    player.update(floor)
-    floor.display()
+  r=mi/32
 
-    #On display l'icon pour revenir a l'ordi
-    Opr.render_image('Assets/Icons/App Icons/Normal_Home.png',(0,0),(50,50))
-    #Ici on check les events autre que les touches fleches
+  wheel = mp.Wheel((50,50),r)
+  map.addWheel(wheel)
+
+  wheel2 = mp.Wheel((50+mi/8*1.1,50),r)
+  map.addWheel(wheel2)
+
+  wheel3 = mp.Wheel((50+mi/4*1.1,50-mi/4*1.1),r)
+  map.addWheel(wheel3)
+
+  e = .9
+  ressort1 = mp.Ressort(wheel, wheel2, e,mi/8*1.1)
+  ressort2 = mp.Ressort(wheel, wheel3, e,mi/8*1.1)
+  ressort3 = mp.Ressort(wheel2,wheel3, e,mi/8*1.1)
+  RUN = True
+  while RUN:
+    screen.fill(0xffffff)
+    map.draw()
+    ressort1.update()
+    ressort2.update()
+    ressort3.update()
+    wheel.update()
+    wheel2.update()
+    wheel3.update()
+    map.relative = wheel.pos
+    wheel.display()
+    wheel2.display()
+    wheel3.display()
     for event in pygame.event.get():
-      if event.type == pygame.QUIT:
-        varia.RUN_plat = False
-
-      #Si la souris est pressée
-      if event.type == pygame.MOUSEBUTTONDOWN:
-        mouse_presses = pygame.mouse.get_pressed()
-        if mouse_presses[0]:
-          print(event.pos)
-
-          #On check si l'utilisateur veut quitter le jeu
-          if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
-            return 'home'
-
-    clock.tick(60) #permet de s'adapter à nos boucles, les animations et même les mouvements sont beacoup plus 'smooth'
-
+        if event.type == pygame.QUIT:
+            RUN = False
     pygame.display.flip()
+    # time.sleep(1)
+    clock.tick(60)
+  pygame.quit()

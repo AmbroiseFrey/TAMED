@@ -12,7 +12,7 @@ Pages = {"www.cia.gov":[
     "Test Page"],
   "www.repl.it":[
     "Replit"],
-  "www.binaire.it": 'binaire.exe'
+  "www.binaire.it": 'binaire.it'
 }
 
 def random_page():
@@ -29,7 +29,7 @@ def load_page(page):
   y = 10*varia.resolution[1]/100 # le texte a imprimer commence a cette position
   if page in Pages.keys(): # si la page est dans les clés des urls
     if type(Pages[page]) == str: #si c'est le convertisseur binaire
-      varia.sub_page = 'bin' # on initialise le convertisseur binaire
+      varia.sub_page = Pages[page] # on initialise le convertisseur binaire
     else: #sinon, si c'est du texte
       for el in Pages[page]: #pour chaque ligne
         Opr.render_text(el, (1.66*varia.resolution[0]/100,y), varia.WHITE, 3.75*varia.resolution[1]/100) #on l'imprime sur l'ecran

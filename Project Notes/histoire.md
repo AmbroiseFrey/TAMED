@@ -24,7 +24,7 @@ chargement "Welcome back "John Doe"
 arrive sur le bureau de John Doe
 notification de nouveau mail
 3 mails:
-- Mail 'pour faire beau' (pfb) banal de reunion d'entreprise
+- Mail 'pour faire beau' banal de reunion d'entreprise
 - Mail qui fait comprendre que l'on ne peut pas utliser les accents en tapant
 - Mail qui lance la premiere mission (récuperer le disque dur)
 On se lance dans le robot et on trouve le disque dur -> map simple sans obstacle
@@ -49,7 +49,7 @@ Map:
 
 Enigme 1:
 "Entrer le code (codes.bin -> binary.it):"
-- Convertir un code bin trouvé dans les fichiers de l'ordinatuer via un site 
+- Convertir un code bin trouvé dans les fichiers de l'ordinateur via un site 
 
 Enigme 2:
 "Detruire le mur (lancer le fichier destroy.exe)"
