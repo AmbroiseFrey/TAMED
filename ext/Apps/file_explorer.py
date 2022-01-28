@@ -8,8 +8,8 @@ Files ={
             'Rapport Delta 056',
             'Auteur: Delta',
             'A destination de: Joint Military Technology Department - Europe',
-            'Sur les dangers du groupement Armadilo',
-            'I. Contrôle de la chaîne Cluster-2',
+            '[Redacted]',
+            '[Redacted]',
             'Niveau : Extremement Elevé'
             ],
           'Manuel entretien.pdf':[
@@ -18,7 +18,7 @@ Files ={
             'Etape 2: Relancer les tests',
             'Etape 3: Donner les instructions'
             ],
-          'Calypso.bin':[
+          'codes.bin':[
             '01001111 01110000 01100101 01110010 01100001 01110100',
             '01101001 01101111 01101110 00100000 01000011 01100001',
             '01101100 01111001 01110000 01110011 01101111 00100000',

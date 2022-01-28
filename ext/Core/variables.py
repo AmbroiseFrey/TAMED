@@ -33,7 +33,8 @@ recovered_drive = { #Le drive trouvé par le robot
 'D:':{
   'Project:Zeus' : {
     'Programmes' : {
-      'gyro_system.exe' : 'FILE NOT FOUND'
+      'gyro_system.exe' : 'FILE NOT FOUND',
+      'destroy.exe' : 'destroy.exe',
     },
     'Station Logs' : {
       'Zeus - Log 1.odt' :[
