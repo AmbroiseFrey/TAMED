@@ -169,7 +169,8 @@ class MAP:
         drt.translate((-50, -50))
         drt.draw(self.view)
     def drawVector(self, vector, point, w=.5, c=0x000000):
-        Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
+        # Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
+        pass
 
 
 class Wheel:
@@ -183,14 +184,14 @@ class Wheel:
         self.decuplation = 9
         self.map = None
         self.element = None
-        self.bounce = .5
+        self.bounce = .1
         self.forces = [self.weight]
     def update(self):
         for f in self.forces:
             self.vector = Vector.add(self.vector, f)
         point = self.pos
         vector = self.vector
-        self.drawVec()
+        # self.drawVec()
         size = Vector.getNorm(self.vector)
         Size = size
         mp = self.map
@@ -248,7 +249,7 @@ class Wheel:
 
             keys = pygame.key.get_pressed()
             if (keys[pygame.K_SPACE]): # si on active le 'frein'
-                power = 3 ** (-abs(self.rotate))
+                power = 2 ** (-abs(self.rotate))
                 wished_rotation = 0
             else:
                 wished_rotation = (keys[pygame.K_LEFT] - keys[pygame.K_RIGHT]) * self.decuplation * self.powerIndex * pi / 2
@@ -297,6 +298,6 @@ class Ressort:
     def display(self, Map=None, color=0, width=1):
         if Map:
             a,b = mp((self.p.pos,self.q.pos), lambda e,i : Vector.subtract(Vector.add(Vector.multiply(e, Map.l), Map.relative), Map.center))
-            pygame.draw.line(screen, color, a,b, width)
-        else: pygame.draw.line(screen, color, self.p.pos, self.q.pos, width)
+            # pygame.draw.line(screen, color, a,b, width)
+        # else: pygame.draw.line(screen, color, self.p.pos, self.q.pos, width)
         

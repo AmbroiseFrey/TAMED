@@ -21,14 +21,14 @@ def play_game(level = 0):
   e = .92 # l'elasticité des ressorts
   ressort1 = mp.Ressort(wheel, wheel2, e,mi/8*0.7)
   ressort2 = mp.Ressort(wheel, wheel3, e,mi/8*0.7)
-  #ressort3 = mp.Ressort(wheel2,wheel3, e,mi/8*0.6)
+  ressort3 = mp.Ressort(wheel2,wheel3, e,2*mi/8*0.7)
   RUN = True
   while RUN:
     screen.fill(0xffffff)
     map.draw()
     ressort1.update()
     ressort2.update()
-    #ressort3.update()
+    ressort3.update()
     wheel.update()
     wheel2.update()
     wheel3.update()
