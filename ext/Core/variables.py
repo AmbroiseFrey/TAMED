@@ -1,4 +1,5 @@
 import pygame
+from screeninfo import get_monitors
 
 #Couleurs
 BASE_COLOR = (32,194,14)
@@ -14,7 +15,8 @@ YELLOW = (255, 255, 0)
 TRANSPARENT = pygame.Color(0,0,0,0) # si jamais
 
 #resolution (probablement la variable la plus importante du projet)
-resolution = (750,500)
+for monitor in get_monitors():
+  resolution = monitor.width, monitor.height
 mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
@@ -44,7 +46,7 @@ recovered_drive = { #Le drive trouvé par le robot
         "Déployement du bras robotique: 83/100",
         "Arrimage des modules lab et main: 96/100"
       ],
-      '???' : 'Hardware damaged',
+      '???.odt' : 'Hardware damaged',
       'Zeus - Log 52.odt' :[
         'Jour 52',
         'Colonel Thompson',
@@ -97,6 +99,6 @@ messages = { # les messages recus de base
 }
 
 
-notes = [0,['']]
+notes = [0,['']] # [n de ligne, [texte dans chaque ligne]]
 
 sound = 'Assets/Computer-Start.wav'

@@ -9,6 +9,7 @@ save = None
 res0=varia.resolution[0]/100
 res1=varia.resolution[1]/100
 
+
 def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size=6*res1):
   '''
   Fonction qui permet d'afficher du texte.

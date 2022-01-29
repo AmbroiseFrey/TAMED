@@ -1,4 +1,6 @@
 import pygame
+from ext.Core import operations as Opr
+from ext.Core import variables as varia
 from ext.Platformer.math_utils import hypot, mp, sumTuple, Vector, Point, Droite, Circle
 from math import floor, pi
 from ext.Platformer.plat_variables import screen, resolution, mid_screen, mi
@@ -169,9 +171,30 @@ class MAP:
         drt.translate((-50, -50))
         drt.draw(self.view)
     def drawVector(self, vector, point, w=.5, c=0x000000):
-        # Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
+        Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
+
+class Chassis:
+    def __init__(self, pos, size: tuple):
+        self.pos = pos
+        self.size = size # (largeur [x], hauteur [y])
+        self.vector = [0, 0]
+        self.weight = [0, .1]
+        self.forces = [self.weight]
+
+    def update(self):
+        pass
+    def addForce(self, force):
+        self.forces.append(force)
+    def display(self):
         pass
 
+class Propeller:
+    def __init__(self, chassis, pos, el):
+        self.power = 0
+        self.chassis = chassis
+        self.force = [0, 0]
+        self.pos = pos
+        self.el = el
 
 class Wheel:
     def __init__(self, pos, r):
@@ -184,14 +207,14 @@ class Wheel:
         self.decuplation = 9
         self.map = None
         self.element = None
-        self.bounce = .1
+        self.bounce = .9
         self.forces = [self.weight]
     def update(self):
         for f in self.forces:
             self.vector = Vector.add(self.vector, f)
         point = self.pos
         vector = self.vector
-        # self.drawVec()
+        self.drawVec()
         size = Vector.getNorm(self.vector)
         Size = size
         mp = self.map
@@ -199,8 +222,8 @@ class Wheel:
         while (True and index < 3):
             # on récupère les cases sur lesquelles se trouve la roue
             cases = tuple(c for c in mp.vectorCases(point, vector) if self.map.withinMap(c))
-            droite = Droite.Point_Vector(Vector.multiply(point, 1 / self.map.l), vector) #on définit l'objet droite qui permettra de trouver les intersections avec les droites des murs
-            murs = () #parce que j'aime les tuples
+            droite = Droite.Point_Vector(Vector.multiply(point, 1 / self.map.l), vector)# on définit l'objet droite qui permettra de trouver les intersections avec les droites des murs
+            murs = () # variable ou l'on stocke tous les murs
             for c in cases: # on ajoute les murs sur lesquelles il y a une intersection
                 a = tuple(
                     (mur, droite.intersection(mur.line)) 
@@ -217,15 +240,15 @@ class Wheel:
             R = Vector.multiply(mur[1], self.map.l) # le point d'intersection entre la roue et le mur à l'échelle réelle
             mur[0].line.homothetia(self.map.l)# on met la droite de trajectoire de la roue à l'échelle réelle
             
-            # dessiner la droite du mur
-            drt = Droite(mur[0].line.a, mur[0].line.b, mur[0].line.c)
-            drt.translate(Vector.add(Vector.multiply(self.map.relative, -1), self.map.center))
-            drt.draw()
+            # dessiner la droite du mur qui représente les vecteurs en jeu
+            # drt = Droite(mur[0].line.a, mur[0].line.b, mur[0].line.c)
+            # drt.translate(Vector.add(Vector.multiply(self.map.relative, -1), self.map.center))
+            # drt.draw()
 
             Q = mur[0].line.closest(point) #le point le plus proche du point sur le mur
             PR = mur[2] * self.map.l # distance entre PR (entre le point `point` et le point R) à échelle réelle
             QR = Point.distance(R, Q) # distance QR (entre les points Q et R)
-            v_QR = Vector.subtract(R, Q) # vector de Q à R
+            v_QR = Vector.subtract(R, Q) # vecteur de Q à R
 
             Pp = mur[0].line.closest(Point.translate(point, vector)) # point P' (où se trouve la roue après la collision avec le mur) 
             PpQ = Point.distance(Pp, Q) # distance P'Q (entre les points P' et Q) 
@@ -267,7 +290,7 @@ class Wheel:
         self.forces.append(force)
     def display(self):
         self.map.drawCircle(self.pos, self.r, 0xff0000)
-        # Vector.draw(self.vector, mid_screen, 0, 1)
+        Vector.draw(self.vector, mid_screen, 0, 1)
     def drawVec(self):
         # Vector.draw(self.vector, Vector.subtract(self.pos, self.map.relative), self.map.svg, "#0005", .3)
         pass
@@ -298,6 +321,6 @@ class Ressort:
     def display(self, Map=None, color=0, width=1):
         if Map:
             a,b = mp((self.p.pos,self.q.pos), lambda e,i : Vector.subtract(Vector.add(Vector.multiply(e, Map.l), Map.relative), Map.center))
-            # pygame.draw.line(screen, color, a,b, width)
-        # else: pygame.draw.line(screen, color, self.p.pos, self.q.pos, width)
+            pygame.draw.line(screen, color, a,b, width)
+        else: pygame.draw.line(screen, color, self.p.pos, self.q.pos, width)
         

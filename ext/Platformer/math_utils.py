@@ -51,7 +51,8 @@ class Vector:
         return Vector.multiply(v,s)
     @classmethod
     def draw(cl,v,p,w=.5,c=0x000000):
-        pygame.draw.line(screen, c, p, Vector.add(p,v), w)
+        # pygame.draw.line(screen, c, p, Vector.add(p,v), w)
+        pass
 
 
 class Point(Vector):

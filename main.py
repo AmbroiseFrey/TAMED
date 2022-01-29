@@ -34,6 +34,7 @@ message = varia.messages
 email_data = []
 web_data = ''
 varia.unlocked = [0, 0.1, 1000]
+clavier_open = False
 
 res0,res1 = tuple(i/100 for i in varia.resolution)#variables qui seront utilisées pour positionner et dimensionner les rectangles/images/etc. en fonction de la taille de l'écran
 
@@ -297,15 +298,6 @@ while RUN:
 
 
       if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
-        binary_values = output.split()
-        ascii_string = ""
-        for binary_number in binary_values:
-          if binary_number.isdigit() and 0<= int(binary_number) <= 1:
-            decimal_value = int(binary_number, 2)
-            ascii_character = chr(decimal_value)
-            web_data += ascii_character
-          else:
-            Opr.render_text("Ce n'est pas un nombre binaire",(8*res0,43*res1),varia.WHITE,round(2*res1))
         Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))

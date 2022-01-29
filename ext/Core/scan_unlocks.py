@@ -4,6 +4,12 @@ from ext.Core import operations as Opr
 #Voir Dev Info.md pour infos sur le format des 'codes'
 
 unlockable_messages = {
+  10 :{
+    'Unlock Charlotte 2':[
+      'from: ',
+      'to: '
+    ]
+  },
   2000 : {
     "TAMED Mission - 2":[
       "from: Gen. Michael Fredlyn ",
@@ -32,10 +38,10 @@ unlockable_messages = {
       "Je suis Charlotte Coulson et j'ai travaillé sur le projet Zeus:",
       "Il consistait à rendre opérationnel une station qui orbitait autour de Kepler-272 Alpha, pour ensuite",
       "verifier si la planète Kepler-272 Alpha est habitable.",
-      "Malheuresement tu n'es pas le premier à tenter cette mission, Colonel Tompson à lui même tenté la",
-      " mission, mais sa station s'est écrasé dans des circonstances inconnues.",
-      "Peut regaqrder les fichiers que tu as recuperé pour verifier s'il n'y a pas quelque chose qui cloche",
-      " en regardant les logs de la station."
+      "Malheuresement tu n'es pas le premier à tenter cette mission, Colonel Tompson l'à lui même tentée,",
+      "mais sa station s'est écrasé dans des circonstances inconnues.",
+      "Peut tu regaarder les fichiers que tu as recuperé pour verifier s'il n'y a pas quelque chose qui cloche?",
+      "Verfie les logs de la station."
     ],
   }
 }
@@ -48,9 +54,9 @@ scans = {
   ),
 
   (1010,10):( #deuxieme mail Des documents suspects dans le disque dur retrouvé
-    ("charlotte.coulson@kryptkorp.org" or 'Charlotte coulson',),
-    ("documents" or 'document',),
-    ("documents" or 'document' or 'file')
+    ("charlotte.coulson@kryptkorp.org" or 'Charlotte' or 'coulson',),
+    ("documents" or 'document' or 'log',),
+    ("documents" or 'document' or 'file' or 'log')
   )
 }
 

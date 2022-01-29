@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<title>
+    Map
+</title>
+<head>
+    <style>
+        html,
+        body,
+        svg {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #path2 {
+            fill: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <svg>
+        <path id="path2" />
+        <path id="path1" />
+        <circle r=.1 fill="#f00" />
+    </svg>
+    <script>
+        const $ = (s, p = document) => p.querySelector(s);
+        const svg = $('svg');
+        // const keys = {};
+        // onkeydown = ({ key }) => keys[key] = true;
+        // onkeyup = ({ key }) => keys[key] = false;
+        // const mouseposition = { x: 0, y: 0 };
+        // onmousemove = ({ x, y }) => { mouseposition.x = x; mouseposition.y = y };
+
+
+        function remove_doublons(t) {
+            return t.filter((e, i) => e !== t[(i - 1 + t.length) % t.length] && e !== t[(i + 1) % t.length])
+        }
+        const r = [[[0, .5], [0, 0], [.5, 0]], [[.5, 0], [1, 0], [1, .5]], [[1, .5], [1, 1], [.5, 1]], [[.5, 1], [0, 1], [0, .5]]];
+        const tiles = [];
+        //  init tiles
+        [0, 1].forEach(i => {
+            [0, 1].forEach(j => {
+                [0, 1].forEach(k => {
+                    [0, 1].forEach(l => {
+                        tiles[i * 8 + j * 4 + k * 2 + l] = remove_doublons(
+                            (i ? r[0] : []).concat(j ? r[1] : []).concat(k ? r[2] : []).concat(l ? r[3] : [])
+                        )
+                    })
+                })
+            })
+        })
+
+        console.log(tiles)
+
+        const mat = /*[
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 1, 0, 1, 1, 0, 0, 0],
+            [0, 1, 1, 0, 1, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 0, 0, 0, 1],
+            [1, 1, 0, 0, 0, 0, 0, 1, 1],
+            [1, 1, 1, 1, 1, 0, 1, 1, 1],
+        ]*/new Array(100).fill(0).map(() => new Array(200).fill(0));
+        const mat_d = [mat.length, mat[0].length];
+        const l = 1;
+        const path1 = $('#path1', svg);
+        const path2 = $('#path2', svg);
+
+        const deplacement = [0, 0];
+        var coef = innerHeight / innerWidth;
+        var zoom = 100;
+
+        function draw_mat() {
+            var strs = ['', '']
+            const minX = -deplacement[0]//Math.floor(deplacement[0] / l / 2) * 2 * l
+            const minY = -deplacement[1]//Math.floor(deplacement[1] / l / 2) * 2 * l
+            const maxX = -deplacement[0] + zoom//Math.ceil((deplacement[0] + 100) / l / 2) * 2 * l
+            const maxY = -deplacement[1] + zoom * coef//Math.ceil((deplacement[1] + 100 * coef) / l / 2) * 2 * l
+            for (let i = Math.max(minY, 0); i < Math.min(maxY, mat_d[0] - 1); i++)
+                for (let j = Math.max(minX, 0); j < Math.min(maxX, mat_d[1] - 1); j++) {
+                    const bl = [mat[i][j], mat[i][j + 1], mat[i + 1][j + 1], mat[i + 1][j]];
+                    for (let k of [1, 2]) {
+                        if (!bl.every(e => e !== k)) {
+                            [a, b, c, d] = bl.map(e => e && e <= k);
+                            // console.log(bl, k, a, b, c, d)
+                            var run = 1;
+                            for (let t of tiles[a * 8 + b * 4 + c * 2 + d]) {
+                                strs[k - 1] += `${run ? (run = 0, ' M') : ' L'} ${(j + deplacement[0] + t[0]) * l},${(i + deplacement[1] + t[1]) * l}`;
+                            }
+                        }
+                    }
+                }
+            path1.setAttribute('d', strs[0]);
+            path2.setAttribute('d', strs[1]);
+        }
+        svg.setAttribute('viewBox', `${deplacement.join(' ')} ${zoom} ${zoom * coef}`)
+        onresize = () => {
+            coef = innerHeight / innerWidth;
+            svg.setAttribute('viewBox', `${deplacement.join(' ')} ${zoom} ${zoom * coef}`)
+        }
+
+        function viewPointOnMap(x, y) {
+            ex = x / innerWidth * zoom - deplacement[0];
+            ey = y / innerWidth * zoom - deplacement[1];
+            return [Math.round(ex + Math.round(ex / l % 1) * l - ex % l), Math.round(ey + Math.round(ey / l % 1) * l - ey % l)]
+        }
+
+        const f = (x, y, n) => {
+            [x, y] = viewPointOnMap(x, y);
+            mat[y / l][x / l] = n;
+            circle.cx.baseVal.value = x + deplacement[0];
+            circle.cy.baseVal.value = y + deplacement[1];
+            draw_mat();
+        }
+
+        const circle = $('circle', svg)
+        onmousedown = ({ x, y, ctrlKey, shiftKey }) => {
+            f(x, y, ctrlKey ? shiftKey ? 2 : 1 : 0)
+            onmousemove = ({ x, y, ctrlKey, shiftKey }) => {
+                f(x, y, ctrlKey ? shiftKey ? 2 : 1 : 0)
+            }
+            onmouseup = () => { onmousemove = onmouseup = () => void {} };
+        }
+        onwheel = ({ shiftKey, deltaY, ctrlKey }) => {
+            if (shiftKey) {
+                deplacement[0] += Math.sign(deltaY)
+                draw_mat()
+            } else {
+                deplacement[1] += Math.sign(deltaY)
+                draw_mat()
+            }
+            // if (ctrlKey) {
+            //     zoom *= 2**(Math.sign(deltaY)/2)
+            //     draw_mat()
+            // }
+        }
+
+        onkeydown = ({ key, ctrlKey }) => {
+            if (ctrlKey && key === 's') {
+                const a = document.createElement('a');
+                a.href = 'data:text/py;utf-8,' + encodeURIComponent(`map_matrix = ${mat.map(e => `(${e.join(',')})`).join(',')}`)
+                a.download = 'map_matrix.py';
+                a.click();
+            }
+        }
+
+        draw_mat();
+    </script>
+</body>
+
+</html>
+
