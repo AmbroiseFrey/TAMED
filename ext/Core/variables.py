@@ -16,7 +16,7 @@ TRANSPARENT = pygame.Color(0,0,0,0) # si jamais
 
 #resolution (probablement la variable la plus importante du projet)
 for monitor in get_monitors():
-  resolution = (monitor.width-50, monitor.height-50)
+  resolution = (monitor.width-0.33*monitor.width, monitor.height-12.5*monitor.height/100)
 mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
 RUN_plat = True
