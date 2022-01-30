@@ -343,7 +343,7 @@ while RUN:
           Opr.div(varia.GREY, height=46*res1, left=11.66*res0, width="76.68vw", top=33.5*res1, border=(0,0,0), padding=4)
           # Opr.render_text("Mail:"+email_data[3],(76,132),varia.BLACK,18)
           Opr.render_text("Mail: ",(12.66*res0,33*res1),varia.BLACK,4.5*res1) #on affiche ce que l'utilisateur ecrit dans le contenu du mail
-          t=Opr.textarea(email_data[3], ("76.68vw",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
+          t=Opr.textarea(email_data[3], ("76vw",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
           #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (15*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
           #lien entre input et les differentes parties du mail.
