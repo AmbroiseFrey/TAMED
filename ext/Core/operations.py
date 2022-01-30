@@ -201,10 +201,8 @@ def render_time():
   '''
   hour = time.strftime("%H")
   hour = int(hour) +1
-  p = understandValue('100vw-78'),understandValue('100vh-23') 
-  t = understandValue('100vw-80'),understandValue('100vh-53')
-  render_text(time.strftime("%Y-%m-%d"),p,varia.BLACK,15)
-  render_text(str(hour) +':' + time.strftime("%M"),t,varia.BLACK,30)
+  render_text(str(hour) +':' + time.strftime("%M"),(86.67*varia.resolution[0]/100,87.5*varia.resolution[1]/100),varia.BLACK,7.5*varia.resolution[1]/100)
+  render_text(time.strftime("%Y-%m-%d"),(87*varia.resolution[0]/100,95*varia.resolution[1]/100),varia.BLACK,3.75*varia.resolution[1]/100)
 
 def render_file(file_contents: list, file_name: str = 'File', x: int=20, y: int=50, espacement_ligne : int = 20, size : tuple = (400,266)):
   '''
