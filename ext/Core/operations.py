@@ -41,7 +41,8 @@ def textInZone(color, zonerect):
 
 # to be tried
 def textarea(textData:tuple=("",), size:tuple=(0,0), pos:tuple=(0,0), background=(255,255,255), color=(0,0,0), padding:float=0, border=None,  border_width:float=1, font_size:int=23, font_spacing:float=5):
-  '''Permet de retourner à la ligne quand on appuie sur entrée
+  '''
+  Permet de retourner à la ligne automatiquement
   '''
   size = tuple(understandValue(s) for s in size)
   pos = tuple(understandValue(p) for p in pos)
@@ -201,8 +202,8 @@ def render_time():
   '''
   hour = time.strftime("%H")
   hour = int(hour) +1
-  render_text(str(hour) +':' + time.strftime("%M"),(86.67*varia.resolution[0]/100,87.5*varia.resolution[1]/100),varia.BLACK,7.5*varia.resolution[1]/100)
-  render_text(time.strftime("%Y-%m-%d"),(87*varia.resolution[0]/100,95*varia.resolution[1]/100),varia.BLACK,3.75*varia.resolution[1]/100)
+  render_text(str(hour) +':' + time.strftime("%M"),(85.67*varia.resolution[0]/100,87.5*varia.resolution[1]/100),varia.BLACK,7.5*varia.resolution[1]/100)
+  render_text(time.strftime("%Y-%m-%d"),(86*varia.resolution[0]/100,95*varia.resolution[1]/100),varia.BLACK,3.75*varia.resolution[1]/100)
 
 def render_file(file_contents: list, file_name: str = 'File', x: int=20, y: int=50, espacement_ligne : int = 20, size : tuple = (400,266)):
   '''

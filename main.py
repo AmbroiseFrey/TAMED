@@ -336,14 +336,14 @@ while RUN:
           Opr.render_text("Destinataire: "+email_data[1],(12*res0,13*res1),varia.BLACK,int(4.5*res1)) # texte destinataire ecrit par l'utilisateur
 
           #rectangle object du mail
-          Opr.div(varia.GREY, height=5*res1, left=11.66*res0, width="100vw-140", top=23*res1, border=(0,0,0), padding=4)
+          Opr.div(varia.GREY, height=5*res1, left=11.66*res0, width="76.68vw", top=23*res1, border=(0,0,0), padding=4)
           Opr.render_text("Objet: "+email_data[2],(12*res0,22.5*res1),varia.BLACK,int(4.5*res1)) #texte de l'objet du mail ecrit par l'utilisateur
 
           #rectangle du contenu du mail
-          Opr.div(varia.GREY, height=46*res1, left=11.66*res0, width="100vw-140", top=33.5*res1, border=(0,0,0), padding=4)
+          Opr.div(varia.GREY, height=46*res1, left=11.66*res0, width="76.68vw", top=33.5*res1, border=(0,0,0), padding=4)
           # Opr.render_text("Mail:"+email_data[3],(76,132),varia.BLACK,18)
           Opr.render_text("Mail: ",(12.66*res0,33*res1),varia.BLACK,4.5*res1) #on affiche ce que l'utilisateur ecrit dans le contenu du mail
-          t=Opr.textarea(email_data[3], ("100vw-148",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
+          t=Opr.textarea(email_data[3], ("76.68vw",40*res1), (12.33*res0,39.5*res1), varia.GREY, font_size=int(3.75*res1))
           #bouton send mail
           Opr.render_image('Assets/Icons/send-mail-replit.jpg', (15*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
           #lien entre input et les differentes parties du mail.
