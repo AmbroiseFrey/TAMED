@@ -8,24 +8,16 @@ from ext.Core import operations as Opr
 from ext.Core import variables as varia
 from ext.Core import sphere as sphere
 from ext.Core import scan_unlocks as scan
+from ext.Core.variables import file_dir_path
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
 
-#Taille
-screen = pygame.display.set_mode(varia.resolution) #pygame.NOFRAME - sans bordure
-
-#Nom et icon de notre fenetre
-pygame.display.set_caption("Krypt Corp")
-logo = pygame.image.load('Assets/Icons/logo.png')
-pygame.display.set_icon(logo)
-clock = pygame.time.Clock()
 
 #Variables pour faire marcher la base de notre programme
 RUN = True #est-ce que la boucle while tourne
 user_logged = False #est-ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
-from ext.Core.variables import file_dir_path
 clickable_icons = {}
 plat_check = 0 #variable qui permet de faire le lien platformer - ordinateur
 level = 0 # ⚠️ variable possiblement obsolete
@@ -36,23 +28,31 @@ web_data = ''
 varia.unlocked = [0, 0.1, 1000]
 clavier_open = False
 
-res0,res1 = tuple(i/100 for i in varia.resolution)#variables qui seront utilisées pour positionner et dimensionner les rectangles/images/etc. en fonction de la taille de l'écran
-
 #-----------test area--------
 def dev_use():
   '''
   Bypass du login
   '''
   varia.unlocked.append(1010) #bypass steps
+  # varia.resolution = (600,400) # resolution de devellopement
   return True
 
 user_logged = dev_use() #bypass login
 
 #-------end test area---------
 
-#note test area
-#J'ai reconvertit ton systeme dans variables.py et j'ai optimisé le code pour render et corriger quelques trucs
-#end note area
+
+#Taille
+screen = pygame.display.set_mode(varia.resolution) #pygame.NOFRAME - sans bordure
+
+#Nom et icon de notre fenetre
+pygame.display.set_caption("Krypt Corp")
+logo = pygame.image.load('Assets/Icons/logo.png')
+pygame.display.set_icon(logo)
+clock = pygame.time.Clock()
+
+res0,res1 = tuple(i/100 for i in varia.resolution)#variables qui seront utilisées pour positionner et dimensionner les rectangles/images/etc. en fonction de la taille de l'écran
+
 ##--------------------------------------------------------------------------##
 ##--------------Calculs et fonctionnement de notre ordinateur---------------##
 ##--------------------------------------------------------------------------##
@@ -385,7 +385,7 @@ while RUN:
     #Notes
     elif varia.page == 'notes':
       Compu.render_barre_taches((49*res0,87.5*res1)) # affiche barre taches
-      Opr.div(top=50,height=370,left=20,width="100vw-40", padding=5, border=(0,0,0)) #zone de saisie
+      Opr.div(top=50,height="70vh",left=20,width="100vw-40", padding=5, border=(0,0,0)) #zone de saisie
       for i in range(len(varia.notes[1])): # pour chaque element dans les notes
         varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]] #on coordonnes les variables pour eviter les bugs
         Opr.render_text(varia.notes[1][i], (6.66*res0, 45+i*4*res1), varia.WHITE, 4*res1) #on affiche chaque note
