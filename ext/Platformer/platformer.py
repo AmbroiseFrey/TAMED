@@ -1,7 +1,9 @@
 import pygame, time
 from ext.Platformer.plat_variables import screen, clock, mi
 import ext.Platformer.map_utils as mp
-from ext.Platformer.map_matrix1 import map_matrix as matrix
+from ext.Platformer.map_matrixes.map_matrix import map_matrix as matrix
+from ext.Core import operations as Opr
+from ext.Core import variables as varia
 
 # matrix = (0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0),(1,2,0,0,0,0,1,2,2,2),(1,1,0,1,1,1,1,2,2,2),(1,1,1,1,1,1,1,1,1,2)
 def play_game(level = (700,800)):
@@ -57,9 +59,16 @@ def play_game(level = (700,800)):
     wheel2.display()
     wheel3.display()
     # chassis.display()
+    Opr.render_image('Assets/Icons/Logo_Sphere.png',(0,0),(50,50))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             RUN = False
+        #On check si l'utilisateur veut quitter le jeu
+        if event.type == pygame.MOUSEBUTTONDOWN:
+          mouse_presses = pygame.mouse.get_pressed()
+          if mouse_presses[0]: 
+            if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
+              return 'home'
     pygame.display.flip()
     # time.sleep(1)
     clock.tick(60)

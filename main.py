@@ -271,7 +271,7 @@ while RUN:
     #HOME
     elif varia.page == 'home':
       #Opr.render_image('Assets/Backgrounds/Background_(Test).jpg',(0,0),varia.resolution) # On render le background
-      Opr.render_image("Assets/Backgrounds/fond d'écran.jpg",(0,0),varia.resolution)
+      Opr.render_image("Assets/Backgrounds/Mars-Wallapaper.jpg",(0,0),varia.resolution)
       Compu.render_barre_taches((55,350), False) #On render la barre des taches
       pygame.display.flip() #on display
 
