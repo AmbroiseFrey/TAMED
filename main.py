@@ -217,35 +217,7 @@ class Computer:
 
 Compu = Computer
 
-def test_ext(time_sleep:int = 0.5):#tests des extensions
-  '''
-  On test si les extensions sont bien connéctées
-  '''
-  print(plat.test())
-  screen.fill(varia.BASE_COLOR)
-  Opr.render_text('Tests: This is v0.2.1',(0,0))
-  pygame.display.flip()
-  time.sleep(0.25)
-  Opr.render_text('Built Robot Core',(0,20))
-  pygame.display.flip()
-  time.sleep(0.25)
-  files.explore_file()
-  print(files.Files)
-  Opr.render_text('Built File Directory',(0,40))
-  pygame.display.flip()
-  time.sleep(0.25)
-  s.load_page('www.test.com')
-  Opr.render_text('Connected to Web',(0,60))
-  pygame.display.flip()
-  time.sleep(0.25)
-  Opr.render_text(snk.test(), (0,80))
-  pygame.display.flip()
-  time.sleep(time_sleep)
-
-
 ctrlKeyPressed = False
-
-#test_ext()
 
 
 ##------------------------------##

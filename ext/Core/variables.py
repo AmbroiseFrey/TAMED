@@ -16,7 +16,7 @@ TRANSPARENT = pygame.Color(0,0,0,0) # si jamais
 
 #resolution (probablement la variable la plus importante du projet)
 for monitor in get_monitors():
-  resolution = (monitor.width-0.33*monitor.width/100, monitor.height-10*monitor.height/100)
+  resolution = (int(monitor.width)-0.33*int(monitor.width)/100, int(monitor.height)-10*int(monitor.height)/100)
 print(resolution)
 mid_screen = tuple(i/2 for i in resolution)
 Login_Background = 'Assets/Backgrounds/Login_Background_(Test).png'
@@ -74,8 +74,7 @@ messages = { # les messages recus de base
       " - Evaluer le niveau de fichiers endommagés une fois le disque dur transféré sur votre ordinateur",
       "Merci,",
       "Général Michael Fredlyn",
-      "P.S.",
-      "Merci de faire toute communication a propos du projet TAMED à l'adresse Group:Tamed"]
+      "P.S.: Merci de faire toute communication a propos du projet TAMED à l'adresse Group:Tamed"]
   },
   0.1:{
     "Bug Majeur de la Messagerie":[
