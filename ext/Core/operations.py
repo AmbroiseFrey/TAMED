@@ -3,7 +3,8 @@ from ext.Core import variables as varia
 
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode(varia.resolution)
+x,y = varia.resolution
+screen = pygame.display.set_mode((int(x),int(y)))
 save = None
 
 res0=varia.resolution[0]/100
