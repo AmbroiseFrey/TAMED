@@ -154,13 +154,13 @@ class Computer:
     if type(files_loaded) == dict:
       for el in files_loaded:
         if el[-4:-3] == '.': #on render le icon d'un fichier
-          Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(round(0.33*res0),i-round(1.25*res1)),(round(5.5*res1),round(5.5*res1)))
+          Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(0.33*res0,i-1.25*res1),(5.5*res1,5.5*res1))
         else: # on render le icon d'un folder
-          Opr.render_image('Assets/Icons/App Icons/Folder.png',(2,i),(round(5.5*res1),round(5.5*res1)))
+          Opr.render_image('Assets/Icons/App Icons/Folder.png',(0.33*res0,i),(5.5*res1, 5.5*res1))
         #On render le text
-        Opr.render_text(el,(25,i-3),varia.WHITE,5*res1)
+        Opr.render_text(el,(4.167*res0,i-0.6*res1),varia.WHITE,5*res1)
         clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
-        i+=int(7.5*res1) #touche pas stp
+        i+=int(7.5*res1)
     else:
       clickable_icons = {}
       varia.page = Opr.render_file(files_loaded)

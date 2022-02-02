@@ -218,9 +218,9 @@ def render_file(file_contents: list, file_name: str = 'File', x: float=3.33, y: 
     if file_contents[len(file_contents)-3:len(file_contents)] in ['mp3','wav']: #si c'est de la musique
       varia.sound = 'Assets/Directory Files/' + file_contents
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['png','jpg']: #si c'est une image
-      render_image('Assets/Directory Files/'+file_contents, (x,y), size)
+      render_image('Assets/Directory Files/'+file_contents, (x*res0,y*res1), size)
     elif file_contents[len(file_contents)-3:len(file_contents)] in ['mp4']: #si c'est une video
-      render_image('Assets/Directory Files/'+file_contents[:-4]+'.png', (x+25,y), (480,240))
+      render_image('Assets/Directory Files/'+file_contents[:-4]+'.png', (x*res0+6.25*res0,y*res1), (480,240))
     elif file_contents == 'snake.py': #si c'est le snake game
       return 'snake'
     elif file_contents == 'tamed.exe': #si c'est le snake game
