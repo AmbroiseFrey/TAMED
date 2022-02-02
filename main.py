@@ -158,7 +158,7 @@ class Computer:
         else: # on render le icon d'un folder
           Opr.render_image('Assets/Icons/App Icons/Folder.png',(2,i),(22,22))
         #On render le text
-        Opr.render_text(el,(25,i-3),varia.WHITE,20)
+        Opr.render_text(el,(25,i-3),varia.WHITE,5*res1)
         clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
         i+=30
     else:
@@ -357,7 +357,7 @@ while RUN:
     #Notes
     elif varia.page == 'notes':
       Compu.render_barre_taches((49*res0,87.5*res1)) # affiche barre taches
-      Opr.div(top=50,height="70vh",left=20,width="100vw-40", padding=5, border=(0,0,0)) #zone de saisie
+      Opr.div(top=12.5*res1,height="70vh",left=20,width="100vw-40", padding=5, border=(0,0,0)) #zone de saisie
       for i in range(len(varia.notes[1])): # pour chaque element dans les notes
         varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]] #on coordonnes les variables pour eviter les bugs
         Opr.render_text(varia.notes[1][i], (6.66*res0, 45+i*4*res1), varia.WHITE, 4*res1) #on affiche chaque note

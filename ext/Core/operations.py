@@ -206,13 +206,13 @@ def render_time():
   render_text(str(hour) +':' + time.strftime("%M"),(85.67*varia.resolution[0]/100,87.5*varia.resolution[1]/100),varia.BLACK,7.5*varia.resolution[1]/100)
   render_text(time.strftime("%Y-%m-%d"),(86*varia.resolution[0]/100,95*varia.resolution[1]/100),varia.BLACK,3.75*varia.resolution[1]/100)
 
-def render_file(file_contents: list, file_name: str = 'File', x: int=20, y: int=50, espacement_ligne : int = 20, size : tuple = (400,266)):
+def render_file(file_contents: list, file_name: str = 'File', x: float=3.33, y: float=8.33, espacement_ligne : int = 20, size : tuple = (400,266)):
   '''
   Render le content d'un fichier
   '''
   if type(file_contents) == list: # Si c'est du texte en plusieurs lignes
     for el in file_contents:
-      render_text(el, (x,y), varia.WHITE,12)
+      render_text(el, (x,y), varia.WHITE,3*res1)
       y += espacement_ligne
   elif type(file_contents) == str: 
     if file_contents[len(file_contents)-3:len(file_contents)] in ['mp3','wav']: #si c'est de la musique
@@ -226,7 +226,7 @@ def render_file(file_contents: list, file_name: str = 'File', x: int=20, y: int=
     elif file_contents == 'tamed.exe': #si c'est le snake game
       return 'plat'
     else:
-      render_text(file_contents, (x,y)) # base, on render le texte
+      render_text(file_contents, (x*res0,y*res1)) # base, on render le texte
   else:
     pass
   return varia.page
