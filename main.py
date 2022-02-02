@@ -360,8 +360,8 @@ while RUN:
       Opr.div(top=12.5*res1,height="70vh",left=20,width="100vw-40", padding=5, border=(0,0,0)) #zone de saisie
       for i in range(len(varia.notes[1])): # pour chaque element dans les notes
         varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]] #on coordonnes les variables pour eviter les bugs
-        Opr.render_text(varia.notes[1][i], (6.66*res0, 45+i*4*res1), varia.WHITE, 4*res1) #on affiche chaque note
-        clickable_icons[(6.66*res0, 600 ,45+i*4*res1, 45+i*4*res1 + 22)] = i # on rajoute chaque ligne pour qu'on puisse clicquer sur la ligne pour la modifer
+        Opr.render_text(varia.notes[1][i], (6.66*res0, 12.5*res1+i*4*res1), varia.WHITE, 4*res1) #on affiche chaque note
+        clickable_icons[(6.66*res0, 600 ,12.5*res1+i*4*res1, 12.5*res1+i*4*res1 + 22)] = i # on rajoute chaque ligne pour qu'on puisse clicquer sur la ligne pour la modifer
 
       varia.notes[1][varia.notes[0]] += output #On ajoute le texte tapé au texte des notes
       output = ''
