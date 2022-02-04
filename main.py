@@ -225,7 +225,8 @@ ctrlKeyPressed = False
 ##------------------------------##
 
 while RUN:
-
+  #Parametres keys
+  keys = pygame.key.get_pressed()
   #Parametres de notre souris
   click = pygame.mouse.get_pressed()[0]
   pos = pygame.mouse.get_pos()
@@ -273,6 +274,8 @@ while RUN:
         Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))
+        if len(output)%6 == 0: # si il y a un ou plusieurs octets
+          web_data = Opr.ConvertDecimaltoText(output)
         Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
       pygame.display.flip() #on display
         
@@ -369,7 +372,7 @@ while RUN:
     
 
   ###----------------------------------------------------------###
-  ###------Ici on check toutes les ineractions possibles-------###
+  ###------Ici on check toutes les interactions possibles-------###
   ###----------------------------------------------------------###
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -542,11 +545,11 @@ while RUN:
               output = output[:-1] # on ajoute le character au output
             else:
               keysDown = pygame.key.get_pressed() 
-              if keysDown[pygame.K_LCTRL] or keysDown[pygame.K_RCTRL]:
+              if keysDown[pygame.K_LCTRL] or keysDown[pygame.K_RCTRL]: # si on presse sur ctrl
                 l = output[-1].rfind(' ')
                 if l == -1:
                   if len(output) == 1:
-                    output = ('',)
+                    output = ('',) # on réinitialise la ligne
                   else:
                     output = output[:-1]
                 else:

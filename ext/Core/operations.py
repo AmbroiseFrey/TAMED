@@ -10,6 +10,27 @@ save = None
 res0=varia.resolution[0]/100
 res1=varia.resolution[1]/100
 
+def ConvertBinarytoDecimal(binary_value):
+  decimal_value, i = 0, 0
+  while(binary_value != 0):
+      dec = binary_value % 10 # on trouve le reste
+      decimal_value = decimal_value + dec * pow(2, i)
+      binary_value = binary_value//10 # on remet 
+      i += 1
+  return (decimal_value)
+
+def ConvertDecimaltoText(binary_data):
+  text_data =' '
+  if binary_data.isdigit():
+    for i in range(0, len(binary_data), 7):
+      # on sépare le chiffre en binaire en octets
+      byte = int(binary_data[i:i + 7]) # on passe chacque octet dans le convertisseur decimal
+      decimal_data = ConvertBinarytoDecimal(byte)
+
+      text_data += chr(decimal_data)
+    return text_data
+  else:
+    return "Ce n'est pas un chiffre binaire!" 
 
 def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size=6*res1):
   '''
