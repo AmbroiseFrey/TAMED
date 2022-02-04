@@ -165,7 +165,7 @@ class MAP:
     def drawCircle(self, p, r=1, c=0x000000):
         pygame.draw.circle(screen, c, Vector.add(Vector.subtract(p,self.relative),self.center), r)
     def drawLine(self, p1, p2, w, c=0x000000):
-        pygame.draw.circle(screen, c, Vector.add(Vector.subtract(p1,self.relative),self.center), Vector.add(Vector.subtract(p2,self.relative),self.center), r)
+        pygame.draw.line(screen, c, Vector.add(Vector.subtract(p1,self.relative),self.center), Vector.add(Vector.subtract(p2,self.relative),self.center))
     def drawLineLine(self, l):
         drt = Droite(l[0],l[1],l[2] * self.l)
         drt.translate((-50, -50))
@@ -174,19 +174,65 @@ class MAP:
         Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
 
 class Chassis:
-    def __init__(self, pos, size: tuple):
-        self.pos = pos
-        self.size = size # (largeur [x], hauteur [y])
-        self.vector = [0, 0]
-        self.weight = [0, .1]
-        self.forces = [self.weight]
+  def __init__(self, points: tuple, center: tuple, wheels, propellers):
+    self.attachpoint = center
+    self.points = points
+    self.vector = [0, 0]
+    self.weight = [0, .1]
+    self.forces = [self.weight]
+    self.propellers = propellers
+  def update(self):
+    pass
+  def addForce(self, force):
+    self.forces.append(force)
+  def display(self):
+    pass
 
-    def update(self):
-        pass
-    def addForce(self, force):
-        self.forces.append(force)
-    def display(self):
-        pass
+
+
+# class Chassis {
+#     constructor(map, r = 10) {
+#         this.line = $('line', svg);
+#         this.line.x1.baseVal.value = -r
+#         this.line.x2.baseVal.value = r
+#         this.r = r
+#         this.p = [0, 0];
+#         this.orientation = p2;
+#         this.vector = [0, 0];
+#         this.map = map;
+#         this.weight = new Weight([0, 0]);
+#         this.attachPoint = [0,0];
+#         this.rotateIndex = 0;
+#     }
+#     update() {
+#         // const coef1 = 2 - mouseposition.y / innerHeight * 2
+#         // const coef2 = mouseposition.x / innerWidth
+#         // this.propellers[0].power = coef1 * coef2
+#         // this.propellers[1].power = coef1 * (1 - coef2)
+#         // console.log(keys.ArrowUp && (keys.ArrowRight || .5))
+#         this.propellers[0].power = keys.ArrowUp && (keys.ArrowRight || .75) || 0;
+#         this.propellers[1].power = keys.ArrowUp && (keys.ArrowLeft || .75) || 0;
+#         this.propellers.forEach(p => p.update())
+#         this.weight.update();
+#         this.vector = this.vector.map((v, i) => v + this.propellers[0].force[i] + this.propellers[1].force[i] + this.weight.force[i])
+#         this.p = [
+#             this.vector[0] * .1 + (this.propellers[0].nextpos[0] + this.propellers[1].nextpos[0] + this.weight.nextpos[0]) / 3,
+#             this.vector[1] * .1 + (this.propellers[0].nextpos[1] + this.propellers[1].nextpos[1] + this.weight.nextpos[1]) / 3
+#         ]
+#         // const arr = [this.p, this.weight.pos, this.weight.nextpos];
+#         // const [a, c, b] = arr.map((e, i) => Math.hypot(e[0] - arr[(i + 1) % 3][0], e[1] - arr[(i + 1) % 3][1]));
+#         this.rotateIndex += Math.asin(this.propellers[0].power / -this.r) + Math.asin(this.propellers[1].power / this.r);
+#         this.orientation += this.rotateIndex * .1 + Math.asin(this.propellers[0].power / -this.r) + Math.asin(this.propellers[1].power / this.r);
+#         this.line.x1.baseVal.value = this.propellers[0].pos[0] = this.p[0] - Math.sin(this.orientation) * this.r
+#         this.line.y1.baseVal.value = this.propellers[0].pos[1] = this.p[1] - Math.cos(this.orientation) * this.r
+#         this.line.x2.baseVal.value = this.propellers[1].pos[0] = this.p[0] + Math.sin(this.orientation) * this.r
+#         this.line.y2.baseVal.value = this.propellers[1].pos[1] = this.p[1] + Math.cos(this.orientation) * this.r
+#         this.weight.pos = this.p;
+#         this.propellers.forEach(p => p.display())
+#         this.vector = this.vector.map(e => e * .99)
+#         this.rotateIndex *= .95
+#     }
+# }
 
 class Propeller:
     def __init__(self, chassis, pos, el):

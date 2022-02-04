@@ -202,7 +202,8 @@ def render_circle(color: tuple, radius: int, pos: tuple):
   Fonction qui permet d'afficher un cercle.
   Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
   '''
-  pygame.draw.circle(screen, color, pos, radius)
+  x, y = pos
+  pygame.draw.circle(screen, color, (int(x), int(y)), int(radius))
 
 def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list, page: str):
   '''

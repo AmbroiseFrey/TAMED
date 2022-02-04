@@ -159,7 +159,7 @@ class Computer:
           Opr.render_image('Assets/Icons/App Icons/Folder.png',(0.33*res0,i),(5.5*res1, 5.5*res1))
         #On render le text
         Opr.render_text(el,(4.167*res0,i-0.6*res1),varia.WHITE,5*res1)
-        clickable_icons[(2,22,i,i+22)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
+        clickable_icons[(0.33*res0,3.66*res0,i,i+5.5*res1)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
         i+=int(7.5*res1)
     else:
       clickable_icons = {}
@@ -178,8 +178,10 @@ class Computer:
         Opr.render_rectangle(varia.GREY, (1.83*res0*len(el),6*res1), (6*res0, i-(0.5*res1))) #rectangle derriere le titre
         Opr.render_image('Assets/Icons/App Icons/Messages.png',(0,i-(2*res1)),(8.75*res1,8.75*res1))
         Opr.render_text(el,(6*res0,i-(0.5*res1)),varia.WHITE,int(5*res1))
-        clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
+        # clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
+        clickable_icons[(0.33*res0,2*res0*len(el),i-0.75*res1,i-4.75*res1)] = (lock,el) # On rajoute l'element
         i+=7.5*res1 # On itere
+      print(clickable_icons)
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
