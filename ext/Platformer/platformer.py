@@ -21,7 +21,7 @@ def play_game(level = (700,800)):
   # |     |-----| Ressort W1 - W2
   # ------------- Ressort W3 - W2
 
-  # chassis = mp.Chassis((700,810), (50,20))
+  chassis = mp.Chassis(((10,0),(10,5),(-10,5),(-10,0)), ((700,810),(700+mi/8*0.7,800),(700-mi/8*0.7,800)), r, ((-10,0),(10,0)))
 
   wheel = mp.Wheel((700,810),r)
   map.addWheel(wheel)
@@ -53,7 +53,7 @@ def play_game(level = (700,800)):
     wheel.update()
     wheel2.update()
     wheel3.update()
-    # chassis.update()
+    chassis.update()
     map.relative = wheel.pos
     wheel.display()
     wheel2.display()

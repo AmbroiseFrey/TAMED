@@ -30,8 +30,8 @@ def removeDoublons(itera):
 
 class Vector:
     @classmethod
-    def add(cl,v,u):
-        return v[0]+u[0],v[1]+u[1]
+    def add(cl,*v):
+        return tuple(map(lambda *a: sumTuple(a), *v))
     @classmethod
     def subtract(cl,v, u):
         return v[0]-u[0],v[1]-u[1] 

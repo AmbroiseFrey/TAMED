@@ -2,7 +2,7 @@ import pygame
 from ext.Core import operations as Opr
 from ext.Core import variables as varia
 from ext.Platformer.math_utils import hypot, mp, sumTuple, Vector, Point, Droite, Circle
-from math import floor, pi
+from math import floor, pi, asin, cos, sin
 from ext.Platformer.plat_variables import screen, resolution, mid_screen, mi
 
 def every(itera, callback=lambda x,i:True):
@@ -174,73 +174,56 @@ class MAP:
         Vector.draw(vector, Vector.add(Vector.subtract(point,self.relative),self.center),w,c)
 
 class Chassis:
-  def __init__(self, points: tuple, center: tuple, wheels, propellers):
+  def __init__(self, points: tuple, wheels_positions, wheels_radius, propellers_positions, center: tuple = (0,0)):
+    assert len(propellers_positions) == 2, "there can  only be 2 propellers"
     self.attachpoint = center
+    self.orientation = pi/2
+    self.rotateIndex = 0
     self.points = points
+    self.Pts_dist = tuple(map(lambda pt: Point.distance(pt, center), points))
     self.vector = [0, 0]
     self.weight = [0, .1]
     self.forces = [self.weight]
-    self.propellers = propellers
+    self.propellers = [Propeller(self, p) for p in propellers_positions]
+    self.wheel = [Wheel(p, wheels_radius) for p in wheels_positions]
+    self.P_dist = tuple(map(lambda pos: Point.distance(pos, center), propellers_positions))
   def update(self):
-    pass
+    keys = pygame.key.get_pressed()
+    self.propellers[0].power = keys[pygame.K_UP] and (keys[pygame.K_RIGHT] or .75) or 0
+    self.propellers[1].power = keys[pygame.K_UP] and (keys[pygame.K_LEFT] or .75) or 0
+    for prop in self.propellers:
+      prop.update()
+    self.vector = Vector.add(self.vector, self.propellers[0].force, self.propellers[1].force, self.weight)
+    self.attachpoint = (
+      self.vector[0] * .1 + (self.propellers[0].nextpos[0] + self.propellers[1].nextpos[0] + self.attachpoint[0] + self.weight[0]) / 3,
+      self.vector[1] * .1 + (self.propellers[0].nextpos[1] + self.propellers[1].nextpos[1] + self.attachpoint[1] + self.weight[1]) / 3
+    )
+    rotation =  asin(-self.propellers[0].power / self.P_dist[0]) + asin(self.propellers[1].power/self.P_dist[1])
+    self.rotateIndex += rotation
+    self.orientation += self.rotateIndex * .1 + rotation
+    self.vector = Vector.multiply(self.vector, .99)
+    self.rotateIndex *= .95
   def addForce(self, force):
     self.forces.append(force)
   def display(self):
-    pass
-
-
-
-# class Chassis {
-#     constructor(map, r = 10) {
-#         this.line = $('line', svg);
-#         this.line.x1.baseVal.value = -r
-#         this.line.x2.baseVal.value = r
-#         this.r = r
-#         this.p = [0, 0];
-#         this.orientation = p2;
-#         this.vector = [0, 0];
-#         this.map = map;
-#         this.weight = new Weight([0, 0]);
-#         this.attachPoint = [0,0];
-#         this.rotateIndex = 0;
-#     }
-#     update() {
-#         // const coef1 = 2 - mouseposition.y / innerHeight * 2
-#         // const coef2 = mouseposition.x / innerWidth
-#         // this.propellers[0].power = coef1 * coef2
-#         // this.propellers[1].power = coef1 * (1 - coef2)
-#         // console.log(keys.ArrowUp && (keys.ArrowRight || .5))
-#         this.propellers[0].power = keys.ArrowUp && (keys.ArrowRight || .75) || 0;
-#         this.propellers[1].power = keys.ArrowUp && (keys.ArrowLeft || .75) || 0;
-#         this.propellers.forEach(p => p.update())
-#         this.weight.update();
-#         this.vector = this.vector.map((v, i) => v + this.propellers[0].force[i] + this.propellers[1].force[i] + this.weight.force[i])
-#         this.p = [
-#             this.vector[0] * .1 + (this.propellers[0].nextpos[0] + this.propellers[1].nextpos[0] + this.weight.nextpos[0]) / 3,
-#             this.vector[1] * .1 + (this.propellers[0].nextpos[1] + this.propellers[1].nextpos[1] + this.weight.nextpos[1]) / 3
-#         ]
-#         // const arr = [this.p, this.weight.pos, this.weight.nextpos];
-#         // const [a, c, b] = arr.map((e, i) => Math.hypot(e[0] - arr[(i + 1) % 3][0], e[1] - arr[(i + 1) % 3][1]));
-#         this.rotateIndex += Math.asin(this.propellers[0].power / -this.r) + Math.asin(this.propellers[1].power / this.r);
-#         this.orientation += this.rotateIndex * .1 + Math.asin(this.propellers[0].power / -this.r) + Math.asin(this.propellers[1].power / this.r);
-#         this.line.x1.baseVal.value = this.propellers[0].pos[0] = this.p[0] - Math.sin(this.orientation) * this.r
-#         this.line.y1.baseVal.value = this.propellers[0].pos[1] = this.p[1] - Math.cos(this.orientation) * this.r
-#         this.line.x2.baseVal.value = this.propellers[1].pos[0] = this.p[0] + Math.sin(this.orientation) * this.r
-#         this.line.y2.baseVal.value = this.propellers[1].pos[1] = this.p[1] + Math.cos(this.orientation) * this.r
-#         this.weight.pos = this.p;
-#         this.propellers.forEach(p => p.display())
-#         this.vector = this.vector.map(e => e * .99)
-#         this.rotateIndex *= .95
-#     }
-# }
+    for prop in self.propellers:
+      prop.display()
+    
 
 class Propeller:
-    def __init__(self, chassis, pos, el):
-        self.power = 0
-        self.chassis = chassis
-        self.force = [0, 0]
-        self.pos = pos
-        self.el = el
+  def __init__(self, chassis, pos:tuple):
+    assert type(pos) is tuple, 'la position d\'un propeller est un point' 
+    self.power = 0
+    self.chassis = chassis
+    self.force = 0,0
+    self.pos = pos
+    # print(pos, 'mypos')
+  def update(self):
+    self.force = cos(self.chassis.orientation) * self.power,-sin(self.chassis.orientation) * self.power
+    # print(self.pos)
+    self.nextpos = Vector.add(self.pos, self.force)
+  def display(self):
+    pygame.draw.line(screen, 0x00ffff, self.pos, Vector.add(self.pos, Vector.multiply(self.force, 5)))
 
 class Wheel:
     def __init__(self, pos, r):

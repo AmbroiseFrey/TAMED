@@ -56,4 +56,10 @@ Enigme 2:
 - Trouvr le fichier dans les files et le lancer
 
 Enigme 3:
-""
+"Atome, 868." 
+Enigme 4:
+"cube empilé, cristal de pyrite. Fer pour la pop"
+Enigme 5:
+"Plein de E, trouver le F car fichier corrompu. Identifier le bloc pour le corriger et pouvoir avoir accès au fichier"
+Enigme 6:
+"Compter le nombre de triangles"

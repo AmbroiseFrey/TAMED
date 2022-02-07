@@ -13,6 +13,7 @@ res1=varia.resolution[1]/100
 def ConvertBinarytoDecimal(binary_value):
   decimal_value, i = 0, 0
   while(binary_value != 0):
+      print(binary_value)
       dec = binary_value % 10 # on trouve le reste
       decimal_value = decimal_value + dec * pow(2, i)
       binary_value = binary_value//10 # on remet 
@@ -20,6 +21,7 @@ def ConvertBinarytoDecimal(binary_value):
   return (decimal_value)
 
 def ConvertDecimaltoText(binary_data):
+  print(binary_data)
   text_data =' '
   if binary_data.isdigit():
     for i in range(0, len(binary_data), 7):
@@ -40,7 +42,10 @@ def render_text(text:str, pos:tuple, color:tuple=varia.WHITE, size=6*res1):
   size = int(size)
   pygame.font.init()
   font = pygame.font.Font("Assets/FreeSansBold.ttf", size) # on definit la font
-  text = font.render(text, True, color) # On definit le text
+  try:
+    text = font.render(text, True, color) # On definit le text
+  except ValueError:
+    text = font.render("Un de ces characters n'existe pas!", True, color)
   screen.blit(text,pos) # On affiche
 
 def textInZone(color, zonerect):
@@ -197,13 +202,12 @@ def render_rectangle_borders(color:tuple, p1:tuple, p2:tuple, width:float=1, rel
   pygame.draw.rect(screen, color, pygame.Rect((p1[0]-w2,p1[1]-w2,width,p2[1]+w2)))
 
 
-def render_circle(color: tuple, radius: int, pos: tuple):
+def render_circle(color: tuple, radius, pos: tuple):
   '''
   Fonction qui permet d'afficher un cercle.
   Prend en argument la couleur (un tuple), son rayon (int), et sa position (tuple)
   '''
-  x, y = pos
-  pygame.draw.circle(screen, color, (int(x), int(y)), int(radius))
+  pygame.draw.circle(screen, color, pos, int(radius))
 
 def check_interaction(clickpos: tuple, wanted_area: tuple, wanted_pages: list, page: str):
   '''

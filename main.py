@@ -24,7 +24,7 @@ level = 0 # ⚠️ variable possiblement obsolete
 message = varia.messages
 #variables spécifiques a des sous stages quand il faut écrire
 email_data = []
-web_data = ''
+web_data = []
 varia.unlocked = [0, 0.1, 1000]
 clavier_open = False
 
@@ -73,9 +73,9 @@ class Computer:
       rY+=.002
       screen.fill((83,130,168))
       sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
-      Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
-      Opr.render_text('User: '+output, (50,50))
-      Opr.render_text('Password: ', (50,70))
+      Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (varia.resolution[0]/2,8.75*res1), True )
+      Opr.render_text('User: '+output, (8.33*res0,12.5*res1))
+      Opr.render_text('Password: ', (8.33*res0,17.5*res1))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN: #si on presse une touche
@@ -94,9 +94,9 @@ class Computer:
       rY +=.002
       screen.fill((83,130,168))
       sphere.display_matrix_image(sphere.mat, sphere.mat_d, 0, rY, 0, 'Assets/Icons/Logo_Sphere.png')
-      Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (250,35), True )
-      Opr.render_text('User: '+user, (50,50))
-      Opr.render_text('Password: '+len(output)*'*', (50,70))
+      Opr.render_image('Assets/Icons/secureAccess.png',(0,130), (varia.resolution[0]/2,8.75*res1), True )
+      Opr.render_text('User: '+user, (8.33*res0,12.5*res1))
+      Opr.render_text('Password: '+len(output)*'*', (8.33*res0,17.5*res1))
       pygame.display.flip()
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN: #si on presse une touche
@@ -179,9 +179,9 @@ class Computer:
         Opr.render_image('Assets/Icons/App Icons/Messages.png',(0,i-(2*res1)),(8.75*res1,8.75*res1))
         Opr.render_text(el,(6*res0,i-(0.5*res1)),varia.WHITE,int(5*res1))
         # clickable_icons[(2,12*len(el),i-3,i-3+22)] = (lock,el) # On rajoute l'element
-        clickable_icons[(0.33*res0,2*res0*len(el),i-0.75*res1,i-4.75*res1)] = (lock,el) # On rajoute l'element
+        clickable_icons[(0.33*res0,2*res0*len(el), i, i+4.5*res1)] = (lock,el) # On rajoute l'element
         i+=7.5*res1 # On itere
-      print(clickable_icons)
+      
 
 
   def render_barre_taches(pos:tuple, app : bool = True):
@@ -268,6 +268,7 @@ while RUN:
       if clavier_open == False and output != '' and varia.sub_page.startswith('www'): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
         output = ''
+        web_data = ['','']
       elif clavier_open == True:
         varia.sub_page = output
 
@@ -276,9 +277,11 @@ while RUN:
         Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))
-        if len(output)%6 == 0: # si il y a un ou plusieurs octets
-          web_data = Opr.ConvertDecimaltoText(output)
-        Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
+        if len(output)%8 == 0 and output != '': # si il y a un ou plusieurs octets
+          web_data[0] = Opr.ConvertDecimaltoText(output)
+          web_data[1] = Opr.ConvertBinarytoDecimal(int(output))
+        Opr.render_text(web_data[0],(8*res0,52*res1),varia.WHITE,round(2*res1))
+        Opr.render_text(str(web_data[1]),(8*res0,62*res1),varia.WHITE,round(2*res1))
       pygame.display.flip() #on display
         
     #Si le fichier snake.py est ouvert (snake.py etant dans le jeu et se trouvant dans le file directory: C:Program Files)
@@ -571,3 +574,4 @@ while RUN:
   clock.tick(60) # on limite les fps
 
 pygame.quit() # si la boucle s'arrète, on quite
+#à l'apolinairehereuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
