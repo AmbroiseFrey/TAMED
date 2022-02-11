@@ -185,7 +185,7 @@ class Chassis:
     self.weight = [0, .1]
     self.forces = [self.weight]
     self.propellers = [Propeller(self, p) for p in propellers_positions]
-    self.wheel = [Wheel(p, wheels_radius) for p in wheels_positions]
+    self.wheels = [Wheel(p, wheels_radius) for p in wheels_positions]
     self.P_dist = tuple(map(lambda pos: Point.distance(pos, center), propellers_positions))
   def update(self):
     keys = pygame.key.get_pressed()

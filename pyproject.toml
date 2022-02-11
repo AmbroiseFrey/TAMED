@@ -8,6 +8,7 @@ authors = ["Ambroise, Joachim, Mathis"]
 python = "^3.8"
 pygame = "^2.1.0"
 screeninfo = "^0.8"
+numpy = "^1.22.2"
 
 [tool.poetry.dev-dependencies]
 

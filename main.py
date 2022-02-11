@@ -6,7 +6,7 @@ from ext.Platformer import platformer as plat
 from ext.Apps import snake as snk
 from ext.Core import variables as varia
 from ext.Core import operations as Opr
-from ext.Core import sphere as sphere
+from ext.Apps import sphere as sphere
 from ext.Core import scan_unlocks as scan
 from ext.Core.variables import file_dir_path
 #Setup de la fenetre pygame
@@ -37,7 +37,7 @@ def dev_use():
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
-user_logged = dev_use() #bypass login
+# user_logged = dev_use() #bypass login
 
 #-------end test area---------
 
