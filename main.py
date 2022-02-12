@@ -574,4 +574,3 @@ while RUN:
   clock.tick(60) # on limite les fps
 
 pygame.quit() # si la boucle s'arrète, on quite
-#à l'apolinairehereuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
