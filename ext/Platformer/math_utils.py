@@ -1,5 +1,6 @@
 import pygame
 from ext.Platformer.plat_variables import screen, resolution
+from math import acos,cos,sin
 
 def sumTuple(t, callback = lambda x : x):
     S = 0
@@ -41,6 +42,11 @@ class Vector:
     @classmethod
     def isOpposite(cl,v, u, m = -.01): 
         return sumTuple(Vector.add(v, u), lambda x : x ** 2) < sumTuple(v, lambda x : x ** 2) + sumTuple(u, lambda x : x ** 2) + m 
+    @classmethod
+    def rotate(cl, v, u, trigo = True):
+        if type(u) is float: u = cos(u),sin(u)
+        coef = 1 if trigo else -1
+        return u[0]*v[0]-u[1]*v[1]*coef, u[0]*v[1]+u[1]*v[0]*coef
     @classmethod
     def getNorm(cl,v): 
         return hypot(v[0], v[1])
@@ -128,3 +134,8 @@ class Circle:
         self.a *= k
         self.b *= k
         self.c *= k
+
+class Triangle:
+    @classmethod
+    def angleFromSides(cl, a1,a2,o):
+        return acos(min(max((a1**2+a2**2-o**2)/(2*a1*a2),-1),1))
