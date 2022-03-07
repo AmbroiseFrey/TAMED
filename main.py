@@ -12,7 +12,11 @@ from ext.Core.variables import file_dir_path
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
+pygame.mixer.music.load('Assets/theme.wav')
+pygame.mixer.music.play()
+print('should play music')
 
+#je suis mathis et j'aime les patates.
 
 #Variables pour faire marcher la base de notre programme
 RUN = True #est-ce que la boucle while tourne
@@ -37,7 +41,9 @@ def dev_use():
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
-# user_logged = dev_use() #bypass login
+user_logged = dev_use() #bypass login
+
+
 
 #-------end test area---------
 
@@ -67,7 +73,7 @@ class Computer:
 
     #On demande le 'User'
     clavier_open = True
-    output = ''
+    output = '' 
     rY = 0
     while clavier_open:
       rY+=.002
@@ -113,7 +119,7 @@ class Computer:
       Compu.loading('bar', 2)
       return user
     else:
-      Opr.render_text('Acces Denied!', (50,100), varia.RED)
+      Opr.render_text('Acces Denied!', (8.33*res0,16.7*res1), varia.RED)
       pygame.display.flip()
       time.sleep(3)
       return False
@@ -268,22 +274,24 @@ while RUN:
       if clavier_open == False and output != '' and varia.sub_page.startswith('www'): #Si l'utilisateur ne tape plus
         s.load_page(output) # on load la page
         output = ''
-        web_data = ['','']
+        web_data = ''
       elif clavier_open == True:
         varia.sub_page = output
 
 
       if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
+        
         Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))
+        #Opr.rende
+        Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(84*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
         if len(output)%8 == 0 and output != '': # si il y a un ou plusieurs octets
-          web_data[0] = Opr.ConvertDecimaltoText(output)
-          web_data[1] = Opr.ConvertBinarytoDecimal(int(output))
-        Opr.render_text(web_data[0],(8*res0,52*res1),varia.WHITE,round(2*res1))
-        Opr.render_text(str(web_data[1]),(8*res0,62*res1),varia.WHITE,round(2*res1))
+          web_data = Opr.ConvertDecimaltoText(output)
+        Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
       pygame.display.flip() #on display
-        
+
+
     #Si le fichier snake.py est ouvert (snake.py etant dans le jeu et se trouvant dans le file directory: C:Program Files)
     elif varia.page == 'snake': 
       snk.loop() #lance le snake game
@@ -497,6 +505,12 @@ while RUN:
             output = email_data[3]
             clavier_open = True # on autorise a faire le lien clavier - pygame
 
+        #Si on click sur le bouton convert dans la page web www.binaire.it
+        #(47*res0,(84*res1-6.75*res1)/2)
+        elif Opr.check_interaction(event.pos, (47*res0,47*res0+6.75*res1,(84*res1-6.75*res1)/2,(84*res1)/2), ['web'], varia.page) == True:
+            print('clickkkk')
+            web_data = Opr.ConvertDecimaltoText(Opr.ConvertBinarytoDecimal(output))
+
         elif varia.page == 'fd0':
           if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True: #Si on click sur le boutton 'arrière'
             clickable_icons = {} #reset les zones clickables
@@ -520,6 +534,7 @@ while RUN:
           if Opr.check_interaction(event.pos,(81.66*res0,varia.resolution[0],80*res1,87.5*res1), ['home','fd0','web','plat','notes'],varia.page) == True:
             varia.popup=0 #vu qu'on click sur la notifiaction, il n'y a plus de notifications
             varia.page = 'messages' 
+        
     
     #Si le clavier est utilisé
     if event.type == pygame.KEYDOWN:

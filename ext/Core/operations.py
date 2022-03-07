@@ -22,7 +22,7 @@ def ConvertBinarytoDecimal(binary_value):
 
 def ConvertDecimaltoText(binary_data):
   print(binary_data)
-  text_data =' '
+  text_data = ''
   if binary_data.isdigit():
     for i in range(0, len(binary_data), 7):
       # on sépare le chiffre en binaire en octets

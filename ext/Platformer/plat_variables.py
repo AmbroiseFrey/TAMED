@@ -1,11 +1,9 @@
 import pygame
-from ext.Core import variables as varia
+from ext.Core.variables import resolution
 
-resolution = varia.resolution
-mid_screen = tuple(int(i/2) for i in resolution)
+mid_screen = tuple(i/2 for i in resolution)
 
 mi,ma = sorted(resolution)
 
-x,y = varia.resolution
-screen = pygame.display.set_mode((int(x),int(y)))
+screen = pygame.display.set_mode(resolution)
 clock = pygame.time.Clock()

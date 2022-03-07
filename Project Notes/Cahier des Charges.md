@@ -4,6 +4,7 @@
 - 1 joueur
 - Jeu 2D avec quelques petits elements 3D
 - Jeu en temps réél (boucle while)
+
 - Platformer:
   - Une map avec plusieurs points de 'spawn', niveau de difficulté qui augmente au fur et a mesure que l'on avance
   - Contrôler un robot sur une map
@@ -43,7 +44,7 @@
 >Vous pouvez aussi trouver des programmes qui ont été dévellopés mais abandonés au profit d'un autre script dans le dossier `Project Notes/Archive`
 
 ## But du jeu
-On est un technicien qui travaille pour une compagnie de haute technologie qui travaille sur un projet pour la France. Ce projet consiste à savoir si la planète Kepler-272 alpha est habitable pour une mission militaire. Pour réaliser la mission on a accès à un ordinateur qui permet de contrôler un robot déjà présent sur cette planète. On peut contrôler ce robot par un platformer, et on a accès aux fichiers présents sur l'ordinateur, à un navigateur internet. Pour réaliser à bien la mission on doit réaliser plusieurs petites missions qui nous seront données par mail, et on devra envoyer des rapports, on sera donc en communication avec une collegue. Le fait de réaliser ces missions permet d'avancer avec le robot dans le platformer, et pour réaliser ces missions on devra trouver des indices dans les fichiers, dans le navigateur...
+On est un technicien qui travaille pour une compagnie de haute technologie qui travaille sur un projet pour la France. Ce projet consiste à savoir si la planète Kepler-272-alpha est habitable pour une mission militaire. Pour réaliser la mission on a accès à un ordinateur qui permet de contrôler un robot déjà présent sur cette planète. On peut contrôler ce robot par un platformer, et on a accès aux fichiers présents sur l'ordinateur, à un navigateur internet. Pour réaliser à bien la mission on doit réaliser plusieurs petites missions qui nous seront données par mail, et on devra envoyer des rapports, on sera donc en communication avec une collegue. Le fait de réaliser ces missions permet d'avancer avec le robot dans le platformer, et pour réaliser ces missions on devra trouver des indices dans les fichiers, dans le navigateur...
 
 ## Histoire
 * **John Doe** travaille dans une entreprise de haute technologie en relation avec l'état et l'armée/services secrets. Il est de double nationalité anglaise et francaise

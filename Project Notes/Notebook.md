@@ -33,7 +33,7 @@ M = Mathis
 - Semaine 8:
   - Terminer la map + ajout de flag et de sauvegarde - J + M + A
 - Semaine 9:
-  - Grande seance de test du jeu, reporter les bugs, suggestions ect.
+  - Grande séance de test du jeu, reporter les bugs, suggestions ect.
 - Semaine 10:
   - Travail sur tous les bugs/ suggestions + encore des tests
 - Semaine 11:

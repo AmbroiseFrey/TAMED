@@ -4,7 +4,7 @@
 
 * **Charlotte Coulson** travaille aussi pour Krypt Korp
   * Amie de l'agent mort dans le crash de la station, elle envoi des emails au joueur par rapport à son sceptisme quand au raison du crash
-  * Elle travaillait sur le Project:Zeus
+  * Elle travaillait sur le Project: Zeus
 
 * **Project:Zeus**:
   * Un projet de station destiné a acceuilir des militaires dans l'espace profond
@@ -12,7 +12,7 @@
 
 * **Project:TAMED**:
   * Technologically Advanced Military Exploration Device
-    * Le robot en lui meme a d'abord été concu pour l'exploration militaire de zones tres dangereuses
+    * Le robot en lui-même a d'abord été concu pour l'exploration militaire de zones tres dangereuses
   * Partenariat avec l'armée francaise pour but de trouver une planete habitable
     * Mené par le *General Michael Fredlyn*, chef du Commandement de l’Espace
 
@@ -46,19 +46,18 @@ On se lance alors dans le platformer
 Map:
 
 
-
 Enigme 1:
-"Entrer le code (codes.bin -> binary.it):"
+"Entrer le code (codes.bin -> www.binaire.it):"
 - Convertir un code bin trouvé dans les fichiers de l'ordinateur via un site 
 
 Enigme 2:
 "Detruire le mur (lancer le fichier destroy.exe)"
-- Trouvr le fichier dans les files et le lancer
+- Trouver le fichier dans les files et le lancer
 
 Enigme 3:
-"Atome, 868." 
+"Atome, 868." (SVG Fait)
 Enigme 4:
-"cube empilé, cristal de pyrite. Fer pour la pop"
+  "cube empilé, cristal de pyrite. Fer pour la pop"
 Enigme 5:
 "Plein de E, trouver le F car fichier corrompu. Identifier le bloc pour le corriger et pouvoir avoir accès au fichier"
 Enigme 6:
