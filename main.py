@@ -31,6 +31,8 @@ email_data = []
 web_data = []
 varia.unlocked = [0, 0.1, 1000]
 clavier_open = False
+copy="" #c'est une varible qui stock le contenu d'un copier coller
+paste_path="" #c'est pour coller le file path qu'on a copié dans le file directory
 
 #-----------test area--------
 def dev_use():
@@ -261,8 +263,9 @@ while RUN:
       Compu.render_barre_taches((10*res0,87.5*res1)) #On render la barre des taches
       Compu.render_file_tree(file_dir_path) #on render les files/dossiers par rapport au chemin
       file_dir_path = output # on synchronise le texte tapé avec le chemin
-      Opr.render_text(output, (11.66*res0,res1),varia.WHITE, 4*res1) # on render le texte qui est tapé
+      Opr.render_text(output, (15*res0,res1),varia.WHITE, 4*res1) # on render le texte qui est tapé
       Opr.render_image('Assets/Icons/arrow_ul.png', (5*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
+      Opr.render_image('Assets/Icons/copy.svg', (9.75*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
       clavier_open = True # on permet de taper au clavier
       pygame.display.flip() #on display
     
@@ -280,12 +283,15 @@ while RUN:
 
 
       if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
+
         
-        Opr.div(top='40vh',height=15,left='7vw',width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
-        Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
-        Opr.render_text(output,(8*res0,43*res1),varia.WHITE,round(2*res1))
+        Opr.div(top='40vh',height=15,left='30vw',width="41vw", padding=2, border=(0,0,0)) #on affiche un rectangle
+        #Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
+        Opr.render_image('Assets/Icons/copy.svg', (25*res0,(85*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
+        Opr.render_text("Ce site permet de convertir du binaire en un texte. Veuillez coller le chemin d'un fichier avec le bouton ci-dessous.",(20*res0,30*res1),varia.WHITE,round(3.25*res1))
+        Opr.render_text(paste_path,(31*res0,39.5*res1),varia.WHITE,round(2.75*res1))
         #Opr.rende
-        Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(84*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
+        Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(100*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
         if len(output)%8 == 0 and output != '': # si il y a un ou plusieurs octets
           web_data = Opr.ConvertDecimaltoText(output)
         Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
@@ -507,28 +513,37 @@ while RUN:
 
         #Si on click sur le bouton convert dans la page web www.binaire.it
         #(47*res0,(84*res1-6.75*res1)/2)
-        elif Opr.check_interaction(event.pos, (47*res0,47*res0+6.75*res1,(84*res1-6.75*res1)/2,(84*res1)/2), ['web'], varia.page) == True:
-            print('clickkkk')
-            web_data = Opr.ConvertDecimaltoText(Opr.ConvertBinarytoDecimal(output))
+        
+        elif varia.page == 'web' and varia.sub_page == 'binaire.it':
+          if Opr.check_interaction(event.pos, (25*res0,27.6*res0,38.6*res1,46*res1), ['web'], varia.page) == True:
+            
+            paste_path=copy
+            '''web_data = Opr.ConvertDecimaltoText(Opr.ConvertBinarytoDecimal(output))'''
 
         elif varia.page == 'fd0':
+          print(varia.resolution)
           if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True: #Si on click sur le boutton 'arrière'
             clickable_icons = {} #reset les zones clickables
             file_dir_path = file_dir_path[:-1] # on enlève le '/' qui permettait d'entrer dans le fichier
-            for c in reversed(file_dir_path): # pour chaque caracter dans le file path
+            for c in reversed(file_dir_path): # pour chaque character dans le file path
               if c == '/': # jusqu'a que le character ne soit pas un '/'
                 output = file_dir_path # on fait le lien avec le texte tapé
                 break
               else:
                 file_dir_path = file_dir_path[:-1]  #on revient en arrière dans les fichiers
 
-        
+          #print(file_dir_path)
           check = Compu.check_icons(event.pos) # Icons
           if type(check) == str:
             clickable_icons = {} #reset les icons clickables
             file_dir_path += check # ajoute le fichier cliqué
             output = file_dir_path # fait le lien avec le clavier
-        
+          
+        if Opr.check_interaction(event.pos, (9.67*res0,12.23*res0,0,7.65*res0), ['fd0'], varia.page) == True: #si on click sur le bouton copier path d'un fichier
+          copy=file_dir_path
+          
+          
+          #25*res0,(85*res1-6.75*res1)/2
         #Regarde si on clique sur la notification d'un mail s'il y en a une
         elif varia.popup != 0:
           if Opr.check_interaction(event.pos,(81.66*res0,varia.resolution[0],80*res1,87.5*res1), ['home','fd0','web','plat','notes'],varia.page) == True:
