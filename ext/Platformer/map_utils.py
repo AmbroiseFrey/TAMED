@@ -51,7 +51,7 @@ class Block:
         circles = mp(self.pointWalls, lambda w,j: w.radiusApplyWall(r))
         return Block.Radius(lines,circles)
     def draw(self, t:tuple=(0,0), k:float=1):
-        pygame.draw.polygon(screen, 0xff0000, mp(self.points, lambda p,i: Vector.add(p,t)))
+        pygame.draw.polygon(screen, 0xaaaaaa, mp(self.points, lambda p,i: Vector.add(p,t)))
 
 class Wall:
     class Line:
@@ -232,6 +232,7 @@ class Carte:
     )
     def __init__(self, data, dimensions, tileSize, images:dict={}, centerPosition = mid_screen):
         self.matrix = tuple(tuple([] for j in range(dimensions[0]))for i in range(dimensions[1]))
+        self.images = images
         self.points = ()
         self.blocks = ()
         self.wheels = ()
@@ -268,6 +269,9 @@ class Carte:
             a.update(keys)
     def draw(self):
         self.t = Vector.subtract(self.center,self.relative)
+        for i in self.images[0]:
+            pos = Vector.add(Vector.multiply(self.t, 1/i), self.images[i][1])
+            screen.blit(self.images[i][0], pos + self.images[i][2])
         for b in self.blocks:
             b.draw(self.t, self.l)
         for w in self.wheels:
@@ -323,8 +327,9 @@ class AttachPoint:
             self.wheel.pos = self.pos
         self.nextpos = Vector.add(self.pos,self.vector)
     def draw(self):
-        pygame.draw.circle(screen, 0xffff00, Vector.add(self.pos, self.chassis.mp.t), 1)
-        pygame.draw.line(screen, 0xffaa00, Vector.add(self.pos, self.chassis.mp.t), Vector.add(self.wheel.pos, self.chassis.mp.t))
+        pass
+        # pygame.draw.circle(screen, 0xffff00, Vector.add(self.pos, self.chassis.mp.t), 1)
+        # pygame.draw.line(screen, 0xffaa00, Vector.add(self.pos, self.chassis.mp.t), Vector.add(self.wheel.pos, self.chassis.mp.t))
 
 class Chassis:
     def __init__(self, mp:Carte, pos, path, r, w_pos, w_r=5):

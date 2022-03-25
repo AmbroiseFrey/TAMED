@@ -33,7 +33,7 @@ varia.unlocked = [0, 0.1, 1000]
 clavier_open = False
 copy="" #c'est une varible qui stock le contenu d'un copier coller
 paste_path="" #c'est pour coller le file path qu'on a copié dans le file directory
-
+binaire_verify=False
 #-----------test area--------
 def dev_use():
   '''
@@ -265,7 +265,7 @@ while RUN:
       file_dir_path = output # on synchronise le texte tapé avec le chemin
       Opr.render_text(output, (15*res0,res1),varia.WHITE, 4*res1) # on render le texte qui est tapé
       Opr.render_image('Assets/Icons/arrow_ul.png', (5*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
-      Opr.render_image('Assets/Icons/copy.svg', (9.75*res0,(7.5*res1-6.75*res1)/2), (6.75*res1,6.75*res1)) # on render le bouton back
+      Opr.render_image('Assets/Icons/copy.svg', (9.75*res0,(7.5*res1-6.75*res1)/2), (6.25*res1,6.25*res1)) # on render le bouton back
       clavier_open = True # on permet de taper au clavier
       pygame.display.flip() #on display
     
@@ -292,6 +292,12 @@ while RUN:
         Opr.render_text(paste_path,(31*res0,39.5*res1),varia.WHITE,round(2.75*res1))
         #Opr.rende
         Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(100*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
+        if binaire_verify==True and paste_path=="C:/":
+          Opr.render_text("C'est la traduction. Bravo a toi",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
+        elif binaire_verify==True and paste_path!="C:/":
+          Opr.render_text("Le file path ne contient pas de binaire à traduire",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
+
+          
         if len(output)%8 == 0 and output != '': # si il y a un ou plusieurs octets
           web_data = Opr.ConvertDecimaltoText(output)
         Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
@@ -516,8 +522,12 @@ while RUN:
         
         elif varia.page == 'web' and varia.sub_page == 'binaire.it':
           if Opr.check_interaction(event.pos, (25*res0,27.6*res0,38.6*res1,46*res1), ['web'], varia.page) == True:
-            
             paste_path=copy
+            binaire_verify=False
+          if Opr.check_interaction(event.pos, (46.8*res0,51.8*res0,46.4*res1,53.28*res1), ['web'], varia.page) == True:
+            binaire_verify=True
+          
+              
             '''web_data = Opr.ConvertDecimaltoText(Opr.ConvertBinarytoDecimal(output))'''
 
         elif varia.page == 'fd0':

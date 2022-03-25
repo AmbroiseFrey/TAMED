@@ -6,10 +6,20 @@ from ext.Platformer.math_utils import Vector
 
 # matrix = (0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0),(1,2,0,0,0,0,1,2,2,2),(1,1,0,1,1,1,1,2,2,2),(1,1,1,1,1,1,1,1,1,2)
 images = {}
+images[0] = []
 with open('ext/Platformer/images.txt') as f:
     for i in f.readlines()[0].split(' '):
         s = i.split(',')
-        images[float(s[1])]=s[0]
+        images[0].append(float(s[1]))
+        loaded_img= pygame.image.load("ext/Platformer/"+s[0])
+        x = int(s[2]) if s[2].isdecimal() else 0
+        y = int(s[3]) if s[3].isdecimal() else 0
+        w = int(s[4]) if s[4].isdecimal() else loaded_img.get_width()
+        h = int(w/loaded_img.get_width()*loaded_img.get_height())
+        loaded_img = pygame.transform.scale(loaded_img, (w,h))
+        images[float(s[1])]=loaded_img,(x,y),(w,h)
+images[0].sort()
+images[0].reverse()
 print(images)
 with open('ext/Platformer/data.txt') as f:
     carte = mp.Carte(
@@ -48,21 +58,21 @@ def play_game(level = (700,800)):
   RUN = True
 
   while RUN:
-      screen.fill(0xffffff)
+      # screen.fill(0xffffff)
       # for w in block.elab_walls(1).walls:
       #     w.draw(mid_screen, 50)
       # block.draw(mid_screen, 50)
-      for b in carte.radBlocks[chassis.w_r]:
-          for w in b.walls:
-              w.draw(Vector.subtract(carte.center,carte.relative), 1)
+      # for b in carte.radBlocks[chassis.w_r]:
+      #     for w in b.walls:
+      #         w.draw(Vector.subtract(carte.center,carte.relative), 1)
       # Vector.draw((100,100),(198.29424612264538, 218.90053972500195),3, 0x00ff00)
       carte.update()
       # chassis.update()
       carte.relative = chassis.p
       # chassis.draw()
       carte.draw()
-      for v in mp.vectors:
-          Vector.draw(v[0], Vector.add(Vector.subtract(carte.center, carte.relative),Vector.multiply(v[1],carte.l)),1, 0xff0000)
+      # for v in mp.vectors:
+      #     Vector.draw(v[0], Vector.add(Vector.subtract(carte.center, carte.relative),Vector.multiply(v[1],carte.l)),1, 0xaaaaaa)
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
               RUN = False
