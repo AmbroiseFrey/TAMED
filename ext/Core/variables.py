@@ -34,6 +34,9 @@ file_dir_path = '' #Les fichiers
 recovered_drive = { #Le drive trouvé par le robot
 'D:':{
   'Project:Zeus' : {
+    '?UNKNOWN': {
+      'analysis.bin': '0010110101000101'
+    },
     'Programmes' : {
       'gyro_system.exe' : 'FILE NOT FOUND',
       'destroy.exe' : 'destroy.exe',

@@ -44,7 +44,8 @@ Ignorer `poetry.lock`, `pyproject.toml` et les `__pycache__`, ils proviennent de
 
 ## Lancer le jeu
 Le jeu peut etre lancé via le repl.it sans téléchargement
-Pour lancer le jeu via un autre IDE, il faut télécharger les dossiers **ext** et **Assets** et le fichier **main.py**
+Pour lancer le jeu via un autre IDE, il faut télécharger les dossiers **ext** et **Assets** et le fichier **main.py**.  
+Pour que le jeu puisse fonctionner entièrement, il faut installer screeninfo via la commande: `pip install screeninfo`, puis python3: `pip install python3` et upgrade pygame: `upgrade pygame`
 
 ## Groupe
 - Ambroise

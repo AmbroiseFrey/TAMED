@@ -96,7 +96,7 @@ Files ={
 },
 }
 
-def explore_file(file_path:str = 'PC/C:/Utilisateurs/Agent Doe/Fichiers:Manuel entretien.pdf/'):
+def explore_file(file_path:str = 'PC/C:/Utilisateurs/Agent Doe/Fichiers/Manuel entretien.pdf/'):
   '''
   Fonction qui prend en argument un file path.
   Pour signaler un nouveau dossier on utilise / au lieu de \

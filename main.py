@@ -16,7 +16,6 @@ pygame.mixer.music.load('Assets/theme.wav')
 pygame.mixer.music.play()
 print('should play music')
 
-#je suis mathis et j'aime les patates.
 
 #Variables pour faire marcher la base de notre programme
 RUN = True #est-ce que la boucle while tourne
@@ -29,7 +28,7 @@ message = varia.messages
 #variables spécifiques a des sous stages quand il faut écrire
 email_data = []
 web_data = []
-varia.unlocked = [0, 0.1, 1000]
+varia.unlocked = [0, 0.1, 1000, 3000, 4000,5000]
 clavier_open = False
 copy="" #c'est une varible qui stock le contenu d'un copier coller
 paste_path="" #c'est pour coller le file path qu'on a copié dans le file directory
@@ -235,6 +234,17 @@ ctrlKeyPressed = False
 ##------------------------------##
 
 while RUN:
+
+  #Adding Files
+  if 4000 in varia.unlocked:
+    files.Files["C:"]["Utilisateurs"]["Agent Doe"]["Fichiers"]["Atom-Analysis.png"] = "Atom-Analysis.png"
+    
+
+
+
+
+
+  
   #Parametres keys
   keys = pygame.key.get_pressed()
   #Parametres de notre souris
@@ -288,13 +298,14 @@ while RUN:
         Opr.div(top='40vh',height=15,left='30vw',width="41vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         #Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_image('Assets/Icons/copy.svg', (25*res0,(85*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
-        Opr.render_text("Ce site permet de convertir du binaire en un texte. Veuillez coller le chemin d'un fichier avec le bouton ci-dessous.",(20*res0,30*res1),varia.WHITE,round(3.25*res1))
+        Opr.render_text("Ce site permet de convertir du binaire en un texte. Veuillez coller le chemin d'un fichier avec le bouton ci-dessous.",(10*res0,30*res1),varia.WHITE,round(3.25*res1))
         Opr.render_text(paste_path,(31*res0,39.5*res1),varia.WHITE,round(2.75*res1))
         #Opr.rende
         Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(100*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
-        if binaire_verify==True and paste_path=="C:/":
-          Opr.render_text("C'est la traduction. Bravo a toi",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
-        elif binaire_verify==True and paste_path!="C:/":
+        if binaire_verify==True and paste_path=="D:/Project:Zeus/?UNKNOWN/analysis.bin/":
+          Opr.render_text("Eau presente : 89 % sur \n --Continue Mission--",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
+          varia.unlocked.append(3010)
+        elif binaire_verify==True:
           Opr.render_text("Le file path ne contient pas de binaire à traduire",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
 
           

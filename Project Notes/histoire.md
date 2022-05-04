@@ -61,4 +61,4 @@ Enigme 4:
 Enigme 5:
 "Plein de E, trouver le F car fichier corrompu. Identifier le bloc pour le corriger et pouvoir avoir accès au fichier"
 Enigme 6:
-"Compter le nombre de triangles"
+  "Compter le nombre de triangles"

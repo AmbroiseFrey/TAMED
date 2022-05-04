@@ -268,15 +268,16 @@ class Carte:
         for a in self.chassis:
             a.update(keys)
     def draw(self):
+        screen.fill(0xffffff)
         self.t = Vector.subtract(self.center,self.relative)
-        for i in self.images[0]:
-            pos = Vector.add(Vector.multiply(self.t, 1/i), self.images[i][1])
-            screen.blit(self.images[i][0], pos + self.images[i][2])
+        #for i in self.images[0]:
+        #    pos = Vector.add(Vector.multiply(self.t, 1/i), self.images[i][1])
+        #    screen.blit(self.images[i][0], pos + self.images[i][2])
         for b in self.blocks:
             b.draw(self.t, self.l)
         for w in self.wheels:
-            w.display(t, self.l)
-            w.drawVec(t, self.l)
+            w.display(self.t, self.l)
+            w.drawVec(self.t, self.l)
         for c in self.chassis:
             c.draw()
 
