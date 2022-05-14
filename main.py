@@ -2,7 +2,7 @@
 import pygame, time
 from ext.Apps import web_search as s
 from ext.Apps import file_explorer as files
-from ext.Platformer import platformer as plat
+from ext.Platformer2 import platformer as plat
 from ext.Apps import snake as snk
 from ext.Core import variables as varia
 from ext.Core import operations as Opr
@@ -21,16 +21,14 @@ print('should play music')
 RUN = True #est-ce que la boucle while tourne
 user_logged = False #est-ce que le joueur est dans l'ordi
 output = '' #Le texte type input directement via le clavier
-clickable_icons = {}
+clickable_icons = {} #toutes les zones avec lesquels on peut intéragir
 plat_check = 0 #variable qui permet de faire le lien platformer - ordinateur
-level = 0 # ⚠️ variable possiblement obsolete
-message = varia.messages
-#variables spécifiques a des sous stages quand il faut écrire
-email_data = []
-web_data = []
-varia.unlocked = [0, 0.1, 1000, 3000, 4000,5000]
-clavier_open = False
-copy="" #c'est une varible qui stock le contenu d'un copier coller
+message = varia.messages #les emails
+email_data = [] #les informations lorsqu'on écrit des emails
+web_data = [] #les informations lorsqu'on navigue sur le web
+varia.unlocked = [0, 0.1, 1000] # les niveaux passés
+clavier_open = False #lien clavier - ordinateur
+copy="" #varible qui stock le contenu d'un copier coller
 paste_path="" #c'est pour coller le file path qu'on a copié dans le file directory
 binaire_verify=False
 #-----------test area--------
@@ -38,7 +36,7 @@ def dev_use():
   '''
   Bypass du login
   '''
-  varia.unlocked.append(1010) #bypass steps
+  varia.unlocked += [1010, 4000, 5000, 6000] #bypass steps
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
@@ -238,9 +236,10 @@ while RUN:
   #Adding Files
   if 4000 in varia.unlocked:
     files.Files["C:"]["Utilisateurs"]["Agent Doe"]["Fichiers"]["Atom-Analysis.png"] = "Atom-Analysis.png"
-    
-
-
+  elif 5000 in varia.unlocked:
+    files.Files["C:"]["Utilisateurs"]["Agent Doe"]["Fichiers"]["Pyrite-Picture-120.png"] = "Pyrite-Picture-120.png"
+  elif 6000 in varia.unlocked:
+    files.Files["C:"]["Program Files"]["Decode-Virus.exe"] = "Decode-Virus.png"
 
 
 
@@ -254,10 +253,10 @@ while RUN:
   y = pos[1]
 
   if not(user_logged):
-    user_logged = Compu.log_in()
+    user_logged = Compu.log_in() #page de départ
       
   else:
-    scan.update_messagerie() #on update par rapport aux unlocks
+    scan.update_messagerie() #on update les messages par rapport aux unlocks
     if not 'D:' in files.Files.keys() and 1010 in varia.unlocked:
       files.Files = dict(files.Files,**varia.recovered_drive)
       print(files.Files)
@@ -292,15 +291,14 @@ while RUN:
         varia.sub_page = output
 
 
-      if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it. Site web non terminé
+      if varia.sub_page == 'binaire.it':#c'est ce qu'on affiche quand on va sur le site www.binaire.it.
 
         
         Opr.div(top='40vh',height=15,left='30vw',width="41vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         #Opr.div(top='40vh',height=15,left="58vw",width="35vw", padding=2, border=(0,0,0)) #on affiche un rectangle
         Opr.render_image('Assets/Icons/copy.svg', (25*res0,(85*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
-        Opr.render_text("Ce site permet de convertir du binaire en un texte. Veuillez coller le chemin d'un fichier avec le bouton ci-dessous.",(10*res0,30*res1),varia.WHITE,round(3.25*res1))
+        Opr.render_text("Veuillez coller le chemin d'un fichier .bin avec le bouton ci-dessous.",(10*res0,30*res1),varia.WHITE,round(3.25*res1))
         Opr.render_text(paste_path,(31*res0,39.5*res1),varia.WHITE,round(2.75*res1))
-        #Opr.rende
         Opr.render_image('Assets/Icons/bouton_convert_.png', (47*res0,(100*res1-6.75*res1)/2), (6.75*res1,6.75*res1))
         if binaire_verify==True and paste_path=="D:/Project:Zeus/?UNKNOWN/analysis.bin/":
           Opr.render_text("Eau presente : 89 % sur \n --Continue Mission--",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
@@ -308,10 +306,6 @@ while RUN:
         elif binaire_verify==True:
           Opr.render_text("Le file path ne contient pas de binaire à traduire",(31*res0,59.5*res1),varia.WHITE,round(2.75*res1))
 
-          
-        if len(output)%8 == 0 and output != '': # si il y a un ou plusieurs octets
-          web_data = Opr.ConvertDecimaltoText(output)
-        Opr.render_text(web_data,(8*res0,52*res1),varia.WHITE,round(2*res1))
       pygame.display.flip() #on display
 
 
@@ -373,16 +367,6 @@ while RUN:
             else:  
               email_data[3] = output
             #on fait le lien entre le texte sauvegardé et ce qu'on ecrit
-
-          #Si on a essayé d'envoyer un mail mais il ya des parties vides
-          elif email_data[4] == 'vide':
-            Opr.render_text("Vous devez remplir le destinataire, l'objet et le contenu du mail", (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #si le mail est complétement vide lors de l'envoi du mail
-          elif email_data[4] == 'casedestinatairevide':
-            Opr.render_text('Vous devez préciser un destinataire pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #si pas de destinataire
-          elif email_data[4] == 'caseobjetvide':
-            Opr.render_text('Vous devez préciser un objet pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1)) #objet
-          elif email_data[4] == 'casemailvide':
-            Opr.render_text('Vous devez écrire du contenu dans le mail pour envoyer ce mail', (21.66*res0,0.5*res1), varia.WHITE, int(3.75*res1))#contenu du mail
           
         else:
           Opr.render_file(message) #sinon on affiche l'email
@@ -400,7 +384,7 @@ while RUN:
       for i in range(len(varia.notes[1])): # pour chaque element dans les notes
         varia.notes[1][varia.notes[0]] = varia.notes[1][varia.notes[0]] #on coordonnes les variables pour eviter les bugs
         Opr.render_text(varia.notes[1][i], (6.66*res0, 12.5*res1+i*4*res1), varia.WHITE, 4*res1) #on affiche chaque note
-        clickable_icons[(6.66*res0, 600 ,12.5*res1+i*4*res1, 12.5*res1+i*4*res1 + 22)] = i # on rajoute chaque ligne pour qu'on puisse clicquer sur la ligne pour la modifer
+        clickable_icons[(6.66*res0, 600 ,12.5*res1+i*4*res1, 12.5*res1+i*4*res1 + 22)] = i # on rajoute chaque ligne pour qu'on puisse cliquer sur la ligne pour la modifer
 
       varia.notes[1][varia.notes[0]] += output #On ajoute le texte tapé au texte des notes
       output = ''
@@ -437,7 +421,6 @@ while RUN:
         
         #Accès au robot
         elif Opr.check_interaction(event.pos, (20.66*res0,27.16*res0,88.75*res1,varia.resolution[1]), ['home','fd0','web','messages','notes'], varia.page) == True: #si on click sur la zone pour acceder au robot
-          plat_check = level 
           varia.page = 'plat'
         
         #Internet explorer
@@ -533,17 +516,17 @@ while RUN:
         
         elif varia.page == 'web' and varia.sub_page == 'binaire.it':
           if Opr.check_interaction(event.pos, (25*res0,27.6*res0,38.6*res1,46*res1), ['web'], varia.page) == True:
-            paste_path=copy
+            paste_path=copy #la recherche est synchronisée avec le presse papier
             binaire_verify=False
           if Opr.check_interaction(event.pos, (46.8*res0,51.8*res0,46.4*res1,53.28*res1), ['web'], varia.page) == True:
-            binaire_verify=True
+            binaire_verify=True #on lance la conversion
           
-              
-            '''web_data = Opr.ConvertDecimaltoText(Opr.ConvertBinarytoDecimal(output))'''
 
+        # Explorateur de fichiers
         elif varia.page == 'fd0':
-          print(varia.resolution)
-          if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True: #Si on click sur le boutton 'arrière'
+          
+          #Si on click sur le boutton 'arrière'
+          if Opr.check_interaction(event.pos, (5*res0,10*res0,0,7.5*res1), ['fd0'], varia.page) == True:
             clickable_icons = {} #reset les zones clickables
             file_dir_path = file_dir_path[:-1] # on enlève le '/' qui permettait d'entrer dans le fichier
             for c in reversed(file_dir_path): # pour chaque character dans le file path
@@ -553,7 +536,6 @@ while RUN:
               else:
                 file_dir_path = file_dir_path[:-1]  #on revient en arrière dans les fichiers
 
-          #print(file_dir_path)
           check = Compu.check_icons(event.pos) # Icons
           if type(check) == str:
             clickable_icons = {} #reset les icons clickables
@@ -564,7 +546,7 @@ while RUN:
           copy=file_dir_path
           
           
-          #25*res0,(85*res1-6.75*res1)/2
+
         #Regarde si on clique sur la notification d'un mail s'il y en a une
         elif varia.popup != 0:
           if Opr.check_interaction(event.pos,(81.66*res0,varia.resolution[0],80*res1,87.5*res1), ['home','fd0','web','plat','notes'],varia.page) == True:

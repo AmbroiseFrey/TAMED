@@ -46,14 +46,14 @@ recovered_drive = { #Le drive trouvé par le robot
         'Jour 1',
         'Colonel Thompson',
         "Je suis bien arrivé sur le site d'orbite de la station.",
-        "Déployement du bras robotique: 83/100",
+        "Déploiement du bras robotique: 83/100",
         "Arrimage des modules lab et main: 96/100"
       ],
       '???.odt' : 'Hardware damaged',
       'Zeus - Log 52.odt' :[
         'Jour 52',
         'Colonel Thompson',
-        "Je capte des signals inconnus"
+        "Je capte des signaux inconnus"
       ]
     }
   },
@@ -62,29 +62,29 @@ recovered_drive = { #Le drive trouvé par le robot
 
 messages = { # les messages recus de base
     1000:{
-    "[URGENT] TAMED Mission - 1":[
+    "Mission 1":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
-      "Nous sommes enfin prêts pour lancer la première mission du projet T.A.M.E.D.",
+      "Nous sommes enfin prêts à lancer la première mission du projet T.A.M.E.D.",
       "Nous devons déjà retrouver la boîte noire de la station Zeus.",
       "Comme vous le savez tous, l'incident qui a malheuresement fait un mort doit être élucidé.",
       "Je compte donc sur vous pour pouvoir trouver les informations nécessaires à l'enquête.",
       "Nous nous lancerons dans le but pincipal de cette mission après avoir trouvé le disque dur.",
       "Veuillez:", 
-      " - Envoyer un mail intitulé Réussite de la Mission 1 une fois que vous avez récupéré le disque dur.",
+      " - Envoyer un mail intitulé 'Réussite de la Mission 1' une fois que vous avez récupéré le disque dur.",
       " - Evaluer le niveau de fichiers endommagés une fois le disque dur transféré sur votre ordinateur",
       "Merci,",
       "Général Michael Fredlyn",
-      "P.S.: Merci de faire toute communication a propos du projet TAMED à l'adresse Group:Tamed"]
+      "P.S.: Merci de faire toute communication à propos du projet TAMED à l'adresse Group:Tamed"]
   },
   0.1:{
     "Bug Majeur de la Messagerie":[
       "from: Services Techniques",
       "to: Group:KryptCorp-Europe",
       "Bonjour a tous,",
-      "Malheuresement, un bug ne permet plus d'utiliser de caractère accentués dans la messagerie.",
-      "Nous sommes désolé pour ce gêne et nous tentons de le réparer au plus vite",
+      "Malheuresement, un bug ne permet plus d'utiliser de caracteres accentues dans la messagerie.",
+      "Nous sommes desoles pour ce gene et nous tentons de le reparer au plus vite",
       "Cordialement,",
       "Services Techniques Internes de Krypt Corp Europe"],
   },

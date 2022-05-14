@@ -11,7 +11,7 @@ unlockable_messages = {
     ]
   },
   2000 : {
-    "TAMED Mission - 2":[
+    "Mission 2":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour,",
@@ -35,7 +35,7 @@ unlockable_messages = {
     ],
   },
     3000 : {
-    "Mission 2":[
+    "Mission 3":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour Mr. Doe,",
@@ -48,48 +48,48 @@ unlockable_messages = {
     ],
   },
   3010 : {
-    "Mission 2 validée":[
+    "Mission 3 validée":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour Mr. Doe,",
       "Merci beaucoup pour votre aide.",
-      "Continues d'explorer la map et rends au prochain checkpoint.",
+      "Continuez d'explorer la map et rends au prochain checkpoint.",
       "Une fois au checkpoint une analyse de l'air va etre fais automatiquement par le robot.",
       "Cordialement,",
       "Gen. Michael Fredlyn"
     ],
   },
   4000 : {
-    "Mission 3 ":[
+    "Mission 4 ":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour Mr. Doe,",
-      "L'analyse de l'air est temrinée. Le but de cette analytse est de voir si l'air est ",
+      "L'analyse de l'air est terminée. Le but de cette prochaine analyse est de voir si l'air est ",
       "respirable pour l'humain, ainsi nous vérifions si la présence de molécules cyanures ",
-      "d'hydrogène est acceptable pour l'humain. A toi de trouver dans les fichiers où se situent ",
+      "d'hydrogène est acceptable pour l'humain. A vous de trouver dans les fichiers où se situent ",
       "les résultats et de compter combien de molécules de cyanure d'hydrogène sont  ",
       "présent dans l'analyse. Cette molécule est constiué dans l'ordre suivant: un atome ",
       " d'azote (en bleue), un atome de carbone (en noir), un atome d'hydrogène (en blanc). Une molécule ",
-      "peut etre horizontale, verticale, et en diagonal.",
-      "Envoies nous de nombre le molécules par mail !!!",
+      "peut etre horizontale, verticale et on ne peut pas compter un même atome dans deux molécules.",
+      "Envoiez nous le nombre le molécules par mail !",
       "Cordialement,",
       "Gen. Michael Fredlyn"
     ],
   },
   4010 : {
-    "Mission 3 validée":[
+    "Mission 4 validée":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour Mr. Doe,",
-      "Merci pour ton analyse. D'après nos espères l'air est respirable!",
-      "Ta prochaine mission est de determiner le nombre de cristaux de pyrite mais.",
-      "on reviendras vers toi sur ça plus tard. Continues d'explorer la map jusqu'au prochain checkpoint.",
+      "Merci pour votre analyse. D'après nos espères l'air est respirable!",
+      "Votre prochaine mission est de determiner le nombre de cristaux de pyrite mais.",
+      "je reviendrais vers vous sur ça plus tard. Continuez d'explorer la planète jusqu'au prochain checkpoint.",
       "Cordialement,",
       "Gen. Michael Fredlyn"
     ],
   },
   5000 : {
-    "Mission 4":[
+    "Mission 5":[
       "from: Gen. Michael Fredlyn ",
       "to: Group:TAMED",
       "Bonjour Mr. Doe,",
@@ -99,8 +99,53 @@ unlockable_messages = {
       "n'a trouvé aucune trace de fer à l'état brut. Mais nous avons remarqué grace à",
       "une photo aérienne la présence de crystaux de Pyrite. Ce crystal à la ",
       "particuliarité d'avoir une forme cubique, mais surtout de contenir du fer. Nous",
-      "te demandons de chercher dans les fichiers la photo prise par le robot, et de",
+      "vous demandons de chercher dans les fichiers la photo prise par le robot, et de",
       "compte le nombre de bloc de crystal de Pyrite (et de nous l'envoyer).",
+      "Cordialement,",
+      "Gen. Michael Fredlyn"
+    ],
+  },
+  5010 : {
+    "Mission 5 réussi":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour Mr. Doe,",
+      "Merci pour vos résultat! Continuez de te balader vers le prochain checkpoint.",
+      "Cordialement,",
+      "Gen. Michael Fredlyn"
+    ],
+  },
+  6000 : {
+    "Alert !!! - Mission 6":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour Mr. Doe,",
+      "Nous avons reçue un message d'alerte venant du robot.",       "Un fichier système vital pour piloter le robot est corrompu !",
+      "Cherchez dans les fichiers le ficher decodevirus.exe et ouvrez le.",
+      "Normalement le fichier va directement s'ouvrir en mode récuperation.",
+      "La lettre E montre un bloc saint et la lettre F un bloc corrompu.",
+      "Vous devez donc compter le nombre de F présent dans le fichier et nous l'envoyer par mail.",
+      "Cordialement,",
+      "Gen. Michael Fredlyn"
+    ],
+  },
+  6010 : {
+    "Mission 6 réussi":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour Mr. Doe,",
+      "Le fichier est réparé !!! Baladez vous encore jusqu'au dernier checkpoint.",
+      "Cordialement,",
+      "Gen. Michael Fredlyn"
+    ],
+  },
+  7000 : {
+    "Mission terminé":[
+      "from: Gen. Michael Fredlyn ",
+      "to: Group:TAMED",
+      "Bonjour Mr. Doe,",
+      "Merci beaucoup pour votre participation. Après analyse, la planète est habitable.",
+      "Vous avez fait un excellent travail Mr John Doe"
       "Cordialement,",
       "Gen. Michael Fredlyn"
     ],
@@ -111,38 +156,49 @@ unlockable_messages = {
 scans = {
   (1010,2000):( #premier email a envoyer quand l'on retrouve le disque dur
     ("Group:TAMED" or "gen. michael Fredlyn",),
-    ("mission", "1" or "1.0"),
+    ("NONE",),
     ('disque', 'dur')
   ),
-
   (1010,10):( #deuxieme mail Des documents suspects dans le disque dur retrouvé
-    ("charlotte.coulson@kryptkorp.org" or 'Charlotte' or 'coulson',),
-    ("documents" or 'document' or 'log',),
-    ("documents" or 'document' or 'file' or 'log')
+    ("charlotte.coulson@kryptkorp.org",),
+    ("NONE",),
+    ("document",)
   ),
-  (4000,4010):(
-  ("Group:TAMED" or "gen. michael Fredlyn",),
-  ("NONE"),
-  ("10")
+  (4000,4010):( # 4 eme mail a envoyer
+  ("Group:TAMED",),
+  ("NONE",),
+  ("9",)
+  ),
+  (5000,5010):( # 5 eme mail a envoyer
+  ("Group:TAMED",),
+  ("NONE",),
+  ("90",)
+  ),
+  (6000,6010):( # 6 eme mail a envoyer
+  ("Group:TAMED",),
+  ("NONE",),
+  ("16",)
   )
 }
 
 
 def check_message(message_content:list):
-  message_content = message_content[:2]
+  message_content = message_content[1:4] # garde les parties importantes
   print(message_content)
   for lock in scans.keys():
     if lock[0] in varia.unlocked: #si on a unlock le message
-      i = 1
-      for contents in scans[lock]: #on scan le content que l'on veut
-        if i == 3: #si c'est le message content
+      i = 0
+      for contents in scans[lock]: # pour chaque partie du message que l'on veut
+        print(lock, contents)
+        print(Opr.textData_str(message_content[i]).lower().split())
+        if i == 2: #si c'est le message content
           for word in contents: #si les mots que l'on veut
-            if word.lower() in Opr.textData_str(message_content)[i].lower().split(): #son dans le content
+            if word.lower() in Opr.textData_str(message_content[i]).lower().split(): #son dans le content
               return lock[1] #alors c'est bon 
             break # failed
         else:
           for word in contents: #si les mots que l'on veut
-            if word.lower() in Opr.textData_str(message_content[i]).lower().split() or "NONE" in Opr.textData_str(message_content[i]).lower().split(): #son dans le titre ou ne sont pas necessaire
+            if word.lower() in Opr.textData_str(message_content[i]).lower().split() or word == "NONE": #son dans le titre ou ne sont pas necessaire
               i+= 1 #alors c'est bon
             else:
               break # failed

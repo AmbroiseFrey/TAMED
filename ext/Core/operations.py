@@ -90,7 +90,7 @@ def textarea(textData:tuple=("",), size:tuple=(0,0), pos:tuple=(0,0), background
     return textData[:-1]+(textData[-1][:l],)+b
   return textData
 
-def textData_str(textData, sep='\n'):
+def textData_str(textData, sep=' '):
   if type(textData)!=str:
     return sep.join(textData)
   else:
