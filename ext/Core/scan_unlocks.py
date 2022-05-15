@@ -202,8 +202,6 @@ def check_message(message_content:list):
               i+= 1 #alors c'est bon
             else:
               break # failed
-    else:
-      pass
   return None #c'est donc un message qui ne correspond a rien
 
 
