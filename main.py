@@ -156,7 +156,7 @@ class Computer:
     global clickable_icons
     i = int(11.25*res1)
     files_loaded = files.explore_file(file_path)
-    if type(files_loaded) == dict:
+    if type(files_loaded) == dict: #si le file path renvoit à un dossier
       for el in files_loaded:
         if el[-4:-3] == '.': #on render le icon d'un fichier
           Opr.render_image(f'Assets/Icons/File Icons/{el[len(el)-3:len(el)].upper()}.png',(0.33*res0,i-1.25*res1),(5.5*res1,5.5*res1))
@@ -166,7 +166,7 @@ class Computer:
         Opr.render_text(el,(4.167*res0,i-0.6*res1),varia.WHITE,5*res1)
         clickable_icons[(0.33*res0,3.66*res0,i,i+5.5*res1)] = el +'/' # On rajoute l'elemnt pour qu'il soit clickable
         i+=int(7.5*res1)
-    else:
+    else: #si le file path renvoit à un fichier
       clickable_icons = {}
       varia.page = Opr.render_file(files_loaded)
 
