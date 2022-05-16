@@ -40,7 +40,7 @@ def dev_use():
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
-user_logged = dev_use() #bypass login
+#user_logged = dev_use() #bypass login
 
 
 
