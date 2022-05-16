@@ -173,7 +173,7 @@ class Computer:
 
   def render_messagerie(messages: dict):
     '''
-    Render les dossiers dans un file path
+    Render chaque message dans la boite mail
     '''
     global clickable_icons
     i = 12.5*res1
