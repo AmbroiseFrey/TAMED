@@ -4,12 +4,6 @@ from ext.Core import operations as Opr
 #Voir Dev Info.md pour infos sur le format des 'codes'
 
 unlockable_messages = {
-  10 :{
-    'Unlock Charlotte 2':[
-      'from: ',
-      'to: '
-    ]
-  },
   2000 : {
     "Mission 2":[
       "from: Gen. Michael Fredlyn ",

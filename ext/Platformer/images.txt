@@ -1,1 +1,1 @@
-random_background.png,3,0,0,2000 mountains.png,1.5,100,100,1000
+random_background.png,3,0,0,2000 random_background.png,1.5,100,100,1000

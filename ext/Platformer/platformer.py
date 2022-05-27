@@ -1,8 +1,9 @@
 import pygame, time
 from ext.Core import operations as Opr
-from ext.Platformer.plat_variables import screen, clock, mi, mid_screen
+from ext.Platformer.plat_variables import screen, clock, mi, mid_screen, checkpoints, resolution
 import ext.Platformer.map_utils as mp
 from ext.Platformer.math_utils import Vector
+from ext.Core import variables as varia
 
 
 # matrix = (0,0,0,0,0,0,0,0,0,0),(1,0,0,0,0,0,0,0,0,0),(1,2,0,0,0,0,1,2,2,2),(1,1,0,1,1,1,1,2,2,2),(1,1,1,1,1,1,1,1,1,2)
@@ -43,11 +44,13 @@ block = mp.Block(((0,0),(1,-1),(0,-2),(-2,-1),(-1,2),(1,3)))
 # carte.insert_wheel(wheel)
 chassis = mp.Chassis(
     carte,
-    (0,-100),
+    (250,370),
     ((-20,0),(0,-10),(20,0)),
     20,
     ((-5,5),(5,5),(-15,5),(15,5))
 )
+for i in checkpoints:
+  carte.insert_checkpoint(mp.CheckPoint(*i))
 
 # chassis = mp.Chassis((0,-10),((-3,0),(3,0),(0,-2)), ((-3,1),(0,1),(3,1)),1) # position, path, wheels_pos, wheels_rad, spring_elas=.5
 # carte.insert_chassis(chassis)
@@ -75,6 +78,8 @@ def play_game(level = (700,800)):
       carte.relative = chassis.p
       # chassis.draw()
       carte.draw()
+
+        
 
       Opr.render_image('Assets/Icons/App Icons/Normal_Home.png',(0,0),(50,50))
       # for v in mp.vectors:

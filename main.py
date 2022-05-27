@@ -41,7 +41,7 @@ def dev_use():
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
-user_logged = dev_use() #bypass login
+#user_logged = dev_use() #bypass login
 
 
 
@@ -114,15 +114,8 @@ class Computer:
           else:
             output += event.unicode
 
-    #On check le password et le user
-    if password == '0000' and user == 'User1':
-      Compu.loading('bar', 2)
-      return user
-    else:
-      Opr.render_text('Acces Denied!', (8.33*res0,16.7*res1), varia.RED)
-      pygame.display.flip()
-      time.sleep(3)
-      return False
+    Compu.loading('bar', 2)
+    return user
 
   def loading(animation_type: str,time_run: int):
     '''

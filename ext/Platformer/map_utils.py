@@ -2,6 +2,8 @@ import pygame, time
 from ext.Platformer.math_utils import hypot, mp, sumTuple, Vector, Point, Droite, Circle, Segment, Force, Interval, Triangle
 from math import floor, pi, asin, sin, cos, log
 from ext.Platformer.plat_variables import screen, resolution, mid_screen, mi
+from ext.Core import variables as varia
+
 
 vectors = []
 
@@ -98,7 +100,7 @@ class Wall:
         def radiusApplyWall(self, r:float):
             return Wall.Circle(self.p, self.r+r)
         def collides(self, segment:Segment):
-            intersect = mp(self.circle.intersectionLine(segment.line), lambda p,i: (p,Point.distance(p,segment.p)))
+            intersect = mp(self.circle.intersectionLine(segment.line), lambda p,i: (p,Point.distance(p,segment.p)) if not p is None else (0,0))
             if len(intersect) == 0: return None
             intersect = min(intersect, key= lambda x:x[1])
             return intersect[0] if intersect[1]<=segment.getSize() else False
@@ -225,6 +227,16 @@ class Ressort:
 #         for w in self.wheels:
 #             w.display()
 
+class CheckPoint:
+  def __init__(self, code, pos):
+    self.code = code
+    self.pos = pos
+    self.size = .1*mi,.1*mi
+  def draw(self, translate, scale):
+    #pygame.draw.rect(screen, 0xff0000, (*Vector.add(self.pos,translate),*Vector.multiply(self.size,scale)))
+    pygame.draw.circle(screen, 0xff, Vector.add(self.pos,translate), mi*.05)
+  def intersect(self, chassis, scale):
+    return Vector.getNorm(Vector.subtract(self.pos,chassis.p))<mi*.05   
 
 class Carte:
     types = (
@@ -238,6 +250,7 @@ class Carte:
         self.blocks = ()
         self.wheels = ()
         self.chassis = ()
+        self.checkpoints = ()
         for d in data:
             l = len(d)//2
             assert l>2, "an error overcome in the building of the map"
@@ -258,6 +271,8 @@ class Carte:
         if wheel.r not in self.radBlocks.keys():
             self.radBlocks[wheel.r] = mp(self.blocks, lambda b,i: b.elab_walls(wheel.r))
         self.wheels += (wheel,)
+    def insert_checkpoint(self, checkpoint:CheckPoint):
+        self.checkpoints += (checkpoint,)
     def insert_chassis(self, chassis):
         if chassis.w_r not in self.radBlocks.keys():
             self.radBlocks[chassis.w_r] = mp(self.blocks, lambda b,i: b.elab_walls(chassis.w_r))
@@ -268,6 +283,10 @@ class Carte:
             a.update(self, keys[pygame.K_LEFT], keys[pygame.K_RIGHT])
         for a in self.chassis:
             a.update(keys)
+        for p in self.checkpoints:
+            if p.intersect(self.chassis[0],self.l):
+              varia.unlocked.append(p.code)
+              print(p.code, "unlocked")
     def draw(self):
         screen.fill(0xffffff)
         self.t = Vector.subtract(self.center,self.relative)
@@ -281,6 +300,8 @@ class Carte:
             w.drawVec(self.t, self.l)
         for c in self.chassis:
             c.draw()
+        for p in self.checkpoints:
+            p.draw(self.t,1)
 
 class Propeller:
     def __init__(self, chassis, pos):
@@ -405,7 +426,3 @@ class Chassis:
             p.draw()
         pygame.draw.polygon(screen, 0xff, tuple(map(lambda p: Vector.add(self.p,Vector.rotate(p,ro),self.mp.t),self.path)))
         Vector.draw(self.vector, Vector.add(self.p,self.mp.t), 1, 0x00ff00)
-
-
-class Checkpoint():
-  def __init__
