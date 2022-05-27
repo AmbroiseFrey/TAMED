@@ -1,4 +1,5 @@
 import pygame, time
+from ext.Core import operations as Opr
 from ext.Platformer.plat_variables import screen, clock, mi, mid_screen
 import ext.Platformer.map_utils as mp
 from ext.Platformer.math_utils import Vector
@@ -66,16 +67,31 @@ def play_game(level = (700,800)):
       #     for w in b.walls:
       #         w.draw(Vector.subtract(carte.center,carte.relative), 1)
       # Vector.draw((100,100),(198.29424612264538, 218.90053972500195),3, 0x00ff00)
+      #On display l'icon pour revenir a l'ordi
+
+      
       carte.update()
       # chassis.update()
       carte.relative = chassis.p
       # chassis.draw()
       carte.draw()
+
+      Opr.render_image('Assets/Icons/App Icons/Normal_Home.png',(0,0),(50,50))
       # for v in mp.vectors:
       #     Vector.draw(v[0], Vector.add(Vector.subtract(carte.center, carte.relative),Vector.multiply(v[1],carte.l)),1, 0xaaaaaa)
       for event in pygame.event.get():
           if event.type == pygame.QUIT:
               RUN = False
+
+          #Si la souris est pressée
+          if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_presses = pygame.mouse.get_pressed()
+            if mouse_presses[0]:
+              print(event.pos)
+  
+              #On check si l'utilisateur veut quitter le jeu
+              if Opr.check_interaction(event.pos, (0,50,0,50),['plat'], 'plat') == True:
+                return 'home'
       pygame.display.flip()
       # time.sleep(.1)
       clock.tick(60)

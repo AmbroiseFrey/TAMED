@@ -2,13 +2,14 @@
 import pygame, time
 from ext.Apps import web_search as s
 from ext.Apps import file_explorer as files
-from ext.Platformer2 import platformer as plat
+from ext.Platformer import platformer as plat
 from ext.Apps import snake as snk
 from ext.Core import variables as varia
 from ext.Core import operations as Opr
 from ext.Apps import sphere as sphere
 from ext.Core import scan_unlocks as scan
 from ext.Core.variables import file_dir_path
+
 #Setup de la fenetre pygame
 pygame.init()
 pygame.mixer.init() # setup de l'extension de fichiers audio
@@ -40,7 +41,7 @@ def dev_use():
   # varia.resolution = (600,400) # resolution de devellopement
   return True
 
-#user_logged = dev_use() #bypass login
+user_logged = dev_use() #bypass login
 
 
 

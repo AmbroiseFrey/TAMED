@@ -88,6 +88,7 @@ class Wall:
             pygame.draw.line(screen, 0, Vector.add(self.p,t), Vector.add(self.q,t), width=1)
         def closeToInterval(self,point, err=.1):
             return self.interval[0][0]-err<point[0]<self.interval[0][1]+err and self.interval[1][0]-err<point[1]<self.interval[1][1]+err
+
     class Circle:
         def __init__(self, p, r:float):
             self.p = p
@@ -406,3 +407,5 @@ class Chassis:
         Vector.draw(self.vector, Vector.add(self.p,self.mp.t), 1, 0x00ff00)
 
 
+class Checkpoint():
+  def __init__
